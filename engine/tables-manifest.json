@@ -1,0 +1,5155 @@
+{
+ "generated_by": "tools/gen-tables-manifest.mjs",
+ "tables_dir": "liblouis/tables/",
+ "count": 461,
+ "tables": {
+  "Es-Es-G0.utb": {
+   "files": [
+    "Es-Es-G0.utb",
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "latinLetterDef8Dots.uti"
+   ],
+   "bytes": 38156
+  },
+  "IPA-unicode-range.uti": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti"
+   ],
+   "bytes": 40106
+  },
+  "IPA.utb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "IPA.utb",
+    "braille-patterns.cti",
+    "spaces.uti"
+   ],
+   "bytes": 51521
+  },
+  "Lv-Lv-g1.utb": {
+   "files": [
+    "Lv-Lv-g1.utb",
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 75897
+  },
+  "Makefile": {
+   "files": [
+    "Makefile",
+    "braille-patterns.cti"
+   ],
+   "bytes": 85880
+  },
+  "Makefile.am": {
+   "files": [
+    "Makefile.am",
+    "braille-patterns.cti"
+   ],
+   "bytes": 35773
+  },
+  "Makefile.in": {
+   "files": [
+    "Makefile.in",
+    "braille-patterns.cti"
+   ],
+   "bytes": 108715
+  },
+  "Pl-Pl-g1.utb": {
+   "files": [
+    "Pl-Pl-g1.utb",
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 65652
+  },
+  "README": {
+   "files": [
+    "README",
+    "braille-patterns.cti"
+   ],
+   "bytes": 26885
+  },
+  "afr-za-g1.ctb": {
+   "files": [
+    "afr-za-g1.ctb",
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 94129
+  },
+  "afr-za-g2.ctb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "afr-za-g1.ctb",
+    "afr-za-g2.ctb",
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 138692
+  },
+  "akk-borger.utb": {
+   "files": [
+    "akk-borger.utb",
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 131723
+  },
+  "akk.utb": {
+   "files": [
+    "akk.utb",
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 136187
+  },
+  "ancient-languages-borger.utb": {
+   "files": [
+    "akk-borger.utb",
+    "ancient-languages-borger.utb",
+    "braille-patterns.cti",
+    "cuneiform-transliterated.utb",
+    "digits6Dots.uti",
+    "en-ueb-chardefs.uti",
+    "grc-international-common.uti",
+    "grc-international-composed.uti",
+    "hbo-cantillated-rules.uti",
+    "hbo-common-rules.uti",
+    "he-common-consonants.uti",
+    "he-common-vowels-ihbc.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "syc.utb",
+    "text_nabcc.dis",
+    "uga.utb"
+   ],
+   "bytes": 189904
+  },
+  "ancient-languages-us.utb": {
+   "files": [
+    "akk.utb",
+    "ancient-languages-us.utb",
+    "braille-patterns.cti",
+    "cuneiform-transliterated.utb",
+    "digits6Dots.uti",
+    "en-ueb-chardefs.uti",
+    "grc-international-common.uti",
+    "grc-international-composed.uti",
+    "hbo-cantillated-rules.uti",
+    "hbo-common-rules.uti",
+    "he-common-consonants.uti",
+    "he-common-vowels-ihbc.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "syc.utb",
+    "text_nabcc.dis",
+    "uga.utb"
+   ],
+   "bytes": 194357
+  },
+  "ar-ar-comp8.utb": {
+   "files": [
+    "ar-ar-comp8.utb",
+    "braille-patterns.cti",
+    "countries.cti",
+    "latinLetterDef8Dots.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 67113
+  },
+  "ar-ar-g1-core.uti": {
+   "files": [
+    "ar-ar-g1-core.uti",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 65761
+  },
+  "ar-ar-g1.utb": {
+   "files": [
+    "ar-ar-g1-core.uti",
+    "ar-ar-g1.utb",
+    "ar-ar-math.uti",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 88363
+  },
+  "ar-ar-g2.ctb": {
+   "files": [
+    "ar-ar-g1-core.uti",
+    "ar-ar-g2.ctb",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 77988
+  },
+  "ar-ar-math.uti": {
+   "files": [
+    "ar-ar-math.uti",
+    "braille-patterns.cti"
+   ],
+   "bytes": 48084
+  },
+  "ar.tbl": {
+   "files": [
+    "ar-ar-g1-core.uti",
+    "ar-ar-g1.utb",
+    "ar-ar-math.uti",
+    "ar.tbl",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 88892
+  },
+  "as-in-g1.utb": {
+   "files": [
+    "as-in-g1.utb",
+    "bengali.cti",
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 60595
+  },
+  "as.tbl": {
+   "files": [
+    "as-in-g1.utb",
+    "as.tbl",
+    "bengali.cti",
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 61179
+  },
+  "aw-in-g1.utb": {
+   "files": [
+    "aw-in-g1.utb",
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 59573
+  },
+  "awa.tbl": {
+   "files": [
+    "aw-in-g1.utb",
+    "awa.tbl",
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 60154
+  },
+  "ba.utb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "ba.utb",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "ru-litbrl.ctb",
+    "ru-unicode.dis",
+    "spaces.uti",
+    "unicode.dis"
+   ],
+   "bytes": 94357
+  },
+  "be-in-g1.utb": {
+   "files": [
+    "be-in-g1.utb",
+    "bengali.cti",
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 60594
+  },
+  "bel-comp.utb": {
+   "files": [
+    "bel-comp.utb",
+    "braille-patterns.cti",
+    "loweredDigits6Dots.uti",
+    "ru-comp8.utb"
+   ],
+   "bytes": 65760
+  },
+  "bel-detailed.utb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "bel-detailed.utb",
+    "bel.utb",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "ru-litbrl-detailed.utb",
+    "ru-litbrl.ctb",
+    "ru-unicode.dis",
+    "spaces.uti",
+    "unicode.dis"
+   ],
+   "bytes": 98983
+  },
+  "bel.utb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "bel.utb",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "ru-litbrl.ctb",
+    "ru-unicode.dis",
+    "spaces.uti",
+    "unicode.dis"
+   ],
+   "bytes": 93728
+  },
+  "bengali.cti": {
+   "files": [
+    "bengali.cti",
+    "braille-patterns.cti"
+   ],
+   "bytes": 37326
+  },
+  "bg.ctb": {
+   "files": [
+    "bg.ctb",
+    "braille-patterns.cti"
+   ],
+   "bytes": 33753
+  },
+  "bg.dis": {
+   "files": [
+    "bg.dis",
+    "braille-patterns.cti"
+   ],
+   "bytes": 28551
+  },
+  "bg.tbl": {
+   "files": [
+    "bg.ctb",
+    "bg.tbl",
+    "braille-patterns.cti"
+   ],
+   "bytes": 34460
+  },
+  "bg.utb": {
+   "files": [
+    "bg.utb",
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 43700
+  },
+  "bh.ctb": {
+   "files": [
+    "bh.ctb",
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 61500
+  },
+  "bh.tbl": {
+   "files": [
+    "bh.ctb",
+    "bh.tbl",
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 62063
+  },
+  "bn.tbl": {
+   "files": [
+    "be-in-g1.utb",
+    "bengali.cti",
+    "bn.tbl",
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 61176
+  },
+  "bo.ctb": {
+   "files": [
+    "bo.ctb",
+    "braille-patterns.cti",
+    "loweredDigits6Dots.uti"
+   ],
+   "bytes": 35106
+  },
+  "bo.tbl": {
+   "files": [
+    "bo.ctb",
+    "bo.tbl",
+    "braille-patterns.cti",
+    "loweredDigits6Dots.uti"
+   ],
+   "bytes": 35809
+  },
+  "boxes.ctb": {
+   "files": [
+    "boxes.ctb",
+    "braille-patterns.cti"
+   ],
+   "bytes": 37185
+  },
+  "br-in-g1.utb": {
+   "files": [
+    "br-in-g1.utb",
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 59571
+  },
+  "bra.tbl": {
+   "files": [
+    "br-in-g1.utb",
+    "bra.tbl",
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 60148
+  },
+  "braille-patterns.cti": {
+   "files": [
+    "braille-patterns.cti"
+   ],
+   "bytes": 26718
+  },
+  "ca-chardefs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "ca-chardefs.cti",
+    "latinLetterDef6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 48258
+  },
+  "ca-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "ca-chardefs.cti",
+    "ca-g1.ctb",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 51049
+  },
+  "ca.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "ca-chardefs.cti",
+    "ca-g1.ctb",
+    "ca.tbl",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 51628
+  },
+  "chr-us-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "chr-us-g1.ctb",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 97150
+  },
+  "ckb-chardefs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "ckb-chardefs.cti",
+    "latinLetterDef6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 40697
+  },
+  "ckb-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "ckb-chardefs.cti",
+    "ckb-g1.ctb",
+    "ckb-translation.cti",
+    "countries.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 53563
+  },
+  "ckb-translation.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "ckb-translation.cti",
+    "countries.cti",
+    "litdigits6Dots.uti"
+   ],
+   "bytes": 38343
+  },
+  "ckb.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "ckb-chardefs.cti",
+    "ckb-g1.ctb",
+    "ckb-translation.cti",
+    "ckb.tbl",
+    "countries.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 54144
+  },
+  "compress.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "compress.cti"
+   ],
+   "bytes": 28181
+  },
+  "controlchars.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "controlchars.cti"
+   ],
+   "bytes": 27790
+  },
+  "cop-eg-comp8.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "compress.cti",
+    "cop-eg-comp8.utb",
+    "digits8Dots.uti",
+    "latinLetterDef8Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 42092
+  },
+  "cop.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "cop.utb",
+    "en-ueb-chardefs.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 93951
+  },
+  "corrections.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "corrections.cti"
+   ],
+   "bytes": 28257
+  },
+  "countries.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "countries.cti"
+   ],
+   "bytes": 33684
+  },
+  "critical-apparatus.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "critical-apparatus.uti"
+   ],
+   "bytes": 28964
+  },
+  "cs-chardefs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "cs-chardefs.cti",
+    "digits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 54480
+  },
+  "cs-comp8.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "cs-comp8.utb",
+    "digits8Dots.uti"
+   ],
+   "bytes": 41584
+  },
+  "cs-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "cs-chardefs.cti",
+    "cs-g1.ctb",
+    "cs-translation.cti",
+    "digits6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 59448
+  },
+  "cs-translation.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "cs-translation.cti",
+    "litdigits6Dots.uti"
+   ],
+   "bytes": 30295
+  },
+  "cs.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "cs-chardefs.cti",
+    "cs-g1.ctb",
+    "cs-translation.cti",
+    "cs.tbl",
+    "digits6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 60100
+  },
+  "cuneiform-transliterated-compact.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "cuneiform-transliterated-compact.utb",
+    "en-ueb-chardefs.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 96871
+  },
+  "cuneiform-transliterated.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "cuneiform-transliterated.utb",
+    "en-ueb-chardefs.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 91200
+  },
+  "cy-cy-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "countries.cti",
+    "cy-cy-g1.utb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 78174
+  },
+  "cy-cy-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "countries.cti",
+    "cy-cy-g1.utb",
+    "cy-cy-g2.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 82678
+  },
+  "cy.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "countries.cti",
+    "cy-cy-g1.utb",
+    "cy-cy-g2.ctb",
+    "cy.tbl",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 83299
+  },
+  "da-dk-6miscChars.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-6miscChars.cti"
+   ],
+   "bytes": 46622
+  },
+  "da-dk-6miscChars_1993.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-6miscChars_1993.cti"
+   ],
+   "bytes": 47829
+  },
+  "da-dk-8miscChars.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-8miscChars.cti"
+   ],
+   "bytes": 30191
+  },
+  "da-dk-8miscChars_1993.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-8miscChars_1993.cti"
+   ],
+   "bytes": 30665
+  },
+  "da-dk-g08.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-g08.ctb",
+    "da-dk-octobraille.dis",
+    "digits8Dots.uti",
+    "latinLetterDef8Dots.uti"
+   ],
+   "bytes": 55283
+  },
+  "da-dk-g08_1993.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-g08_1993.ctb",
+    "da-dk-octobraille_1993.dis",
+    "digits8Dots.uti"
+   ],
+   "bytes": 55189
+  },
+  "da-dk-g16-lit_1993.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-6miscChars_1993.cti",
+    "da-dk-g16-lit_1993.ctb",
+    "da-dk-octobraille_1993.dis",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 77321
+  },
+  "da-dk-g16.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-6miscChars.cti",
+    "da-dk-g16.ctb",
+    "da-dk-octobraille.dis",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 74562
+  },
+  "da-dk-g16_1993.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-6miscChars_1993.cti",
+    "da-dk-g16_1993.ctb",
+    "da-dk-octobraille_1993.dis",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 76060
+  },
+  "da-dk-g18.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-g18.ctb",
+    "da-dk-octobraille.dis",
+    "digits8Dots.uti",
+    "latinLetterDef8Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 70392
+  },
+  "da-dk-g18_1993.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-8miscChars_1993.cti",
+    "da-dk-g18_1993.ctb",
+    "da-dk-octobraille_1993.dis",
+    "digits8Dots.uti"
+   ],
+   "bytes": 71048
+  },
+  "da-dk-g2.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-g2.dic"
+   ],
+   "bytes": 88217
+  },
+  "da-dk-g26-lit_1993.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-6miscChars_1993.cti",
+    "da-dk-g2.dic",
+    "da-dk-g26-lit_1993.ctb",
+    "da-dk-octobraille_1993.dis",
+    "digits6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 149514
+  },
+  "da-dk-g26.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-6miscChars.cti",
+    "da-dk-g2.dic",
+    "da-dk-g26.ctb",
+    "da-dk-octobraille.dis",
+    "digits6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 161458
+  },
+  "da-dk-g26_1993.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-6miscChars_1993.cti",
+    "da-dk-g2.dic",
+    "da-dk-g26_1993.ctb",
+    "da-dk-octobraille_1993.dis",
+    "digits6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 157280
+  },
+  "da-dk-g26l-lit_1993.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-6miscChars_1993.cti",
+    "da-dk-g26l-lit_1993.ctb",
+    "da-dk-octobraille_1993.dis",
+    "digits6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 82015
+  },
+  "da-dk-g26l_1993.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-6miscChars_1993.cti",
+    "da-dk-g26l_1993.ctb",
+    "da-dk-octobraille_1993.dis",
+    "digits6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 81147
+  },
+  "da-dk-g28.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-g2.dic",
+    "da-dk-g28.ctb",
+    "da-dk-octobraille.dis",
+    "digits8Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 182096
+  },
+  "da-dk-g28_1993.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-8miscChars_1993.cti",
+    "da-dk-g2.dic",
+    "da-dk-g28_1993.ctb",
+    "da-dk-octobraille_1993.dis",
+    "digits8Dots.uti"
+   ],
+   "bytes": 170771
+  },
+  "da-dk-g28l_1993.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-8miscChars_1993.cti",
+    "da-dk-g28l_1993.ctb",
+    "da-dk-octobraille_1993.dis",
+    "digits8Dots.uti"
+   ],
+   "bytes": 97010
+  },
+  "da-dk-octobraille.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-octobraille.dis"
+   ],
+   "bytes": 40411
+  },
+  "da-dk-octobraille_1993.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "da-dk-octobraille_1993.dis"
+   ],
+   "bytes": 40282
+  },
+  "de-accents-detailed.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "de-accents-detailed.cti"
+   ],
+   "bytes": 44354
+  },
+  "de-accents.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "de-accents.cti"
+   ],
+   "bytes": 44271
+  },
+  "de-chardefs6.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "de-chardefs6.cti",
+    "digits6DotsPlusDot6.uti",
+    "latinLetterDef6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 49250
+  },
+  "de-chardefs8.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "de-chardefs8.cti",
+    "digits6DotsPlusDot6.uti"
+   ],
+   "bytes": 48089
+  },
+  "de-chess.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "de-chess.ctb"
+   ],
+   "bytes": 28244
+  },
+  "de-comp6.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "de-comp6.utb",
+    "digits6DotsPlusDot6.uti"
+   ],
+   "bytes": 43186
+  },
+  "de-de-comp8.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "de-de-comp8.ctb"
+   ],
+   "bytes": 36543
+  },
+  "de-de.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "de-de.dis"
+   ],
+   "bytes": 41643
+  },
+  "de-eurobrl6.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "de-eurobrl6.dis"
+   ],
+   "bytes": 29083
+  },
+  "de-eurobrl6u.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "de-eurobrl6u.dis"
+   ],
+   "bytes": 28905
+  },
+  "de-g0-core.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "countries.cti",
+    "de-g0-core.uti",
+    "litdigits6Dots.uti"
+   ],
+   "bytes": 62283
+  },
+  "de-g0-detailed.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "countries.cti",
+    "de-accents-detailed.cti",
+    "de-chardefs6.cti",
+    "de-eurobrl6.dis",
+    "de-g0-core.uti",
+    "de-g0-detailed.utb",
+    "digits6DotsPlusDot6.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 107933
+  },
+  "de-g0.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "countries.cti",
+    "de-accents.cti",
+    "de-chardefs6.cti",
+    "de-eurobrl6.dis",
+    "de-g0-core.uti",
+    "de-g0.utb",
+    "digits6DotsPlusDot6.uti",
+    "latinLetterDef6Dots.uti",
+    "latinLowercase.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 117473
+  },
+  "de-g1-core-patterns.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "de-g1-core-patterns.dic"
+   ],
+   "bytes": 67676
+  },
+  "de-g1-core.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "de-g1-core-patterns.dic",
+    "de-g1-core.cti"
+   ],
+   "bytes": 70490
+  },
+  "de-g1-detailed.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "countries.cti",
+    "de-accents-detailed.cti",
+    "de-chardefs6.cti",
+    "de-eurobrl6.dis",
+    "de-g0-core.uti",
+    "de-g0-detailed.utb",
+    "de-g1-core-patterns.dic",
+    "de-g1-core.cti",
+    "de-g1-detailed.ctb",
+    "digits6DotsPlusDot6.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 154628
+  },
+  "de-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "countries.cti",
+    "de-accents.cti",
+    "de-chardefs6.cti",
+    "de-eurobrl6.dis",
+    "de-g0-core.uti",
+    "de-g0.utb",
+    "de-g1-core-patterns.dic",
+    "de-g1-core.cti",
+    "de-g1.ctb",
+    "digits6DotsPlusDot6.uti",
+    "latinLetterDef6Dots.uti",
+    "latinLowercase.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 163087
+  },
+  "de-g2-core-patterns.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "de-g2-core-patterns.dic"
+   ],
+   "bytes": 245997
+  },
+  "de-g2-core.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "de-g2-core-patterns.dic",
+    "de-g2-core.cti"
+   ],
+   "bytes": 280904
+  },
+  "de-g2-detailed.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "countries.cti",
+    "de-accents-detailed.cti",
+    "de-chardefs6.cti",
+    "de-eurobrl6.dis",
+    "de-g0-core.uti",
+    "de-g0-detailed.utb",
+    "de-g1-core-patterns.dic",
+    "de-g1-core.cti",
+    "de-g1-detailed.ctb",
+    "de-g2-core-patterns.dic",
+    "de-g2-core.cti",
+    "de-g2-detailed.ctb",
+    "digits6DotsPlusDot6.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 411148
+  },
+  "de-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "countries.cti",
+    "de-accents.cti",
+    "de-chardefs6.cti",
+    "de-eurobrl6.dis",
+    "de-g0-core.uti",
+    "de-g0.utb",
+    "de-g2-core-patterns.dic",
+    "de-g2-core.cti",
+    "de-g2.ctb",
+    "digits6DotsPlusDot6.uti",
+    "latinLetterDef6Dots.uti",
+    "latinLowercase.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 373582
+  },
+  "devanagari.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti"
+   ],
+   "bytes": 36304
+  },
+  "digits6Dots.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti"
+   ],
+   "bytes": 27666
+  },
+  "digits6DotsPlusDot6.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti"
+   ],
+   "bytes": 27813
+  },
+  "digits8Dots.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti"
+   ],
+   "bytes": 27676
+  },
+  "dra.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "dra.ctb",
+    "tamil.cti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 53026
+  },
+  "dra.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "dra.ctb",
+    "dra.tbl",
+    "tamil.cti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 53735
+  },
+  "el.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "el.ctb",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 62350
+  },
+  "en-GB-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-GB-g2.ctb",
+    "en-gb-g1.utb",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "ukchardefs.cti"
+   ],
+   "bytes": 93574
+  },
+  "en-chardefs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 42683
+  },
+  "en-chess.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chess.ctb"
+   ],
+   "bytes": 28253
+  },
+  "en-g3-patterns.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "en-g3-patterns.dic"
+   ],
+   "bytes": 102747
+  },
+  "en-g3.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-g3-patterns.dic",
+    "en-g3.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 201991
+  },
+  "en-gb-comp8.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "en-gb-comp8.ctb",
+    "latinLetterDef8Dots.uti"
+   ],
+   "bytes": 32042
+  },
+  "en-gb-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-gb-g1.utb",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "ukchardefs.cti"
+   ],
+   "bytes": 73091
+  },
+  "en-in-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 48744
+  },
+  "en-nabcc.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-nabcc.utb"
+   ],
+   "bytes": 34149
+  },
+  "en-ueb-chardefs.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 83757
+  },
+  "en-ueb-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 91408
+  },
+  "en-ueb-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-g2.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 297049
+  },
+  "en-ueb-math.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-math.ctb"
+   ],
+   "bytes": 28834
+  },
+  "en-us-brf.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "en-us-brf.dis"
+   ],
+   "bytes": 29258
+  },
+  "en-us-comp6.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-us-comp6.ctb",
+    "latinLetterDef6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 36998
+  },
+  "en-us-comp8-ext.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-us-comp8-ext.utb",
+    "latinLetterDef8Dots.uti",
+    "loweredDigits6Dots.uti"
+   ],
+   "bytes": 56285
+  },
+  "en-us-comp8.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-us-comp8.ctb",
+    "latinLetterDef8Dots.uti",
+    "loweredDigits6Dots.uti"
+   ],
+   "bytes": 31231
+  },
+  "en-us-compbrl.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "en-us-compbrl.uti"
+   ],
+   "bytes": 28953
+  },
+  "en-us-emphasis.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "en-us-emphasis.uti"
+   ],
+   "bytes": 28205
+  },
+  "en-us-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-us-compbrl.uti",
+    "en-us-emphasis.uti",
+    "en-us-g1.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 51898
+  },
+  "en-us-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-us-compbrl.uti",
+    "en-us-emphasis.uti",
+    "en-us-g1.ctb",
+    "en-us-g2.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 80908
+  },
+  "en-us-interline.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-us-emphasis.uti",
+    "en-us-interline.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 74259
+  },
+  "en-us-mathtext.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "corrections.cti",
+    "en-chardefs.cti",
+    "en-us-mathtext.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "loweredDigits6Dots.uti",
+    "nemethdefs.cti",
+    "spaces.uti"
+   ],
+   "bytes": 85222
+  },
+  "en_CA.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en_CA.ctb",
+    "loweredDigits6Dots.uti"
+   ],
+   "bytes": 35973
+  },
+  "en_CA.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "en_CA.ctb",
+    "en_CA.tbl",
+    "loweredDigits6Dots.uti"
+   ],
+   "bytes": 36719
+  },
+  "en_GB.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "en-GB-g2.ctb",
+    "en-gb-g1.utb",
+    "en_GB.tbl",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "ukchardefs.cti"
+   ],
+   "bytes": 94435
+  },
+  "en_US-comp8-ext.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "en-us-comp8-ext.utb",
+    "en_US-comp8-ext.tbl",
+    "latinLetterDef8Dots.uti",
+    "loweredDigits6Dots.uti"
+   ],
+   "bytes": 56689
+  },
+  "en_US.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-us-compbrl.uti",
+    "en-us-emphasis.uti",
+    "en-us-g1.ctb",
+    "en-us-g2.ctb",
+    "en_US.tbl",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 81773
+  },
+  "eo-g1-x-system.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "eo-g1-x-system.ctb",
+    "eo-g1.ctb",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 42200
+  },
+  "eo-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "eo-g1.ctb",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 39154
+  },
+  "eo.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "eo-g1.ctb",
+    "eo.tbl",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 39508
+  },
+  "es-chardefs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "es-chardefs.cti",
+    "latinLetterDef6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 45737
+  },
+  "es-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "es-chardefs.cti",
+    "es-g1.ctb",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 48989
+  },
+  "es-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "es-chardefs.cti",
+    "es-g1.ctb",
+    "es-g2.ctb",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 75620
+  },
+  "es-new.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "es-new.dis"
+   ],
+   "bytes": 34613
+  },
+  "es-old.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "es-old.dis"
+   ],
+   "bytes": 34607
+  },
+  "es.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "es-chardefs.cti",
+    "es-g1.ctb",
+    "es.tbl",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 49613
+  },
+  "et-g0.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "et-g0.utb",
+    "latinLetterDef8Dots.uti"
+   ],
+   "bytes": 34700
+  },
+  "et.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "et.ctb"
+   ],
+   "bytes": 31884
+  },
+  "et.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "et.ctb",
+    "et.tbl"
+   ],
+   "bytes": 32589
+  },
+  "ethio-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "ethio-g1.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 51777
+  },
+  "eurodefs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "eurodefs.cti",
+    "latinLetterDef6Dots.uti"
+   ],
+   "bytes": 33037
+  },
+  "fa-ir-comp8.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "fa-ir-comp8.ctb"
+   ],
+   "bytes": 32640
+  },
+  "fa-ir-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "fa-ir-g1.utb",
+    "spaces.uti"
+   ],
+   "bytes": 36318
+  },
+  "fi-fi-8dot.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "fi-fi-8dot.ctb",
+    "text_nabcc.dis"
+   ],
+   "bytes": 58588
+  },
+  "fi.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "fi.utb",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 45964
+  },
+  "fil-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "fil-g2.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 106098
+  },
+  "fr-bfu-comp6.utb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "fr-bfu-comp6.utb",
+    "fr-bfu-comp68.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6DotsPlusDot6.uti",
+    "spaces.uti"
+   ],
+   "bytes": 76496
+  },
+  "fr-bfu-comp68.cti": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "fr-bfu-comp68.cti"
+   ],
+   "bytes": 51042
+  },
+  "fr-bfu-comp8.utb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "fr-bfu-comp68.cti",
+    "fr-bfu-comp8.utb",
+    "latinLetterDef8Dots.uti"
+   ],
+   "bytes": 69685
+  },
+  "fr-bfu-g2.ctb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "fr-bfu-comp6.utb",
+    "fr-bfu-comp68.cti",
+    "fr-bfu-g2.ctb",
+    "latinLetterDef6Dots.uti",
+    "litdigits6DotsPlusDot6.uti",
+    "spaces.uti"
+   ],
+   "bytes": 225530
+  },
+  "ga-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "ga-g1.utb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 94387
+  },
+  "ga-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "ga-g1.utb",
+    "ga-g2.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 99384
+  },
+  "gd.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "gd.ctb"
+   ],
+   "bytes": 33088
+  },
+  "gd.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "gd.ctb",
+    "gd.tbl"
+   ],
+   "bytes": 33807
+  },
+  "gez.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "ethio-g1.ctb",
+    "gez.tbl",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 52475
+  },
+  "gon.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "gon.ctb",
+    "spaces.uti",
+    "telugu.cti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 71735
+  },
+  "gon.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "gon.ctb",
+    "gon.tbl",
+    "spaces.uti",
+    "telugu.cti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 72298
+  },
+  "gr-pl-comp8.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "gr-pl-comp8.uti"
+   ],
+   "bytes": 42463
+  },
+  "grc-international-common.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "grc-international-common.uti"
+   ],
+   "bytes": 30491
+  },
+  "grc-international-composed.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "grc-international-common.uti",
+    "grc-international-composed.uti"
+   ],
+   "bytes": 47063
+  },
+  "grc-international-decomposed.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "grc-international-common.uti",
+    "grc-international-decomposed.uti"
+   ],
+   "bytes": 47205
+  },
+  "grc-international-en-composed.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "grc-international-common.uti",
+    "grc-international-composed.uti",
+    "grc-international-en-composed.utb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 113920
+  },
+  "grc-international-en.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "grc-international-common.uti",
+    "grc-international-decomposed.uti",
+    "grc-international-en.utb",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 58438
+  },
+  "grc-international-es.utb": {
+   "files": [
+    "Es-Es-G0.utb",
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "grc-international-common.uti",
+    "grc-international-composed.uti",
+    "grc-international-es.utb",
+    "latinLetterDef8Dots.uti"
+   ],
+   "bytes": 77486
+  },
+  "gu-in-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "gu-in-g1.utb",
+    "gujarati.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 59812
+  },
+  "gu.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "gu-in-g1.utb",
+    "gu.tbl",
+    "gujarati.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 60396
+  },
+  "gujarati.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "gujarati.cti"
+   ],
+   "bytes": 36542
+  },
+  "gurumuki.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "gurumuki.cti"
+   ],
+   "bytes": 45019
+  },
+  "haw-us-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "haw-us-g1.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 93044
+  },
+  "hbo-cantillated-rules.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "hbo-cantillated-rules.uti",
+    "hbo-common-rules.uti",
+    "he-common-consonants.uti",
+    "he-common-vowels-ihbc.uti",
+    "spaces.uti"
+   ],
+   "bytes": 45681
+  },
+  "hbo-cantillated.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "en-ueb-chardefs.uti",
+    "hbo-cantillated-rules.uti",
+    "hbo-cantillated.utb",
+    "hbo-common-rules.uti",
+    "he-common-consonants.uti",
+    "he-common-vowels-ihbc.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 106683
+  },
+  "hbo-common-rules.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "hbo-common-rules.uti",
+    "he-common-consonants.uti",
+    "he-common-vowels-ihbc.uti",
+    "spaces.uti"
+   ],
+   "bytes": 42551
+  },
+  "hbo-ihbc-rules.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "hbo-common-rules.uti",
+    "hbo-ihbc-rules.uti",
+    "he-common-consonants.uti",
+    "he-common-vowels-ihbc.uti",
+    "spaces.uti"
+   ],
+   "bytes": 44902
+  },
+  "hbo-slim-rules.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "hbo-common-rules.uti",
+    "hbo-slim-rules.uti",
+    "he-common-consonants.uti",
+    "he-common-vowels-ihbc.uti",
+    "spaces.uti"
+   ],
+   "bytes": 45113
+  },
+  "hbo-slim.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "en-ueb-chardefs.uti",
+    "hbo-common-rules.uti",
+    "hbo-slim-rules.uti",
+    "hbo-slim.utb",
+    "he-common-consonants.uti",
+    "he-common-vowels-ihbc.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 105725
+  },
+  "hbo.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "en-ueb-chardefs.uti",
+    "hbo-common-rules.uti",
+    "hbo-ihbc-rules.uti",
+    "hbo.utb",
+    "he-common-consonants.uti",
+    "he-common-vowels-ihbc.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 105841
+  },
+  "he-IL-comp8.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "he-IL-comp8.utb",
+    "text_nabcc.dis"
+   ],
+   "bytes": 68509
+  },
+  "he-IL.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "he-IL.utb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 54824
+  },
+  "he-common-consonants.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "he-common-consonants.uti"
+   ],
+   "bytes": 30055
+  },
+  "he-common-vowels-ihbc.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "he-common-vowels-ihbc.uti"
+   ],
+   "bytes": 32360
+  },
+  "hi-in-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "hi-in-g1.utb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 59573
+  },
+  "hi.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "hi-in-g1.utb",
+    "hi.tbl",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 60151
+  },
+  "hr-chardefs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "hr-chardefs.cti",
+    "hr-digits.uti",
+    "latinLetterDef6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 49241
+  },
+  "hr-comp8.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "hr-comp8.tbl",
+    "hr-comp8.utb"
+   ],
+   "bytes": 38185
+  },
+  "hr-comp8.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "hr-comp8.utb"
+   ],
+   "bytes": 37474
+  },
+  "hr-digits.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "hr-digits.uti"
+   ],
+   "bytes": 28201
+  },
+  "hr-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "hr-chardefs.cti",
+    "hr-digits.uti",
+    "hr-g1.ctb",
+    "hr-translation.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 82684
+  },
+  "hr-g1.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "hr-chardefs.cti",
+    "hr-digits.uti",
+    "hr-g1.ctb",
+    "hr-g1.tbl",
+    "hr-translation.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 82841
+  },
+  "hr-translation.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "hr-translation.cti",
+    "litdigits6Dots.uti"
+   ],
+   "bytes": 36539
+  },
+  "hu-backtranslate-correction.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "hu-backtranslate-correction.dis"
+   ],
+   "bytes": 28111
+  },
+  "hu-backtranslate-word-corrections.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "hu-backtranslate-word-corrections.cti"
+   ],
+   "bytes": 303957
+  },
+  "hu-chardefs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "hu-chardefs.cti",
+    "latinLetterDef6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 44989
+  },
+  "hu-exceptionwords.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "hu-exceptionwords.cti"
+   ],
+   "bytes": 270113
+  },
+  "hu-hu-comp8.ctb": {
+   "files": [
+    "boxes.ctb",
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "hu-hu-comp8.ctb",
+    "latinLetterDef8Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 49713
+  },
+  "hu-hu-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "hu-backtranslate-correction.dis",
+    "hu-backtranslate-word-corrections.cti",
+    "hu-chardefs.cti",
+    "hu-exceptionwords.cti",
+    "hu-hu-g1.ctb",
+    "hu-hu-g1_braille_input.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 591982
+  },
+  "hu-hu-g1_braille_input.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "hu-hu-g1_braille_input.cti"
+   ],
+   "bytes": 45768
+  },
+  "hu-hu-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "hu-backtranslate-correction.dis",
+    "hu-backtranslate-word-corrections.cti",
+    "hu-chardefs.cti",
+    "hu-exceptionwords.cti",
+    "hu-hu-g1_braille_input.cti",
+    "hu-hu-g2.ctb",
+    "hu-hu-g2_exceptions.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 644307
+  },
+  "hu-hu-g2_exceptions.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "hu-hu-g2_exceptions.cti"
+   ],
+   "bytes": 70245
+  },
+  "hu.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "hu-backtranslate-correction.dis",
+    "hu-backtranslate-word-corrections.cti",
+    "hu-chardefs.cti",
+    "hu-exceptionwords.cti",
+    "hu-hu-g1.ctb",
+    "hu-hu-g1_braille_input.cti",
+    "hu.tbl",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 592399
+  },
+  "hy.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "hy.ctb"
+   ],
+   "bytes": 33223
+  },
+  "hy.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "hy.ctb",
+    "hy.tbl"
+   ],
+   "bytes": 33928
+  },
+  "hyph_cs_CZ.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_cs_CZ.dic"
+   ],
+   "bytes": 52098
+  },
+  "hyph_da_DK.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_da_DK.dic"
+   ],
+   "bytes": 97012
+  },
+  "hyph_de_DE.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_de_DE.dic"
+   ],
+   "bytes": 69318
+  },
+  "hyph_en_US.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_en_US.dic"
+   ],
+   "bytes": 68722
+  },
+  "hyph_eo.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_eo.dic"
+   ],
+   "bytes": 38409
+  },
+  "hyph_es_ES.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_es_ES.dic"
+   ],
+   "bytes": 31812
+  },
+  "hyph_fr_FR.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_fr_FR.dic"
+   ],
+   "bytes": 35764
+  },
+  "hyph_hu_HU.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_hu_HU.dic"
+   ],
+   "bytes": 1001480
+  },
+  "hyph_it_IT.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_it_IT.dic"
+   ],
+   "bytes": 29334
+  },
+  "hyph_nb_NO.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_nb_NO.dic"
+   ],
+   "bytes": 240538
+  },
+  "hyph_nl_NL.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_nl_NL.dic"
+   ],
+   "bytes": 122968
+  },
+  "hyph_nn_NO.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_nn_NO.dic"
+   ],
+   "bytes": 240538
+  },
+  "hyph_pl_PL.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_pl_PL.dic"
+   ],
+   "bytes": 61343
+  },
+  "hyph_pt_PT.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_pt_PT.dic"
+   ],
+   "bytes": 28314
+  },
+  "hyph_ru.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_ru.dic"
+   ],
+   "bytes": 100734
+  },
+  "hyph_sv_SE.dic": {
+   "files": [
+    "braille-patterns.cti",
+    "hyph_sv_SE.dic"
+   ],
+   "bytes": 62674
+  },
+  "is-chardefs6.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "is-chardefs6.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 39657
+  },
+  "is-chardefs8.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "is-chardefs8.cti"
+   ],
+   "bytes": 49211
+  },
+  "is.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "is.ctb"
+   ],
+   "bytes": 33734
+  },
+  "is.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "is-chardefs6.cti",
+    "is.tbl",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 40246
+  },
+  "it-it-comp6.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "it-it-comp6.utb",
+    "latinLetterDef6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 59028
+  },
+  "it-it-comp8.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "gr-pl-comp8.uti",
+    "it-it-comp8.utb",
+    "latinLetterDef8Dots.uti"
+   ],
+   "bytes": 74932
+  },
+  "it.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "it-it-comp6.utb",
+    "it.tbl",
+    "latinLetterDef6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 59612
+  },
+  "iu-ca-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "iu-ca-g1.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 99816
+  },
+  "ja-kantenji-ucs2.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "ja-kantenji-ucs2.utb"
+   ],
+   "bytes": 300460
+  },
+  "ja-kantenji.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "ja-kantenji-ucs2.utb",
+    "ja-kantenji.utb"
+   ],
+   "bytes": 302076
+  },
+  "ja-rokutenkanji.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "ja-rokutenkanji.utb"
+   ],
+   "bytes": 251552
+  },
+  "ka-in-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "ka-in-g1.utb",
+    "kannada.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 62421
+  },
+  "ka.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "ka.utb",
+    "litdigits6Dots.uti"
+   ],
+   "bytes": 32650
+  },
+  "kannada.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "kannada.cti"
+   ],
+   "bytes": 39153
+  },
+  "kh-in-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "kh-in-g1.utb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 49962
+  },
+  "kha.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "kh-in-g1.utb",
+    "kha.tbl",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 50541
+  },
+  "kk.utb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "kk.utb",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "ru-litbrl.ctb",
+    "ru-unicode.dis",
+    "spaces.uti",
+    "unicode.dis"
+   ],
+   "bytes": 94628
+  },
+  "km-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "km-g1.utb"
+   ],
+   "bytes": 36295
+  },
+  "kmr.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "kmr.tbl",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 97239
+  },
+  "kn.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "ka-in-g1.utb",
+    "kannada.cti",
+    "kn.tbl",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 63003
+  },
+  "ko-2006-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "ko-2006-g1.ctb",
+    "ko-2006.cti",
+    "ko-chars.cti",
+    "ko-g1-rules.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 471450
+  },
+  "ko-2006-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-us-compbrl.uti",
+    "en-us-emphasis.uti",
+    "en-us-g1.ctb",
+    "en-us-g2.ctb",
+    "ko-2006-g2.ctb",
+    "ko-2006.cti",
+    "ko-chars.cti",
+    "ko-g2-rules.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 768612
+  },
+  "ko-2006.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "ko-2006.cti",
+    "ko-chars.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 445307
+  },
+  "ko-chars.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "ko-chars.cti"
+   ],
+   "bytes": 424206
+  },
+  "ko-g1-rules.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "ko-g1-rules.cti"
+   ],
+   "bytes": 51033
+  },
+  "ko-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "ko-chars.cti",
+    "ko-g1-rules.cti",
+    "ko-g1.ctb",
+    "ko.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 473038
+  },
+  "ko-g2-rules.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-us-compbrl.uti",
+    "en-us-emphasis.uti",
+    "en-us-g1.ctb",
+    "en-us-g2.ctb",
+    "ko-g2-rules.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 364947
+  },
+  "ko-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-us-compbrl.uti",
+    "en-us-emphasis.uti",
+    "en-us-g1.ctb",
+    "en-us-g2.ctb",
+    "ko-chars.cti",
+    "ko-g2-rules.cti",
+    "ko-g2.ctb",
+    "ko.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 770206
+  },
+  "ko.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "ko-chars.cti",
+    "ko.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 446981
+  },
+  "kok.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "kok.ctb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 61501
+  },
+  "kok.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "kok.ctb",
+    "kok.tbl",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 62068
+  },
+  "kru.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "kru.ctb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 61500
+  },
+  "kru.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "kru.ctb",
+    "kru.tbl",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 62065
+  },
+  "ks-in-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "ks-in-g1.utb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti"
+   ],
+   "bytes": 59576
+  },
+  "latinLetterDef6Dots.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti"
+   ],
+   "bytes": 28789
+  },
+  "latinLetterDef8Dots.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "latinLetterDef8Dots.uti"
+   ],
+   "bytes": 28581
+  },
+  "latinLowercase.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "latinLowercase.uti"
+   ],
+   "bytes": 37553
+  },
+  "latinUppercaseComp6.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "latinUppercaseComp6.uti"
+   ],
+   "bytes": 28664
+  },
+  "lg-ug-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "lg-ug-g1.utb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 93673
+  },
+  "litdigits6Dots.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "litdigits6Dots.uti"
+   ],
+   "bytes": 27705
+  },
+  "litdigits6DotsPlusDot6.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "litdigits6DotsPlusDot6.uti"
+   ],
+   "bytes": 27729
+  },
+  "lo-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "lo-g1.utb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 235453
+  },
+  "loweredDigits6Dots.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "loweredDigits6Dots.uti"
+   ],
+   "bytes": 27674
+  },
+  "loweredDigits8Dots.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "loweredDigits8Dots.uti"
+   ],
+   "bytes": 27684
+  },
+  "lt-6dot.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "lt-6dot.utb",
+    "spaces.uti"
+   ],
+   "bytes": 46178
+  },
+  "lt-8dot.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "latinLetterDef8Dots.uti",
+    "lt-8dot.utb",
+    "spaces.uti"
+   ],
+   "bytes": 43438
+  },
+  "lt.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "latinLetterDef8Dots.uti",
+    "lt.ctb",
+    "spaces.uti"
+   ],
+   "bytes": 49511
+  },
+  "lv.tbl": {
+   "files": [
+    "Lv-Lv-g1.utb",
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "lv.tbl",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 76596
+  },
+  "maketablelist.sh": {
+   "files": [
+    "braille-patterns.cti",
+    "maketablelist.sh"
+   ],
+   "bytes": 27770
+  },
+  "malayalam.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "malayalam.cti"
+   ],
+   "bytes": 45900
+  },
+  "mao-nz-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "mao-nz-g1.ctb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 93269
+  },
+  "marburg_single_cell_defs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "latinLetterDef8Dots.uti",
+    "marburg_single_cell_defs.cti"
+   ],
+   "bytes": 31257
+  },
+  "marburg_unicode_defs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "marburg_unicode_defs.cti"
+   ],
+   "bytes": 42563
+  },
+  "mk-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "mk-g1.utb",
+    "spaces.uti"
+   ],
+   "bytes": 37667
+  },
+  "ml-in-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "malayalam.cti",
+    "ml-in-g1.utb",
+    "spaces.uti"
+   ],
+   "bytes": 69172
+  },
+  "ml.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "malayalam.cti",
+    "ml-in-g1.utb",
+    "ml.tbl",
+    "spaces.uti"
+   ],
+   "bytes": 69871
+  },
+  "mn-MN-common.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "litdigits6Dots.uti",
+    "mn-MN-common.cti"
+   ],
+   "bytes": 31105
+  },
+  "mn-MN-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "mn-MN-common.cti",
+    "mn-MN-g1.utb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 97794
+  },
+  "mn-MN-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-g2.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "mn-MN-common.cti",
+    "mn-MN-g2.ctb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 303429
+  },
+  "mn-in-g1.utb": {
+   "files": [
+    "bengali.cti",
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "mn-in-g1.utb",
+    "spaces.uti"
+   ],
+   "bytes": 60595
+  },
+  "mni.tbl": {
+   "files": [
+    "bengali.cti",
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "mn-in-g1.utb",
+    "mni.tbl",
+    "spaces.uti"
+   ],
+   "bytes": 61180
+  },
+  "mr-in-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "mr-in-g1.utb",
+    "spaces.uti"
+   ],
+   "bytes": 59575
+  },
+  "mr.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "mr-in-g1.utb",
+    "mr.tbl",
+    "spaces.uti"
+   ],
+   "bytes": 60157
+  },
+  "ms-my-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "ms-my-g2.ctb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 241722
+  },
+  "mt.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "mt.ctb"
+   ],
+   "bytes": 32341
+  },
+  "mt.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "mt.ctb",
+    "mt.tbl"
+   ],
+   "bytes": 33044
+  },
+  "mun.ctb": {
+   "files": [
+    "bengali.cti",
+    "braille-patterns.cti",
+    "mun.ctb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 62518
+  },
+  "mun.tbl": {
+   "files": [
+    "bengali.cti",
+    "braille-patterns.cti",
+    "mun.ctb",
+    "mun.tbl",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 63081
+  },
+  "mwr.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "mwr.ctb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 61501
+  },
+  "mwr.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "mwr.ctb",
+    "mwr.tbl",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 62068
+  },
+  "my-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "my-g1.utb"
+   ],
+   "bytes": 47692
+  },
+  "my-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "my-g1.utb",
+    "my-g2.ctb"
+   ],
+   "bytes": 170709
+  },
+  "ne.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "ne.ctb",
+    "text_nabcc.dis"
+   ],
+   "bytes": 59294
+  },
+  "ne.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "ne.tbl",
+    "np-in-g1.utb",
+    "spaces.uti"
+   ],
+   "bytes": 60154
+  },
+  "nemethdefs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "nemethdefs.cti"
+   ],
+   "bytes": 46390
+  },
+  "nl-BE.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "nl-BE.dis"
+   ],
+   "bytes": 39254
+  },
+  "nl-NL-g0.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "nl-NL-g0.utb",
+    "nl-chardefs.uti",
+    "nl-print.dis",
+    "quotation-marks.uti",
+    "spaces.uti",
+    "unicode.dis"
+   ],
+   "bytes": 108982
+  },
+  "nl-NL-g0.utb.in": {
+   "files": [
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "nl-NL-g0.utb.in",
+    "nl-chardefs.uti",
+    "nl-print.dis",
+    "quotation-marks.uti",
+    "spaces.uti",
+    "unicode.dis"
+   ],
+   "bytes": 101024
+  },
+  "nl-chardefs.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "nl-chardefs.uti",
+    "spaces.uti"
+   ],
+   "bytes": 58916
+  },
+  "nl-chardefs.uti.in": {
+   "files": [
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "nl-chardefs.uti.in",
+    "spaces.uti"
+   ],
+   "bytes": 58691
+  },
+  "nl-comp8.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "latinLetterDef8Dots.uti",
+    "nl-comp8.utb",
+    "spaces.uti"
+   ],
+   "bytes": 52032
+  },
+  "nl-print.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "nl-print.dis",
+    "unicode.dis"
+   ],
+   "bytes": 44168
+  },
+  "nl-unicode.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "nl-unicode.dis"
+   ],
+   "bytes": 43901
+  },
+  "no-no-8dot-fallback-6dot-g0.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "no-no-8dot-fallback-6dot-g0.utb",
+    "no-no-8dot.utb",
+    "no-no-chardefs6.uti",
+    "no-no-comp8.ctb",
+    "no-no-latinLetterDef6Dots_diacritics.uti",
+    "spaces.uti",
+    "unicode-braille.utb"
+   ],
+   "bytes": 181409
+  },
+  "no-no-8dot.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "no-no-8dot.utb",
+    "no-no-comp8.ctb",
+    "unicode-braille.utb"
+   ],
+   "bytes": 106867
+  },
+  "no-no-braillo-047-01.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "no-no-braillo-047-01.dis"
+   ],
+   "bytes": 34784
+  },
+  "no-no-chardefs6.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "no-no-chardefs6.uti",
+    "no-no-latinLetterDef6Dots_diacritics.uti",
+    "spaces.uti"
+   ],
+   "bytes": 98968
+  },
+  "no-no-comp8.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "no-no-comp8.ctb"
+   ],
+   "bytes": 48056
+  },
+  "no-no-cyrillic6dot.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "no-no-cyrillic6dot.uti"
+   ],
+   "bytes": 31851
+  },
+  "no-no-g0.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "no-no-chardefs6.uti",
+    "no-no-cyrillic6dot.uti",
+    "no-no-g0.utb",
+    "no-no-latinLetterDef6Dots_diacritics.uti",
+    "no-no.dis",
+    "spaces.uti"
+   ],
+   "bytes": 127808
+  },
+  "no-no-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "no-no-chardefs6.uti",
+    "no-no-cyrillic6dot.uti",
+    "no-no-g0.utb",
+    "no-no-g1.ctb",
+    "no-no-latinLetterDef6Dots_diacritics.uti",
+    "no-no.dis",
+    "spaces.uti"
+   ],
+   "bytes": 134886
+  },
+  "no-no-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "no-no-chardefs6.uti",
+    "no-no-cyrillic6dot.uti",
+    "no-no-g0.utb",
+    "no-no-g1.ctb",
+    "no-no-g2.ctb",
+    "no-no-latinLetterDef6Dots_diacritics.uti",
+    "no-no.dis",
+    "spaces.uti"
+   ],
+   "bytes": 151433
+  },
+  "no-no-g3.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "no-no-chardefs6.uti",
+    "no-no-cyrillic6dot.uti",
+    "no-no-g0.utb",
+    "no-no-g1.ctb",
+    "no-no-g2.ctb",
+    "no-no-g3.ctb",
+    "no-no-latinLetterDef6Dots_diacritics.uti",
+    "no-no.dis",
+    "spaces.uti"
+   ],
+   "bytes": 171083
+  },
+  "no-no-generic.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "no-no-generic.ctb"
+   ],
+   "bytes": 40491
+  },
+  "no-no-generic.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "no-no-generic.dis"
+   ],
+   "bytes": 41186
+  },
+  "no-no-latinLetterDef6Dots_diacritics.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "no-no-latinLetterDef6Dots_diacritics.uti"
+   ],
+   "bytes": 79575
+  },
+  "no-no.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "no-no.dis"
+   ],
+   "bytes": 40653
+  },
+  "np-in-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "np-in-g1.utb",
+    "spaces.uti"
+   ],
+   "bytes": 59574
+  },
+  "nso-za-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "nso-za-g1.utb",
+    "sot-za-g1.ctb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 95632
+  },
+  "nso-za-g2.ctb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "nso-za-g2.ctb",
+    "sot-za-g1.ctb",
+    "sot-za-g2.ctb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 115537
+  },
+  "ny-mw.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "ny-mw.utb",
+    "spaces.uti",
+    "sw-ke-g1.utb",
+    "text_nabcc.dis"
+   ],
+   "bytes": 65046
+  },
+  "or-in-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "or-in-g1.utb",
+    "oriya.cti",
+    "spaces.uti"
+   ],
+   "bytes": 59753
+  },
+  "or.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "or-in-g1.utb",
+    "or.tbl",
+    "oriya.cti",
+    "spaces.uti"
+   ],
+   "bytes": 60331
+  },
+  "oriya.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "oriya.cti"
+   ],
+   "bytes": 36489
+  },
+  "pa.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "gurumuki.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "pa.tbl",
+    "pu-in-g1.utb",
+    "spaces.uti"
+   ],
+   "bytes": 69530
+  },
+  "pi.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "pi.ctb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 61498
+  },
+  "pi.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "pi.ctb",
+    "pi.tbl",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 62057
+  },
+  "pl-pl-comp8.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "latinLetterDef8Dots.uti",
+    "pl-pl-comp8.ctb"
+   ],
+   "bytes": 48534
+  },
+  "pl.tbl": {
+   "files": [
+    "Pl-Pl-g1.utb",
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "pl.tbl",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 65894
+  },
+  "printables.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "printables.cti"
+   ],
+   "bytes": 31649
+  },
+  "pt-comp6.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "pt-comp6.utb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 70524
+  },
+  "pt-pt-comp8.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "latinLetterDef8Dots.uti",
+    "pt-pt-comp8.ctb",
+    "spaces.uti"
+   ],
+   "bytes": 57282
+  },
+  "pt-pt-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "pt-pt-g1.utb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 63571
+  },
+  "pt-pt-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "pt-pt-g1.utb",
+    "pt-pt-g2.ctb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 86005
+  },
+  "pt.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "pt-pt-g1.utb",
+    "pt-pt-g2.ctb",
+    "pt.tbl",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 86636
+  },
+  "pu-in-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "gurumuki.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "pu-in-g1.utb",
+    "spaces.uti"
+   ],
+   "bytes": 68948
+  },
+  "quotation-marks.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "quotation-marks.uti"
+   ],
+   "bytes": 27928
+  },
+  "ro-g0.utb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "digits6DotsPlusDot6.uti",
+    "fr-bfu-comp6.utb",
+    "fr-bfu-comp68.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "litdigits6DotsPlusDot6.uti",
+    "ro-g0.utb",
+    "spaces.uti"
+   ],
+   "bytes": 81328
+  },
+  "ro.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "ro.ctb"
+   ],
+   "bytes": 32810
+  },
+  "ro.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "ro.ctb",
+    "ro.tbl"
+   ],
+   "bytes": 33515
+  },
+  "ru-brf.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "en-us-brf.dis",
+    "ru-brf.dis"
+   ],
+   "bytes": 31900
+  },
+  "ru-comp6.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "ru-comp6.utb",
+    "ru-letters.dis",
+    "spaces.uti"
+   ],
+   "bytes": 54176
+  },
+  "ru-comp8.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "loweredDigits6Dots.uti",
+    "ru-comp8.utb"
+   ],
+   "bytes": 64188
+  },
+  "ru-letters.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "ru-letters.dis"
+   ],
+   "bytes": 29695
+  },
+  "ru-litbrl-detailed.utb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "ru-litbrl-detailed.utb",
+    "ru-litbrl.ctb",
+    "ru-unicode.dis",
+    "spaces.uti",
+    "unicode.dis"
+   ],
+   "bytes": 96018
+  },
+  "ru-litbrl.ctb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "ru-litbrl.ctb",
+    "ru-unicode.dis",
+    "spaces.uti",
+    "unicode.dis"
+   ],
+   "bytes": 91828
+  },
+  "ru-ru-g1.ctb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "ru-litbrl.ctb",
+    "ru-ru-g1.ctb",
+    "ru-unicode.dis",
+    "spaces.uti",
+    "unicode.dis"
+   ],
+   "bytes": 111495
+  },
+  "ru-unicode.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "ru-unicode.dis",
+    "unicode.dis"
+   ],
+   "bytes": 36116
+  },
+  "rw-rw-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "rw-rw-g1.utb",
+    "spaces.uti"
+   ],
+   "bytes": 36012
+  },
+  "sa-in-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "sa-in-g1.utb",
+    "spaces.uti"
+   ],
+   "bytes": 59576
+  },
+  "sa.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "sa-in-g1.utb",
+    "sa.tbl",
+    "spaces.uti"
+   ],
+   "bytes": 60160
+  },
+  "sah.utb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "ru-litbrl.ctb",
+    "ru-unicode.dis",
+    "sah.utb",
+    "spaces.uti",
+    "unicode.dis"
+   ],
+   "bytes": 94544
+  },
+  "sd.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "sd.tbl",
+    "si-in-g1.utb",
+    "spaces.uti"
+   ],
+   "bytes": 60154
+  },
+  "se-se.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "se-se.ctb"
+   ],
+   "bytes": 38163
+  },
+  "se-se.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "se-se.dis"
+   ],
+   "bytes": 41743
+  },
+  "si-in-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "devanagari.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "si-in-g1.utb",
+    "spaces.uti"
+   ],
+   "bytes": 59574
+  },
+  "sin.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "sin.cti"
+   ],
+   "bytes": 37895
+  },
+  "sin.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "sin.cti",
+    "sin.utb",
+    "spaces.uti",
+    "tamil.cti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 86691
+  },
+  "sk-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "litdigits6Dots.uti",
+    "sk-g1.ctb",
+    "spaces.uti"
+   ],
+   "bytes": 109940
+  },
+  "sk-sk-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "sk-sk-g1.utb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 63065
+  },
+  "sk-sk.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "eurodefs.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "sk-sk.utb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 61430
+  },
+  "sl-si-comp8.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "latinLetterDef8Dots.uti",
+    "sl-si-comp8.ctb"
+   ],
+   "bytes": 38688
+  },
+  "sl-si-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "countries.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "sl-si-g1.utb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 78635
+  },
+  "sl.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "countries.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "sl-si-g1.utb",
+    "sl.tbl",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 79298
+  },
+  "sot-za-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "sot-za-g1.ctb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 94200
+  },
+  "sot-za-g2.ctb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "sot-za-g1.ctb",
+    "sot-za-g2.ctb",
+    "spaces.uti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 114108
+  },
+  "spaces.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "spaces.uti"
+   ],
+   "bytes": 28888
+  },
+  "sr-Cyrl.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "sr-Cyrl.ctb",
+    "sr-common.cti",
+    "sr-cyrletters.cti",
+    "sr-latletters.cti"
+   ],
+   "bytes": 46507
+  },
+  "sr-common.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "sr-common.cti"
+   ],
+   "bytes": 31764
+  },
+  "sr-cyrletters.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "sr-cyrletters.cti"
+   ],
+   "bytes": 31032
+  },
+  "sr-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "sr-common.cti",
+    "sr-cyrletters.cti",
+    "sr-g1.ctb",
+    "sr-latletters.cti"
+   ],
+   "bytes": 46312
+  },
+  "sr-latletters.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "sr-latletters.cti"
+   ],
+   "bytes": 32760
+  },
+  "sv-1989.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "latinLetterDef8Dots.uti",
+    "sv-1989.ctb"
+   ],
+   "bytes": 39384
+  },
+  "sv-1996.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "latinLetterDef8Dots.uti",
+    "sv-1996.ctb"
+   ],
+   "bytes": 37459
+  },
+  "sv-g0.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "sv-g0.utb"
+   ],
+   "bytes": 48225
+  },
+  "sv-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "sv-g0.utb",
+    "sv-g1.ctb"
+   ],
+   "bytes": 51623
+  },
+  "sv-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "sv-g0.utb",
+    "sv-g1.ctb",
+    "sv-g2.ctb"
+   ],
+   "bytes": 58727
+  },
+  "sw-ke-g1-2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "sw-ke-g1-2.ctb",
+    "sw-ke-g1.utb",
+    "text_nabcc.dis"
+   ],
+   "bytes": 65300
+  },
+  "sw-ke-g1-3.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "sw-ke-g1-2.ctb",
+    "sw-ke-g1-3.ctb",
+    "sw-ke-g1.utb",
+    "text_nabcc.dis"
+   ],
+   "bytes": 68554
+  },
+  "sw-ke-g1-4.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "sw-ke-g1-2.ctb",
+    "sw-ke-g1-3.ctb",
+    "sw-ke-g1-4.ctb",
+    "sw-ke-g1.utb",
+    "text_nabcc.dis"
+   ],
+   "bytes": 72090
+  },
+  "sw-ke-g1-5.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "sw-ke-g1-2.ctb",
+    "sw-ke-g1-3.ctb",
+    "sw-ke-g1-4.ctb",
+    "sw-ke-g1-5.ctb",
+    "sw-ke-g1.utb",
+    "text_nabcc.dis"
+   ],
+   "bytes": 74803
+  },
+  "sw-ke-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "sw-ke-g1.utb",
+    "text_nabcc.dis"
+   ],
+   "bytes": 62416
+  },
+  "sw-ke-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "sw-ke-g1-2.ctb",
+    "sw-ke-g1-3.ctb",
+    "sw-ke-g1-4.ctb",
+    "sw-ke-g1-5.ctb",
+    "sw-ke-g1.utb",
+    "sw-ke-g2.ctb",
+    "text_nabcc.dis"
+   ],
+   "bytes": 83425
+  },
+  "syc.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "syc.utb",
+    "text_nabcc.dis"
+   ],
+   "bytes": 91924
+  },
+  "ta-ta-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-us-compbrl.uti",
+    "en-us-emphasis.uti",
+    "en-us-g1.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "ta-ta-g1.ctb",
+    "text_nabcc.dis"
+   ],
+   "bytes": 79180
+  },
+  "ta.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "spaces.uti",
+    "ta.ctb",
+    "tamil.cti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 55212
+  },
+  "ta.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "spaces.uti",
+    "ta.ctb",
+    "ta.tbl",
+    "tamil.cti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 55911
+  },
+  "tamil.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "tamil.cti"
+   ],
+   "bytes": 30022
+  },
+  "te-in-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "te-in-g1.utb",
+    "telugu.cti"
+   ],
+   "bytes": 60200
+  },
+  "te.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "en-in-g1.ctb",
+    "en-us-emphasis.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "te-in-g1.utb",
+    "te.tbl",
+    "telugu.cti"
+   ],
+   "bytes": 60780
+  },
+  "telugu.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "telugu.cti"
+   ],
+   "bytes": 36934
+  },
+  "text_nabcc.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "text_nabcc.dis"
+   ],
+   "bytes": 48794
+  },
+  "th-comp8-backward.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "spaces.uti",
+    "th-comp8-backward.utb"
+   ],
+   "bytes": 36148
+  },
+  "th-g0.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "th-comp8-backward.utb",
+    "th-g0.utb"
+   ],
+   "bytes": 103924
+  },
+  "th-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "th-g1.utb",
+    "th-g1.uti"
+   ],
+   "bytes": 110970
+  },
+  "th-g1.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "spaces.uti",
+    "th-g1.uti"
+   ],
+   "bytes": 43825
+  },
+  "th-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-g2.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "th-g1.uti",
+    "th-g2.ctb"
+   ],
+   "bytes": 363907
+  },
+  "tr-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "tr-g1.ctb"
+   ],
+   "bytes": 99021
+  },
+  "tr-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "litdigits6Dots.uti",
+    "tr-g2.ctb"
+   ],
+   "bytes": 59345
+  },
+  "tr-g2.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "litdigits6Dots.uti",
+    "tr-g2.ctb",
+    "tr-g2.tbl"
+   ],
+   "bytes": 59978
+  },
+  "tr.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "tr.ctb"
+   ],
+   "bytes": 49937
+  },
+  "tr.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "digits8Dots.uti",
+    "tr.ctb",
+    "tr.tbl"
+   ],
+   "bytes": 50640
+  },
+  "tsn-za-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "sot-za-g1.ctb",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "tsn-za-g1.ctb"
+   ],
+   "bytes": 95375
+  },
+  "tsn-za-g2.ctb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "sot-za-g1.ctb",
+    "sot-za-g2.ctb",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "tsn-za-g2.ctb"
+   ],
+   "bytes": 115280
+  },
+  "tt.utb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "ru-litbrl.ctb",
+    "ru-unicode.dis",
+    "spaces.uti",
+    "tt.utb",
+    "unicode.dis"
+   ],
+   "bytes": 94580
+  },
+  "uga.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "uga.utb"
+   ],
+   "bytes": 87594
+  },
+  "uk-comp.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "loweredDigits6Dots.uti",
+    "ru-comp8.utb",
+    "uk-comp.utb"
+   ],
+   "bytes": 66149
+  },
+  "uk-detailed.utb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "ru-litbrl-detailed.utb",
+    "ru-litbrl.ctb",
+    "ru-unicode.dis",
+    "spaces.uti",
+    "uk-detailed.utb",
+    "uk.utb",
+    "unicode.dis"
+   ],
+   "bytes": 100691
+  },
+  "uk.utb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "ru-litbrl.ctb",
+    "ru-unicode.dis",
+    "spaces.uti",
+    "uk.utb",
+    "unicode.dis"
+   ],
+   "bytes": 95438
+  },
+  "ukchardefs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "ukchardefs.cti"
+   ],
+   "bytes": 35255
+  },
+  "ukmaths_single_cell_defs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6DotsPlusDot6.uti",
+    "latinLetterDef8Dots.uti",
+    "ukmaths_single_cell_defs.cti"
+   ],
+   "bytes": 31273
+  },
+  "ukmaths_unicode_defs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "ukmaths_unicode_defs.cti"
+   ],
+   "bytes": 42565
+  },
+  "uni-text.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "uni-text.dis"
+   ],
+   "bytes": 41664
+  },
+  "unicode-braille.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "unicode-braille.utb"
+   ],
+   "bytes": 51842
+  },
+  "unicode-without-blank.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "unicode-without-blank.dis",
+    "unicode.dis"
+   ],
+   "bytes": 33896
+  },
+  "unicode.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "unicode.dis"
+   ],
+   "bytes": 32970
+  },
+  "ur-pk-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "ur-pk-g1.utb"
+   ],
+   "bytes": 43323
+  },
+  "ur-pk-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "ur-pk-g1.utb",
+    "ur-pk-g2.ctb"
+   ],
+   "bytes": 97463
+  },
+  "us-table.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "us-table.dis"
+   ],
+   "bytes": 28347
+  },
+  "uz-g1.utb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "ru-litbrl.ctb",
+    "ru-unicode.dis",
+    "spaces.uti",
+    "unicode.dis",
+    "uz-g1.utb"
+   ],
+   "bytes": 95483
+  },
+  "ve-za-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "ve-za-g1.utb"
+   ],
+   "bytes": 94179
+  },
+  "ve-za-g2.ctb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "ve-za-g1.utb",
+    "ve-za-g2.ctb"
+   ],
+   "bytes": 112617
+  },
+  "vi-cb8.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-us-comp8-ext.utb",
+    "latinLetterDef8Dots.uti",
+    "loweredDigits6Dots.uti",
+    "vi-cb8.utb",
+    "vi-lettersdef.uti"
+   ],
+   "bytes": 69708
+  },
+  "vi-charsdef.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "unicode.dis",
+    "vi-charsdef.uti",
+    "vi-lettersdef.uti",
+    "vi-puncsdef.uti"
+   ],
+   "bytes": 65108
+  },
+  "vi-lettersdef.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "vi-lettersdef.uti"
+   ],
+   "bytes": 38151
+  },
+  "vi-puncsdef.uti": {
+   "files": [
+    "braille-patterns.cti",
+    "vi-puncsdef.uti"
+   ],
+   "bytes": 39968
+  },
+  "vi-saigon-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "unicode.dis",
+    "vi-charsdef.uti",
+    "vi-lettersdef.uti",
+    "vi-puncsdef.uti",
+    "vi-saigon-g1.ctb"
+   ],
+   "bytes": 87535
+  },
+  "vi-vn-g0.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "unicode.dis",
+    "vi-charsdef.uti",
+    "vi-lettersdef.uti",
+    "vi-puncsdef.uti",
+    "vi-vn-g0.utb"
+   ],
+   "bytes": 68486
+  },
+  "vi-vn-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "unicode.dis",
+    "vi-charsdef.uti",
+    "vi-lettersdef.uti",
+    "vi-puncsdef.uti",
+    "vi-vn-g1.ctb"
+   ],
+   "bytes": 83191
+  },
+  "vi-vn-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "latinLetterDef6Dots.uti",
+    "litdigits6Dots.uti",
+    "spaces.uti",
+    "unicode.dis",
+    "vi-charsdef.uti",
+    "vi-lettersdef.uti",
+    "vi-puncsdef.uti",
+    "vi-vn-g2.ctb"
+   ],
+   "bytes": 88408
+  },
+  "wiskunde-chardefs.cti": {
+   "files": [
+    "braille-patterns.cti",
+    "digits6Dots.uti",
+    "wiskunde-chardefs.cti"
+   ],
+   "bytes": 46486
+  },
+  "wordcx.dis": {
+   "files": [
+    "braille-patterns.cti",
+    "wordcx.dis"
+   ],
+   "bytes": 30662
+  },
+  "xh-za-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "xh-za-g1.utb"
+   ],
+   "bytes": 93734
+  },
+  "xh-za-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "xh-za-g1.utb",
+    "xh-za-g2.ctb"
+   ],
+   "bytes": 102982
+  },
+  "yi.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-chardefs.cti",
+    "he-IL.utb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "litdigits6Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "yi.utb"
+   ],
+   "bytes": 66610
+  },
+  "zh-chn.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "spaces.uti",
+    "ukmaths_unicode_defs.cti",
+    "zh-chn.ctb"
+   ],
+   "bytes": 1352882
+  },
+  "zh-hk.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-us-comp8.ctb",
+    "latinLetterDef8Dots.uti",
+    "loweredDigits6Dots.uti",
+    "zh-hk.ctb"
+   ],
+   "bytes": 306918
+  },
+  "zh-tw.ctb": {
+   "files": [
+    "IPA-unicode-range.uti",
+    "braille-patterns.cti",
+    "en-us-comp8.ctb",
+    "latinLetterDef8Dots.uti",
+    "loweredDigits6Dots.uti",
+    "spaces.uti",
+    "zh-tw.ctb"
+   ],
+   "bytes": 1568169
+  },
+  "zh_CHN.tbl": {
+   "files": [
+    "braille-patterns.cti",
+    "spaces.uti",
+    "ukmaths_unicode_defs.cti",
+    "zh-chn.ctb",
+    "zh_CHN.tbl"
+   ],
+   "bytes": 1353793
+  },
+  "zhcn-cbs.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "zhcn-cbs.ctb"
+   ],
+   "bytes": 1187552
+  },
+  "zhcn-g1.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "zhcn-g1.ctb"
+   ],
+   "bytes": 788481
+  },
+  "zhcn-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "zhcn-g2.ctb"
+   ],
+   "bytes": 729992
+  },
+  "zu-za-g1.utb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "xh-za-g1.utb",
+    "zu-za-g1.utb"
+   ],
+   "bytes": 94836
+  },
+  "zu-za-g2.ctb": {
+   "files": [
+    "braille-patterns.cti",
+    "en-ueb-chardefs.uti",
+    "en-ueb-g1.ctb",
+    "en-ueb-math.ctb",
+    "latinLetterDef6Dots.uti",
+    "latinUppercaseComp6.uti",
+    "spaces.uti",
+    "text_nabcc.dis",
+    "xh-za-g1.utb",
+    "xh-za-g2.ctb",
+    "zu-za-g2.ctb"
+   ],
+   "bytes": 104082
+  }
+ }
+}
