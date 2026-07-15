@@ -101,6 +101,10 @@ static std::vector<widechar> utf8ToWide(const std::string& s) {
         }
         if (!ok) { i++; continue; }
         i += len;
+        // Reject overlong encodings and out-of-range codepoints (replace with
+        // U+FFFD so malformed embedder input can never fabricate surrogates).
+        static const uint32_t min_cp[5] = { 0, 0, 0x80, 0x800, 0x10000 };
+        if (cp > 0x10FFFF || cp < min_cp[len]) cp = 0xFFFD;
         if (cp >= 0xD800 && cp <= 0xDFFF) continue;   // stray surrogate: drop
         if (cp <= 0xFFFF) {
             out.push_back((widechar)cp);
@@ -230,10 +234,17 @@ static bool translateAndWrap(const std::string& input, const std::string& table,
             continue;
         }
 
-        // Split into words on the blank braille cell.
+        // Preserve leading blank cells (braille indentation) — the word-split
+        // below would silently drop them (upstream-inherited defect).
+        size_t lead = 0;
+        while (lead < braille_line.size() && braille_line[lead] == 0x2800) lead++;
+        size_t indent = std::min(lead, (size_t)std::max(0, maxChars - 1));
+
+        // Split the remainder into words on the blank braille cell.
         std::vector<std::vector<widechar>> words;
         std::vector<widechar> current_word;
-        for (widechar c : braille_line) {
+        for (size_t ci = lead; ci < braille_line.size(); ++ci) {
+            widechar c = braille_line[ci];
             if (c == 0x2800) {
                 words.push_back(current_word);
                 current_word.clear();
@@ -257,17 +268,25 @@ static bool translateAndWrap(const std::string& input, const std::string& table,
             }
         }
 
-        std::vector<widechar> current_line;
+        std::vector<widechar> current_line(indent, (widechar)0x2800);
+        bool line_has_word = false;   // the indent alone must not trigger a separator
         for (const auto& word : sized_words) {
-            size_t required = current_line.empty() ? word.size()
-                                                   : current_line.size() + 1 + word.size();
-            if ((int)required > maxChars && !current_line.empty()) {
-                wrapped.push_back(current_line);
-                current_line = word;
-            } else {
-                if (!current_line.empty()) current_line.push_back(0x2800);
-                current_line.insert(current_line.end(), word.begin(), word.end());
+            // Indent + a near-full-width first word may not fit: shrink the
+            // indent rather than exceed the requested line width (words are
+            // already hard-broken to <= maxChars).
+            if (!line_has_word && (int)(current_line.size() + word.size()) > maxChars) {
+                current_line.assign((size_t)maxChars - word.size(), (widechar)0x2800);
             }
+            size_t sep = line_has_word ? 1 : 0;
+            size_t required = current_line.size() + sep + word.size();
+            if ((int)required > maxChars && line_has_word) {
+                wrapped.push_back(current_line);
+                current_line.clear();
+            } else if (line_has_word) {
+                current_line.push_back(0x2800);
+            }
+            current_line.insert(current_line.end(), word.begin(), word.end());
+            line_has_word = true;
         }
         if (!current_line.empty()) wrapped.push_back(current_line);
     }

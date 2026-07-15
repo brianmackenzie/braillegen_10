@@ -33,7 +33,7 @@ COMMON_FLAGS=(
   -s STACK_SIZE=5242880
 )
 
-echo "-- [1/3] engine/core.js (liblouis translator, no OCCT)"
+echo "-- [1/4] engine/core.js (liblouis translator, no OCCT)"
 em++ main.cpp liblouis/liblouis.a \
   -DBRAILLEGEN_CORE_ONLY \
   -I liblouis \
@@ -41,7 +41,7 @@ em++ main.cpp liblouis/liblouis.a \
   -s EXPORT_NAME=createBrailleCore \
   -o engine/core.js
 
-echo "-- [2/3] engine/stl.js (liblouis + OpenCASCADE STL generator)"
+echo "-- [2/4] engine/stl.js (liblouis + OpenCASCADE STL generator)"
 if [ ! -f "$OCCT_INCLUDE/gp_Trsf.hxx" ]; then
   echo "!! OCCT_INCLUDE ($OCCT_INCLUDE) missing gp_Trsf.hxx — run tools/make-occt-include.sh first" >&2
   exit 1

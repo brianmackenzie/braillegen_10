@@ -105,7 +105,8 @@ export function brailleToSvg(lines, options = {}) {
 
   const esc = (s) => String(s)
     .replaceAll('&', '&amp;').replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;').replaceAll('"', '&quot;');
+    .replaceAll('>', '&gt;').replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');   // context-agnostic: safe even in single-quoted attrs
 
   const descParts = [];
   if (o.labelText) descParts.push(`Source text: ${o.labelText}`);

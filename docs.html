@@ -59,7 +59,7 @@
 
       <h2 id="standards">Dimensional presets</h2>
       <p>All values in millimetres. Sources: ADA 2010 §703.3.1, California CBC 11B-703.3.1, BANA/Library of Congress Specification 800, UKAAF B008 / Marburg Medium, ISO 17049, Perkins/RNIB jumbo geometry.</p>
-      <div style="overflow-x:auto">
+      <div style="overflow-x:auto" tabindex="0" role="region" aria-label="Braille dimension presets table">
         <table>
           <caption class="sr-only">Braille dimension presets in millimetres</caption>
           <thead>
@@ -144,5 +144,12 @@
       <span><a href="https://github.com/Richhe01/braillegen_10" rel="external">Source (AGPL-3.0)</a></span>
     </footer>
   </div>
+  <script>
+    // Register the service worker here too, so a deep-linked first visit to
+    // the docs still makes the app available offline.
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+      navigator.serviceWorker.register('./sw.js').catch(function () {});
+    }
+  </script>
 </body>
 </html>

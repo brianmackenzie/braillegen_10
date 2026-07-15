@@ -41,6 +41,8 @@
       <nav class="site-nav" aria-label="Site">
         <a href="./" aria-current="page">Generator</a>
         <a href="docs.html">Docs</a>
+        <!-- Deploying a fork? Point this and the footer Source link at YOUR
+             repository — the AGPL requires offering the modified source. -->
         <a href="https://github.com/Richhe01/braillegen_10" rel="external">GitHub</a>
       </nav>
       <div class="theme-toggle" role="group" aria-label="Color theme">
@@ -66,7 +68,7 @@
       <form id="genform" novalidate>
         <section class="panel">
           <label for="textInput">Text to translate</label>
-          <textarea id="textInput" name="text" autocomplete="off"
+          <textarea id="textInput" name="text" autocomplete="off" aria-describedby="textHint"
             placeholder="hello world">hello world</textarea>
           <p class="hint" id="textHint">Each line becomes its own braille line. The preview updates as you type.</p>
         </section>
@@ -76,7 +78,7 @@
           <div class="field-grid">
             <div>
               <label for="brailleTable">Language and grade</label>
-              <select id="brailleTable" name="table"></select>
+              <select id="brailleTable" name="table" aria-describedby="tableHint"></select>
               <p class="hint" id="tableHint"></p>
             </div>
             <div>
@@ -94,7 +96,7 @@
           <div class="field-grid">
             <div>
               <label for="preset">Standard preset</label>
-              <select id="preset" name="preset"></select>
+              <select id="preset" name="preset" aria-describedby="presetNote"></select>
               <p class="hint" id="presetNote"></p>
             </div>
           </div>
@@ -170,7 +172,7 @@
         </fieldset>
       </form>
 
-      <section class="panel" aria-labelledby="previewHeading">
+      <section class="panel" aria-labelledby="previewHeading" aria-describedby="previewNote">
         <h2 id="previewHeading">Braille preview</h2>
         <p class="preview-meta" id="previewMeta">Waiting for the braille engine…</p>
         <p class="sr-only" id="previewNote">
@@ -178,7 +180,7 @@
           refreshable braille displays read it exactly as it will be printed.
           The dot graphics are decorative duplicates for sighted proofing.
         </p>
-        <div class="preview-lines" id="previewLines" aria-describedby="previewNote"></div>
+        <div class="preview-lines" id="previewLines" role="list"></div>
       </section>
 
       <section class="panel" aria-labelledby="downloadsHeading" id="downloads">
@@ -200,7 +202,7 @@
 
       <details class="console">
         <summary>Engine console</summary>
-        <div class="console-log" role="log" aria-label="Engine console output" id="consoleLog"></div>
+        <div class="console-log" role="log" aria-label="Engine console output" id="consoleLog" tabindex="0"></div>
       </details>
     </main>
 

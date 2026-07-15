@@ -120,6 +120,37 @@ const core = await loadEngine('core');
   check('long input does not crash', r.ok && r.lines.length > 10, `${r.lines?.length} lines`);
 }
 
+// Adversarial input vectors (JSON-escaping path + formatting fidelity)
+{
+  const r = translate(core, 'quote " backslash \\ tab\ttext', 'en-ueb-g1.ctb');
+  check('adversarial: quotes/backslash/tab survive the JSON path', r.ok && r.lines.length >= 1, JSON.stringify(r).slice(0, 120));
+}
+{
+  const r = translate(core, 'emoji \u{1F600} here', 'en-ueb-g1.ctb');
+  check('adversarial: astral input yields valid JSON + 8-dot escape flag',
+    r.ok && r.eightDot === true, JSON.stringify(r).slice(0, 120));
+}
+{
+  const r = translate(core, 'crlf\r\nline', 'en-ueb-g1.ctb');
+  check('adversarial: CRLF treated as one line break', r.ok && r.lines.length === 2, JSON.stringify(r.lines));
+}
+{
+  const r = translate(core, 'x', 'bad"name\\.ctb');
+  check('adversarial: hostile table name yields parseable error JSON', !r.ok && typeof r.error === 'string');
+}
+{
+  // Leading blank cells = braille indentation; the wrap path used to drop them.
+  const wrapped = translate(core, '  indented text here', 'en-ueb-g1.ctb', 10);
+  const noWrap = translate(core, '  indented text here', 'en-ueb-g1.ctb', 0);
+  const lead = (l) => { let n = 0; for (const c of l) { if (c === '⠀') n++; else break; } return n; };
+  check('wrap preserves leading blank cells (indentation)',
+    wrapped.ok && lead(wrapped.lines[0]) === 2, JSON.stringify(wrapped.lines));
+  check('no-wrap and wrap agree on indentation',
+    noWrap.ok && lead(noWrap.lines[0]) === lead(wrapped.lines[0]), JSON.stringify(noWrap.lines));
+  const widths = wrapped.lines.map(l => [...l].length);
+  check('indented wrap still honors the line limit', widths.every(w => w <= 10), JSON.stringify(widths));
+}
+
 // Golden UEB vectors (research pass 2026-07-15; see docs/research-synthesis.json)
 for (const [text, table, want, label] of [
   ['Hello World', 'en-ueb-g2.ctb', '⠠⠓⠑⠇⠇⠕⠀⠠⠸⠺', 'G2 capital indicator per word'],
@@ -267,6 +298,69 @@ const { brailleToBrf } = await import(pathToFileURL(join(ROOT, 'app', 'braille-b
 }
 
 // ---------------------------------------------------------------------------
+// 3.5 presets module
+// ---------------------------------------------------------------------------
+section('presets module');
+const { PRESETS, validateDimensions, satisfiedStandards, matchingPreset, linePitchToSpacing } =
+  await import(pathToFileURL(join(ROOT, 'app', 'presets.mjs')));
+
+{
+  const base = { dotDiameter: 1.5, dotHeight: 0.7, dotPitch: 2.4, cellPitch: 6.2, linePitch: 10.1 };
+  check('validateDimensions: clean values pass', validateDimensions(base).errors.length === 0);
+
+  const bad = validateDimensions({ ...base, cellPitch: 4.5 });
+  check('validateDimensions: errors are typed to a field',
+    bad.errors.length > 0 && bad.errors.every(e => e.field && e.msg));
+
+  const cross = validateDimensions({ ...base, dotPitch: 3.2, cellPitch: 5.5 });
+  check('cell-pitch guard attributes to cellPitch (not dot pitch)',
+    cross.errors.some(e => e.field === 'cellPitch' && /cell pitch/i.test(e.msg)),
+    JSON.stringify(cross.errors));
+
+  const merge = validateDimensions({ ...base, dotDiameter: 2.0, dotPitch: 2.1 });
+  check('dot-merge guard attributes to dotPitch',
+    merge.errors.some(e => e.field === 'dotPitch'), JSON.stringify(merge.errors));
+}
+{
+  const ada = PRESETS.ada;
+  check('ADA preset satisfies ADA §703.3.1', satisfiedStandards(ada).includes('ADA §703.3.1'));
+  const marburg = PRESETS.marburg;
+  check('Marburg preset satisfies UKAAF / Marburg', satisfiedStandards(marburg).includes('UKAAF / Marburg'));
+  // UKAAF spacings are EXACT values (B008): near-misses must NOT earn the badge.
+  check('UKAAF badge rejects off-standard spacing (2.4 dot pitch)',
+    !satisfiedStandards({ ...marburg, dotPitch: 2.4 }).includes('UKAAF / Marburg'));
+  check('BANA preset satisfies ISO 17049', satisfiedStandards(PRESETS.bana).includes('ISO 17049'));
+  for (const [id, p] of Object.entries(PRESETS)) {
+    if (matchingPreset(p) !== id) { check(`matchingPreset roundtrip: ${id}`, false, matchingPreset(p)); }
+  }
+  check('matchingPreset roundtrips all presets', true);
+  // Warnings: ISO signage practice
+  const w = validateDimensions({ ...PRESETS.ada, marginSize: 3, charsPerLine: 50 });
+  check('soft warnings: margin + cells-per-line', w.warnings.length >= 2, JSON.stringify(w.warnings));
+}
+{
+  // linePitch -> engine lineSpacing algebra: plate_depth must equal linePitch.
+  const v = PRESETS.ada;
+  const spacing = linePitchToSpacing(v);
+  const plateDepth = v.dotPitch * 2 + v.dotDiameter + spacing;
+  check('line pitch algebra: plate_depth == linePitch', Math.abs(plateDepth - v.linePitch) < 1e-9,
+    `${plateDepth} vs ${v.linePitch}`);
+}
+
+// ---------------------------------------------------------------------------
+// 3.6 service worker shell integrity
+// ---------------------------------------------------------------------------
+section('service worker');
+{
+  const sw = readFileSync(join(ROOT, 'sw.js'), 'utf8');
+  const m = sw.match(/const SHELL = \[([\s\S]*?)\];/);
+  const files = [...m[1].matchAll(/'\.\/([^']+)'/g)].map(x => x[1]);
+  const missing = files.filter(f => { try { readFileSync(join(ROOT, f)); return false; } catch { return true; } });
+  check(`sw.js SHELL entries all exist on disk (${files.length})`, files.length > 10 && missing.length === 0,
+    missing.join(', '));
+}
+
+// ---------------------------------------------------------------------------
 // 4. Tables manifest
 // ---------------------------------------------------------------------------
 section('tables manifest');
@@ -300,6 +394,22 @@ if (!FAST) {
       r.ok && r.lines[0] === '⠉⠁⠋⠮⠀⠝⠊⠻⠕',
       JSON.stringify(r));
   }
+  const stlBbox = (bytes) => {
+    const tri = new DataView(bytes.buffer, bytes.byteOffset + 80, 4).getUint32(0, true);
+    const dv = new DataView(bytes.buffer, bytes.byteOffset);
+    const bb = [Infinity, Infinity, Infinity, -Infinity, -Infinity, -Infinity];
+    for (let i = 0; i < tri; i++) {
+      const off = 84 + i * 50 + 12;
+      for (let j = 0; j < 3; j++) {
+        for (let k = 0; k < 3; k++) {
+          const v = dv.getFloat32(off + j * 12 + k * 4, true);
+          bb[k] = Math.min(bb[k], v); bb[3 + k] = Math.max(bb[3 + k], v);
+        }
+      }
+    }
+    return { x: bb[3] - bb[0], y: bb[4] - bb[1], z: bb[5] - bb[2], tri };
+  };
+
   {
     writeTables(stl, 'en-ueb-g2.ctb');
     const fname = stl.ccall('generateBrailleSTL', 'string',
@@ -313,6 +423,24 @@ if (!FAST) {
     const triCount = new DataView(bytes.buffer, bytes.byteOffset + 80, 4).getUint32(0, true);
     check('STL: triangle count matches payload size',
       bytes.length === 84 + triCount * 50, `${triCount} tris, ${bytes.length} bytes`);
+  }
+  {
+    // "What you preview is what you print": the STL bounding box must match
+    // the SVG module's plate math for the same parameters (multi-line, ragged).
+    const params = { dotDiameter: 1.5, dotPitch: 2.4, cellPitch: 6.2, lineSpacing: 10.1 - (2 * 2.4 + 1.5), margin: 6 };
+    const r = translate(stl, 'first line\nsecond longer line here', 'en-ueb-g1.ctb', 32);
+    const fname = stl.ccall('generateBrailleSTL', 'string',
+      ['string', 'number', 'string', 'number', 'number', 'number', 'number', 'number', 'boolean', 'boolean', 'number', 'number', 'number'],
+      ['first line\nsecond longer line here', 32, 'en-ueb-g1.ctb', 0.7, 2.0, params.lineSpacing, 6.0, 1.0, false, false, 1.5, 2.4, 6.2]);
+    const bytes = stl.FS.readFile(fname);
+    const bb = stlBbox(bytes);
+    const svgDims = brailleToSvg(r.lines, params);
+    check('geometry parity: STL bbox width == SVG widthMm',
+      Math.abs(bb.x - svgDims.widthMm) < 0.02, `${bb.x.toFixed(3)} vs ${svgDims.widthMm}`);
+    check('geometry parity: STL bbox depth == SVG heightMm',
+      Math.abs(bb.y - svgDims.heightMm) < 0.02, `${bb.y.toFixed(3)} vs ${svgDims.heightMm}`);
+    check('geometry parity: STL height = plate + dot',
+      Math.abs(bb.z - 2.7) < 0.02, bb.z.toFixed(3));
   }
   {
     // 8-dot geometry: taller cells must not crash and must produce output

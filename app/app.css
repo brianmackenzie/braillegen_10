@@ -68,6 +68,11 @@
   --font-braille: 'Apple Braille', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'DejaVu Sans', sans-serif;
 }
 
+/* Native controls (checkboxes, selects, scrollbars) must follow the ACTIVE
+   theme, not the OS — otherwise forced-dark shows white checkbox squares. */
+:root[data-theme='light'] { color-scheme: light; }
+:root[data-theme='dark'] { color-scheme: dark; }
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     --bg: oklch(0.19 0.012 265);          /* soft charcoal, not black */
@@ -190,7 +195,7 @@ a:hover { text-decoration-thickness: 2px; }
   font-weight: 700; font-size: 1.25rem;
   color: var(--text); text-decoration: none;
 }
-.brand svg { inline-size: 28px; block-size: 28px; }
+.brand svg { inline-size: 22px; block-size: 30px; } /* keep the 20:28 cell aspect */
 .brand .cell-dot { fill: var(--accent); }
 .brand .cell-dot--empty { fill: var(--dot-empty); }
 
@@ -345,6 +350,14 @@ button[aria-disabled='true'] {
 @media (forced-colors: active) {
   .preview-line svg { color: CanvasText; }
   .panel, .preview-line, button, .button { border-color: ButtonText; }
+  /* pressed/current states must survive Windows Contrast Themes */
+  .theme-toggle button { border: 1px solid ButtonText; }
+  .theme-toggle button[aria-pressed='true'],
+  .site-nav a[aria-current='page'] {
+    background: SelectedItem;
+    color: SelectedItemText;
+    forced-color-adjust: none;
+  }
 }
 
 /* dots "rise" as the preview updates — the signature embossing moment */
@@ -392,7 +405,7 @@ details.console summary { cursor: pointer; font-weight: 700; min-block-size: 44p
 /* ---------- theme toggle -------------------------------------------------- */
 .theme-toggle { display: inline-flex; gap: 2px; border: var(--border-w) solid var(--border); border-radius: 999px; padding: 2px; }
 .theme-toggle button {
-  border: none; min-block-size: 38px; border-radius: 999px;
+  border: none; min-block-size: 44px; border-radius: 999px;
   background: transparent; color: var(--text-soft);
 }
 .theme-toggle button[aria-pressed='true'] { background: var(--accent); color: var(--accent-ink); }

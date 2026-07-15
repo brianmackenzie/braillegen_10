@@ -2,7 +2,7 @@
 // AGPL-3.0 — part of the BrailleGen fork.
 
 import { translate, generateStl, loadCore, onEngineLog, stlReady } from './engine.mjs';
-import { brailleToSvg, hasEightDot } from './braille-svg.mjs';
+import { brailleToSvg } from './braille-svg.mjs';
 import { brailleToBrf } from './braille-brf.mjs';
 import { TABLE_GROUPS, DEFAULT_TABLE, tableInfo } from './tables.mjs';
 import {
@@ -14,8 +14,16 @@ const $ = (id) => document.getElementById(id);
 const statusEl = $('status');
 const alertEl = $('alert');
 
-function announce(msg) { statusEl.textContent = ''; statusEl.textContent = msg; }
-function raiseAlert(msg) { alertEl.textContent = msg; }
+// Clear-then-set must span a frame, or an identical repeated message coalesces
+// in the accessibility tree and screen readers stay silent (a11y audit F3).
+function announce(msg) {
+  statusEl.textContent = '';
+  requestAnimationFrame(() => { statusEl.textContent = msg; });
+}
+function raiseAlert(msg) {
+  alertEl.textContent = '';
+  requestAnimationFrame(() => { alertEl.textContent = msg; });
+}
 function clearAlert() { alertEl.textContent = ''; }
 
 // ---------------------------------------------------------------------------
@@ -91,9 +99,19 @@ const NUM_FIELDS = [...DIM_FIELDS, 'plateHeight', 'marginSize', 'stlScale', 'cha
 function applyPreset(id) {
   const p = PRESETS[id];
   if (!p) return;
-  for (const f of DIM_FIELDS) $(f).value = String(p[f === 'dotHeight' ? 'dotHeight' : f] ?? p[f]);
+  for (const f of DIM_FIELDS) $(f).value = String(p[f]);
   $('presetNote').textContent = p.note;
   presetSelect.value = id;
+}
+
+function updateTableHint() {
+  const info = tableInfo(tableSelect.value);
+  $('tableHint').textContent = info.eightDot
+    ? 'This table produces 8-dot braille (dots 7–8): taller cells; BRF export cannot represent it.'
+    : '';
+  // The typed text is in the selected table's language (WCAG 3.1.2).
+  if (info.lang && info.lang !== 'und') $('textInput').setAttribute('lang', info.lang);
+  else $('textInput').removeAttribute('lang');
 }
 
 presetSelect.addEventListener('change', () => {
@@ -142,10 +160,31 @@ function setFieldError(id, msg) {
   $(id)?.setAttribute('aria-invalid', msg ? 'true' : 'false');
 }
 
+// Debounced, change-only announcements for validation state (a11y audit F1/F10):
+// screen-reader users must hear errors + compliance changes without per-keystroke
+// chatter. Errors take precedence over badge changes.
+let validationAnnounceTimer = 0;
+let lastErrorSignature = '';
+let lastBadgeSignature = null;   // null = not yet painted (skip initial announce)
+function scheduleValidationAnnouncement(errorMsgs, badgeText) {
+  const errSig = errorMsgs.join('|');
+  clearTimeout(validationAnnounceTimer);
+  validationAnnounceTimer = setTimeout(() => {
+    if (errSig !== lastErrorSignature) {
+      lastErrorSignature = errSig;
+      if (errSig) { announce(errorMsgs.join(' ')); lastBadgeSignature = badgeText; return; }
+    }
+    if (lastBadgeSignature !== null && badgeText !== lastBadgeSignature && !errSig) {
+      announce(badgeText ? `Dimensions now: ${badgeText}.` : 'Dimensions meet no published standard exactly.');
+    }
+    lastBadgeSignature = badgeText;
+  }, 900);
+}
+
 /** Validate everything; paints per-field errors; returns {ok, s, errors}. */
 function validateAll() {
   const s = readSettings();
-  const errors = [];
+  const errors = [];   // strings, for export-time summaries
 
   for (const f of NUM_FIELDS) setFieldError(f, null);
 
@@ -164,22 +203,21 @@ function validateAll() {
   range('stlScale', 'Export scale', LIMITS.stlScale);
 
   const dims = validateDimensions(s);
-  // Attach dimension errors to the most relevant field (first match wins).
   for (const e of dims.errors) {
-    errors.push(e);
-    const field = DIM_FIELDS.find(f => e.toLowerCase().includes(
-      { dotDiameter: 'diameter', dotHeight: 'height', dotPitch: 'dot pitch',
-        cellPitch: 'cell pitch', linePitch: 'line pitch' }[f]));
-    if (field) setFieldError(field, e);
+    errors.push(e.msg);
+    setFieldError(e.field, e.msg);   // typed: lands on the field the message names
   }
 
-  paintBadges(s, dims);
+  const badgeText = paintBadges(s, dims);
+  scheduleValidationAnnouncement(errors, badgeText);
   return { ok: errors.length === 0, s, errors, warnings: dims.warnings };
 }
 
+/** Paints the compliance badges; returns a text signature for announcements. */
 function paintBadges(s, dims) {
   const wrap = $('complianceBadges');
   wrap.textContent = '';
+  const parts = [];
   const mk = (text, cls) => {
     const b = document.createElement('span');
     b.className = 'badge' + (cls ? ' ' + cls : '');
@@ -188,13 +226,14 @@ function paintBadges(s, dims) {
   };
   if (dims.errors.length === 0) {
     const sat = satisfiedStandards(s);
-    if (sat.length) for (const id of sat) mk(`Meets ${id}`, 'badge--ok');
+    if (sat.length) for (const id of sat) { mk(`Meets ${id}`, 'badge--ok'); parts.push(`meets ${id}`); }
     else mk('Meets no published standard exactly', '');
-    for (const w of dims.warnings ?? []) mk(w, 'badge--warn');
+    for (const w of dims.warnings ?? []) { mk(w, 'badge--warn'); parts.push(w); }
   }
   // Keep the preset selector honest.
   const match = matchingPreset(s);
   if (presetSelect.value !== 'custom' && !match) presetSelect.value = 'custom';
+  return parts.join('; ');
 }
 
 const PERSIST_KEY = 'bg-settings-v1';
@@ -229,8 +268,11 @@ function restoreSettings() {
     setChk('svgEmptyDots', s.svgEmptyDots);
     setChk('svgDrillMarks', s.svgDrillMarks);
     if (s.preset && (PRESETS[s.preset] || s.preset === 'custom')) presetSelect.value = s.preset;
-    if (s.preset === 'custom') $('presetNote').textContent = 'Free-form values.';
-    else if (PRESETS[s.preset]) $('presetNote').textContent = PRESETS[s.preset].note;
+    if (s.preset === 'custom') {
+      $('presetNote').textContent = 'Free-form values. The badges below show which standards the current numbers satisfy.';
+    } else if (PRESETS[s.preset]) {
+      $('presetNote').textContent = PRESETS[s.preset].note;
+    }
   } catch {}
 }
 
@@ -295,16 +337,20 @@ async function refreshPreview() {
 
   const cells = r.lines.reduce((n, l) => n + [...l].length, 0);
   const dims = brailleToSvg(r.lines.length ? r.lines : ['⠀'], svgOptionsFrom(s));
+  const sizeLabel = s.plateHeight > 0 ? 'plate' : 'dot field';
   meta.textContent =
     `${r.lines.length} line${r.lines.length === 1 ? '' : 's'} · ${cells} cell${cells === 1 ? '' : 's'}` +
-    ` · plate ≈ ${dims.widthMm} × ${dims.heightMm} mm` +
+    ` · ${sizeLabel} ≈ ${dims.widthMm} × ${dims.heightMm} mm` +
+    (s.stlScale !== 1 && Number.isFinite(s.stlScale) ? ` (× ${s.stlScale} in the STL)` : '') +
     (r.eightDot ? ' · 8-dot' : '');
 
   linesWrap.textContent = '';
   const pxPerMm = 3;
+  const rows = [];
   r.lines.forEach((line) => {
     const row = document.createElement('div');
     row.className = 'preview-line';
+    row.setAttribute('role', 'listitem');
 
     const text = document.createElement('span');
     text.className = 'braille-text';
@@ -326,6 +372,8 @@ async function refreshPreview() {
     svgEl.setAttribute('aria-hidden', 'true');
     svgEl.removeAttribute('role');
     svgEl.removeAttribute('aria-labelledby');
+    // The exported-SVG accessibility ids must not duplicate across preview rows.
+    for (const idEl of svgEl.querySelectorAll('[id]')) idEl.removeAttribute('id');
     svgEl.style.width = `${widthMm * pxPerMm}px`;
     // faint outlines for absent dots use a class the theme can color
     for (const g of svgEl.querySelectorAll('g[stroke-opacity]')) {
@@ -337,6 +385,15 @@ async function refreshPreview() {
     }
     row.append(svgEl);
     linesWrap.append(row);
+    rows.push(row);
+  });
+
+  // Clipped rows must be keyboard-scrollable (WCAG 2.1.1); only overflowing
+  // rows get a tab stop so short previews add none.
+  requestAnimationFrame(() => {
+    for (const row of rows) {
+      if (row.scrollWidth > row.clientWidth) row.tabIndex = 0;
+    }
   });
 }
 
@@ -347,7 +404,7 @@ function onSettingsChanged() {
   debounceTimer = setTimeout(refreshPreview, 220);
 }
 
-$('genform').addEventListener('input', onSettingsChanged);
+$('genform').addEventListener('input', () => { updateTableHint(); onSettingsChanged(); });
 $('genform').addEventListener('submit', (e) => { e.preventDefault(); refreshPreview(); });
 
 // ---------------------------------------------------------------------------
@@ -362,9 +419,14 @@ function tableSlug(table) {
   return table.replace(/\.(ctb|utb|tbl)$/, '').replace(/[^a-z0-9]+/gi, '-');
 }
 
+let lastObjectUrl = null;
 function offerDownload(bytes, filename, type, label) {
   const blob = new Blob([bytes], { type });
   const url = URL.createObjectURL(blob);
+  // The visible link must stay clickable, so only the PREVIOUS export's blob
+  // is revoked — bounding the leak to one object URL at a time.
+  if (lastObjectUrl) { URL.revokeObjectURL(lastObjectUrl); }
+  lastObjectUrl = url;
   const note = $('downloadNote');
   note.textContent = '';
   const a = document.createElement('a');
@@ -407,9 +469,14 @@ $('btnBrf').addEventListener('click', async () => {
   if (!t) return;
   const { s, r } = t;
   const { brf, droppedDots } = brailleToBrf(r.lines, { cellsPerLine: Math.min(40, s.charsPerLine || 40) });
+  const notes = [];
   if (droppedDots > 0) {
-    raiseAlert(`BRF is a 6-dot format: dots 7 and 8 were removed from ${droppedDots} cell${droppedDots === 1 ? '' : 's'}. For 8-dot content, use the braille text download instead.`);
+    notes.push(`BRF is a 6-dot format: dots 7 and 8 were removed from ${droppedDots} cell${droppedDots === 1 ? '' : 's'} — for 8-dot content, use the braille text download instead.`);
   }
+  if ((s.charsPerLine || 0) > 40) {
+    notes.push('BRF lines are capped at the conventional 40 cells; longer preview lines re-wrap in the file.');
+  }
+  if (notes.length) raiseAlert(notes.join(' '));
   offerDownload(brf, `${slugify(s.text)}_${tableSlug(s.table)}.brf`, 'text/plain', 'BRF');
 });
 
@@ -445,10 +512,13 @@ $('btnStl').addEventListener('click', async () => {
   const progress = $('stlProgress');
   stlBusy = true;
   $('btnStl').setAttribute('aria-disabled', 'true');
+  $('downloads').setAttribute('aria-busy', 'true');
   try {
     if (!stlReady()) {
       progressWrap.hidden = false;
       announce('Loading the 3D engine — about nine megabytes, one time only. Your STL will generate when it is ready.');
+    } else {
+      announce('Generating STL…');
     }
     exportStatus.dataset.tone = '';
     exportStatus.textContent = stlReady() ? 'Generating STL…' : 'Loading 3D engine…';
@@ -470,9 +540,11 @@ $('btnStl').addEventListener('click', async () => {
       cellPitch: s.cellPitch,
     }, ({ loaded, total }) => {
       if (total) {
-        const pct = Math.round((loaded / total) * 100);
+        // Clamp: if the server transparently decompresses, decoded bytes can
+        // exceed the encoded Content-Length.
+        const pct = Math.min(100, Math.round((loaded / total) * 100));
         progress.value = pct;
-        const milestone = Math.floor(pct / 25) * 25;
+        const milestone = Math.min(100, Math.floor(pct / 25) * 25);
         if (milestone > lastMilestone) {
           lastMilestone = milestone;
           announce(`3D engine download: ${milestone} percent.`);
@@ -480,7 +552,10 @@ $('btnStl').addEventListener('click', async () => {
       } else {
         progress.removeAttribute('value');
       }
-      if (loaded === total) exportStatus.textContent = 'Generating STL…';
+      if (total && loaded >= total) {
+        exportStatus.textContent = 'Generating STL…';
+        announce('Engine loaded. Generating STL…');
+      }
     });
 
     progressWrap.hidden = true;
@@ -496,6 +571,7 @@ $('btnStl').addEventListener('click', async () => {
   } finally {
     stlBusy = false;
     $('btnStl').removeAttribute('aria-disabled');
+    $('downloads').removeAttribute('aria-busy');
   }
 });
 
@@ -514,11 +590,18 @@ async function initSw() {
   }
   try {
     const reg = await navigator.serviceWorker.register('./sw.js');
-    if (navigator.serviceWorker.controller) {
-      offlineState.textContent = 'Offline: ready — this app works without a connection';
-    } else {
-      offlineState.textContent = 'Offline: caching… available after this visit';
-    }
+    const paintState = () => {
+      if (navigator.serviceWorker.controller) {
+        offlineState.textContent = 'Offline: ready — this app works without a connection';
+      } else if (reg.active) {
+        offlineState.textContent = 'Offline: ready after the next reload';
+      } else {
+        offlineState.textContent = 'Offline: caching… available after this visit';
+      }
+    };
+    paintState();
+    navigator.serviceWorker.addEventListener('controllerchange', paintState);
+    reg.installing?.addEventListener('statechange', paintState);
     reg.addEventListener('updatefound', () => {
       const w = reg.installing;
       w?.addEventListener('statechange', () => {
@@ -537,6 +620,7 @@ async function initSw() {
 // Boot
 // ---------------------------------------------------------------------------
 restoreSettings();
+updateTableHint();
 validateAll();
 initSw();
 

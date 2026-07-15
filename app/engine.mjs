@@ -88,7 +88,7 @@ function moduleConfig(extra = {}) {
   };
 }
 
-/** Load the small translator engine (idempotent). */
+/** Load the small translator engine (idempotent, retryable after failure). */
 export function loadCore() {
   if (!state.corePromise) {
     state.corePromise = (async () => {
@@ -97,6 +97,7 @@ export function loadCore() {
       log(`[engine] core ready`);
       return state.core;
     })();
+    state.corePromise.catch(() => { state.corePromise = null; }); // allow retry
   }
   return state.corePromise;
 }
@@ -150,16 +151,20 @@ async function ensureTables(which, mod, table) {
   const need = entry.files.filter(f => !written.has(f));
   if (need.length === 0) return;
 
+  // tableBytes stores PROMISES so concurrent ensureTables calls for the same
+  // table share one in-flight fetch instead of double-fetching.
   await Promise.all(need.map(async (f) => {
     if (!state.tableBytes.has(f)) {
-      const bytes = await fetchBytes(new URL(`liblouis/tables/${f}`, BASE));
-      state.tableBytes.set(f, bytes);
+      const p = fetchBytes(new URL(`liblouis/tables/${f}`, BASE));
+      p.catch(() => state.tableBytes.delete(f)); // failed fetches are retryable
+      state.tableBytes.set(f, p);
     }
+    await state.tableBytes.get(f);
   }));
 
   try { mod.FS.mkdir('/tables'); } catch { /* exists */ }
   for (const f of need) {
-    mod.FS.writeFile(`/tables/${f}`, state.tableBytes.get(f));
+    mod.FS.writeFile(`/tables/${f}`, await state.tableBytes.get(f));
     written.add(f);
   }
 }

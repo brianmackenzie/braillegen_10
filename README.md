@@ -34,7 +34,7 @@ in one WASM, fully client-side) and rebuilds everything around it:
 | Outputs | STL only | STL + SVG + BRF + Unicode text + clipboard |
 | Accessibility | focus outlines removed, no announcements, tabs without semantics | WCAG 2.2 AA target: live regions, visible focus, keyboard-complete, forced-colors, reduced-motion, 7:1 text contrast |
 | Offline | claimed | real: installable PWA with a service worker |
-| Tests | none | 60+ automated checks incl. golden UEB vectors validated against liblouis's own tables |
+| Tests | none | 74 engine/module checks (golden UEB vectors, geometry parity, adversarial inputs) + a 19-check real-browser suite |
 
 ## Architecture
 
@@ -80,6 +80,17 @@ node tests/run-tests.mjs --fast   # skip the slow STL engine tests
 
 Rebuilding the wasm engines requires emscripten — see [BUILDING.md](BUILDING.md).
 The deployed site needs no build step at all: it is static files.
+
+### Deploying your fork
+
+1. Enable GitHub Pages (deploy from branch, root).
+2. Update the GitHub/Source links in `index.html` and `docs.html` (nav, footer)
+   and the issues link in `docs.html` to point at **your** repository — the
+   AGPL requires a network-deployed modification to offer its own source.
+3. If you own a domain, add a `CNAME` file (this fork removed upstream's so a
+   fresh deploy doesn't claim braillegen.org).
+4. Bump `VERSION` in `sw.js` on every deploy so returning visitors pick up the
+   new build.
 
 ## License & credits
 

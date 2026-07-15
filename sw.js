@@ -31,7 +31,11 @@ const SHELL = [
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(VERSION).then((c) => c.addAll(SHELL)));
+  // cache: 'reload' bypasses the HTTP cache so a new SW can never precache a
+  // STALE shell file next to new engine bytes (mixed-version pinning).
+  event.waitUntil(caches.open(VERSION).then(
+    (c) => c.addAll(SHELL.map((u) => new Request(u, { cache: 'reload' })))
+  ));
 });
 
 self.addEventListener('activate', (event) => {
@@ -52,10 +56,13 @@ self.addEventListener('fetch', (event) => {
     const hit = await cache.match(event.request, { ignoreSearch: false });
     if (hit) return hit;
     try {
-      const res = await fetch(event.request);
+      // no-cache: revalidate against the server so a fresh deploy's bytes are
+      // what gets pinned, never the browser HTTP cache's stale copy.
+      const res = await fetch(event.request, { cache: 'no-cache' });
       // Runtime-cache successful same-origin responses (tables, stl engine).
-      if (res.ok && (res.type === 'basic' || res.type === 'default')) {
-        cache.put(event.request, res.clone());
+      // status 200 only (a 206 partial would throw inside cache.put).
+      if (res.ok && res.status === 200 && res.type === 'basic') {
+        event.waitUntil(cache.put(event.request, res.clone()).catch(() => {}));
       }
       return res;
     } catch (err) {
