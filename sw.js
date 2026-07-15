@@ -8,7 +8,7 @@
 //
 // AGPL-3.0 — part of the BrailleGen fork.
 
-const VERSION = 'bg-v2.0.6';
+const VERSION = 'bg-v2.0.7';
 const SHELL = [
   './',
   './index.html',

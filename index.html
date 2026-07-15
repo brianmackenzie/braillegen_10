@@ -65,8 +65,8 @@
         — nothing you type leaves this page.
       </p>
 
-      <!-- Visible until the app boots, so it also covers failed script loads —
-           unlike <noscript>, which only ever handled disabled JavaScript. -->
+      <!-- Shown when scripts are disabled or fail to load; app.mjs removes it
+           the moment the app boots. -->
       <p id="needsJs"><strong>BrailleGen needs JavaScript.</strong>
         The braille translator and 3D geometry run entirely in your browser via
         WebAssembly; there is no server to fall back to.</p>
