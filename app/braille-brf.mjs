@@ -71,7 +71,9 @@ export function brailleToBrf(lines, opts = {}) {
       outLines.push(out.slice(0, cellsPerLine));
       out = out.slice(cellsPerLine);
     }
-    outLines.push(out);
+    // Trailing spaces carry no braille meaning and mainstream producers
+    // (e.g. BrailleBlaster) trim them; leading spaces are layout and stay.
+    outLines.push(out.replace(/ +$/, ''));
   }
 
   const pages = [];

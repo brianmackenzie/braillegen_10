@@ -278,9 +278,12 @@ const { brailleToBrf } = await import(pathToFileURL(join(ROOT, 'app', 'braille-b
 
   let mismatches = [];
   for (let mask = 0; mask < 64; mask++) {
-    const uni = String.fromCodePoint(0x2800 + mask);
+    // Probe each cell in a NON-trailing position (followed by dots-12 'B'):
+    // trailing spaces are trimmed from lines, so a lone blank cell would
+    // otherwise read back as an empty line.
+    const uni = String.fromCodePoint(0x2800 + mask) + '⠃';
     const { brf } = brailleToBrf([uni]);
-    const got = brf.replace(/[\r\n\f]/g, '');
+    const got = brf.replace(/[\r\n\f]/g, '').slice(0, -1);
     const want = expected.get(mask);
     if (got !== want) mismatches.push(`${mask.toString(2)}: got ${JSON.stringify(got)} want ${JSON.stringify(want)}`);
   }
@@ -307,6 +310,25 @@ const { brailleToBrf } = await import(pathToFileURL(join(ROOT, 'app', 'braille-b
 {
   const { brf } = brailleToBrf(['⠁⠃⠉'], { cellsPerLine: 0 }); // hostile option
   check('BRF: cellsPerLine 0 clamps instead of crashing', brf.length > 0);
+}
+{
+  // The BRF byte inventory is closed: braille cells 0x20-0x5F plus CR/LF/FF
+  // and nothing else (no tabs, no BOM, no lowercase, no 8-bit bytes).
+  const es = translate(core, 'café ¿niño? ¡Hola! 3.14', 'es-g1.ctb');
+  const en = translate(core, 'Hello World 42 (test) #x', 'en-ueb-g2.ctb');
+  const { brf } = brailleToBrf([...es.lines, ...en.lines, '⡁']); // incl. an 8-dot cell
+  const bad = [...brf].filter(c => {
+    const b = c.charCodeAt(0);
+    return !(b === 0x0D || b === 0x0A || b === 0x0C || (b >= 0x20 && b <= 0x5F));
+  });
+  check('BRF: byte inventory is strictly {CR,LF,FF} + 0x20-0x5F', bad.length === 0,
+    JSON.stringify(bad.slice(0, 5)));
+}
+{
+  // A substituted 8-dot cell at end of line must not leave a trailing space.
+  const { brf } = brailleToBrf(['⠁⡁']);
+  const firstLine = brf.split('\r\n')[0];
+  check('BRF: trailing spaces trimmed from lines', firstLine === 'A', JSON.stringify(firstLine));
 }
 
 // ---------------------------------------------------------------------------
