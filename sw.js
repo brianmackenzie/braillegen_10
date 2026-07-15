@@ -1,0 +1,70 @@
+// BrailleGen service worker — cache-first offline support.
+//
+// Strategy: the small app shell + core engine precache at install; heavy or
+// on-demand assets (braille tables, the STL engine) are cached the first time
+// they are fetched. Bump VERSION on every deploy — old caches are deleted on
+// activate, and the page offers a reload when a new worker installs.
+//
+// AGPL-3.0 — part of the BrailleGen fork.
+
+const VERSION = 'bg-v2.0.0';
+const SHELL = [
+  './',
+  './index.html',
+  './docs.html',
+  './manifest.webmanifest',
+  './assets/icon.svg',
+  './app/app.css',
+  './app/app.mjs',
+  './app/engine.mjs',
+  './app/braille-svg.mjs',
+  './app/braille-brf.mjs',
+  './app/tables.mjs',
+  './app/presets.mjs',
+  './engine/core.js',
+  './engine/core.wasm',
+  './engine/tables-manifest.json',
+  './assets/fonts/atkinson-400-latin.woff2',
+  './assets/fonts/atkinson-400-latin-ext.woff2',
+  './assets/fonts/atkinson-700-latin.woff2',
+  './assets/fonts/atkinson-700-latin-ext.woff2',
+];
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(caches.open(VERSION).then((c) => c.addAll(SHELL)));
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil((async () => {
+    for (const key of await caches.keys()) {
+      if (key !== VERSION) await caches.delete(key);
+    }
+    await self.clients.claim();
+  })());
+});
+
+self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url);
+  if (event.request.method !== 'GET' || url.origin !== self.location.origin) return;
+
+  event.respondWith((async () => {
+    const cache = await caches.open(VERSION);
+    const hit = await cache.match(event.request, { ignoreSearch: false });
+    if (hit) return hit;
+    try {
+      const res = await fetch(event.request);
+      // Runtime-cache successful same-origin responses (tables, stl engine).
+      if (res.ok && (res.type === 'basic' || res.type === 'default')) {
+        cache.put(event.request, res.clone());
+      }
+      return res;
+    } catch (err) {
+      // Offline and not cached: fall back to the shell for navigations.
+      if (event.request.mode === 'navigate') {
+        const shell = await cache.match('./index.html');
+        if (shell) return shell;
+      }
+      throw err;
+    }
+  })());
+});

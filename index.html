@@ -1,551 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BrailleGen is a fast, offline web application that generates highly customizable 3D printable Braille STL files from text.">
-    <meta name="keywords" content="Braille, 3D Printing, STL, Generator, Translator, liblouis, labels">
-    <meta property="og:title" content="BrailleGen 10B">
-    <meta property="og:description" content="Generate 3D printable Braille models directly in your browser. Fully offline and customizable.">
-    <meta property="og:type" content="website">
-    <link rel="icon" type="image/png" href="assets/xxxxxx.png">
-    <link rel="canonical" href="https://braillegen.org/" />
-    <title>BrailleGen 10B</title>
-    <style>
-        @font-face {
-            font-family: 'CustomFont';
-            src: url('assets/RobotoMono-VariableFont_wght.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        body {
-            font-family: 'CustomFont', sans-serif;
-            background-color: #4768BC;
-            color: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-        
-        .window {
-            background: #e6e6e6;
-            border: 2px solid;
-            border-color: #ffffff #000000 #000000 #ffffff;
-            box-shadow: inset 1px 1px #dfdfdf, inset -1px -1px #808080, 2px 2px 5px rgba(0,0,0,0.5);
-            width: 100%;
-            max-width: 550px;
-            transition: max-width 0.2s ease-in-out;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .window.wide {
-            max-width: 800px;
-        }
-
-        .content {
-            padding: 15px 20px;
-        }
-
-        h2 {
-            font-size: 22px;
-            margin: 0 0 15px 0;
-            text-transform: capitalize;
-            letter-spacing: 0.5px;
-        }
-
-        /* Top Section Layout */
-        .top-section {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
-
-        .text-input-row {
-            display: flex;
-            margin-bottom: 15px;
-        }
-
-        .text-input-row label {
-            font-weight: bold;
-            font-size: 16px;
-            width: 140px;
-            flex-shrink: 0;
-        }
-
-        textarea {
-            flex-grow: 1;
-            height: 80px;
-            resize: vertical;
-            padding: 4px;
-            font-family: inherit;
-            border: 2px solid;
-            border-color: #808080 #ffffff #ffffff #808080;
-        }
-
-        .generate-row {
-            display: flex;
-            justify-content: flex-start;
-            margin-left: 140px;
-            margin-bottom: 10px;
-        }
-
-        /* Settings Grid Layout */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .section-header h2 {
-            margin: 0;
-        }
-
-        .settings-grid {
-            display: grid;
-            grid-template-columns: 3fr 2fr;
-            column-gap: 15px;
-            row-gap: 12px;
-            align-items: center;
-        }
-
-        .settings-grid label {
-            font-weight: bold;
-            font-size: 15px;
-        }
-
-        .settings-grid input[type="number"], 
-        .settings-grid select,
-        .settings-grid input[type="text"] {
-            padding: 4px;
-            border: 2px solid;
-            border-color: #808080 #ffffff #ffffff #808080;
-            font-family: inherit;
-            font-size: 14px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .checkbox-row {
-            grid-column: 1 / span 2;
-            display: flex;
-            align-items: center;
-            margin-top: 5px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .checkbox-row .main-label {
-            font-weight: bold;
-            font-size: 15px;
-            width: 190px;
-            flex-shrink: 0;
-        }
-
-        .checkbox-row label {
-            font-weight: bold;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            white-space: nowrap;
-        }
-
-        .checkbox-row input[type="checkbox"] {
-            margin-right: 5px;
-        }
-
-        /* Buttons */
-        button {
-            background-color: #c0c0c0;
-            color: #000;
-            border: 2px solid;
-            border-color: #ffffff #000000 #000000 #ffffff;
-            padding: 6px 15px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            outline: none;
-        }
-
-        button:active:not(:disabled) {
-            border-color: #808080 #ffffff #ffffff #808080;
-            padding: 7px 14px 5px 16px;
-        }
-
-        button:disabled {
-            color: #808080;
-            text-shadow: 1px 1px #ffffff;
-            cursor: not-allowed;
-        }
-
-        #generateBtn {
-            font-size: 18px;
-            padding: 8px 30px;
-        }
-
-        #generateBtn:active:not(:disabled) {
-            padding: 9px 29px 7px 31px;
-        }
-
-        #defaultsBtn {
-            font-size: 14px;
-            padding: 4px 12px;
-        }
-
-        #defaultsBtn:active:not(:disabled) {
-            padding: 5px 11px 3px 13px;
-        }
-
-        /* Status & Console */
-        .status-bar {
-            padding: 4px 10px;
-            font-size: 14px;
-            color: #000;
-            border: 2px solid;
-            border-color: #808080 #ffffff #ffffff #808080;
-            background-color: #c0c0c0;
-            margin: 4px;
-        }
-
-        /* Tabs */
-        .tabs {
-            display: flex;
-            background-color: #c0c0c0;
-            border-bottom: 2px solid #ffffff;
-            flex-wrap: wrap;
-            padding-top: 4px;
-            padding-left: 4px;
-        }
-
-        .tab {
-            padding: 8px 16px;
-            cursor: pointer;
-            border: 2px solid;
-            border-color: #ffffff #000000 #000000 #ffffff;
-            background: #c0c0c0;
-            font-family: inherit;
-            font-size: 14px;
-            margin-right: 2px;
-            margin-bottom: -2px;
-            outline: none;
-            border-bottom: none;
-            position: relative;
-            top: 2px;
-        }
-
-        .tab.active {
-            background-color: #c0c0c0;
-            font-weight: bold;
-            border-bottom: 2px solid #c0c0c0;
-            padding-bottom: 10px;
-            top: 0;
-            z-index: 1;
-        }
-
-        .tab:active:not(.active) {
-            border-color: #808080 #ffffff #ffffff #808080;
-            padding: 9px 15px 7px 17px;
-        }
-
-        .github-link {
-            margin-left: auto;
-            padding: 8px 16px;
-            font-size: 14px;
-            color: #000;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            border: 2px solid;
-            border-color: #ffffff #000000 #000000 #ffffff;
-            background: #c0c0c0;
-            margin-right: 4px;
-            margin-bottom: 4px;
-            box-sizing: border-box;
-        }
-
-        .github-link:active {
-            border-color: #808080 #ffffff #ffffff #808080;
-            padding: 9px 15px 7px 17px;
-        }
-
-        .tab-content {
-            display: none;
-            flex-direction: column;
-            flex-grow: 1;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .tab-content.active {
-            display: flex;
-        }
-
-        #output {
-            width: 100%;
-            background-color: #1e1e1e;
-            color: #00ff00;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 12px;
-            padding: 8px;
-            border: 2px solid;
-            border-color: #808080 #ffffff #ffffff #808080;
-            resize: none;
-            box-sizing: border-box;
-            outline: none;
-            margin: 0;
-            flex-grow: 1;
-            min-height: 400px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrailleGen — braille STL, SVG &amp; BRF generator</title>
+  <meta name="description" content="Free, offline braille asset generator: translate text with liblouis and export 3D-printable STL tiles, laser/swell-ready SVG, embosser BRF, and Unicode braille — entirely in your browser.">
+  <meta property="og:title" content="BrailleGen">
+  <meta property="og:description" content="Generate 3D-printable braille STL, physically-accurate SVG, and embosser-ready BRF from text. Free, offline, open source.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1d1e26">
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="app/app.css">
+  <script>
+    // Pre-paint theme restore (avoids a flash of the wrong theme).
+    try {
+      var t = localStorage.getItem('bg-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
 </head>
 <body>
-    <!-- Visually hidden H1 for SEO and Screen Readers -->
-    <h1 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">BrailleGen 10B - 3D Printable Braille STL Generator</h1>
+  <a class="skip-link" href="#main">Skip to the generator</a>
 
-    <div class="window">
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab('tab-generator', this)">Generator</button>
-            <button class="tab" onclick="switchTab('tab-docs', this)">Docs</button>
-            <button class="tab" onclick="switchTab('tab-console', this)">Console</button>
-            <button class="tab" onclick="switchTab('tab-license', this)">License</button>
-            <!-- Added GitHub link aligned to the right side of the tab bar -->
-            <a href="https://github.com/Richhe01/braillegen_10" class="github-link" target="_blank" aria-label="View source on GitHub">GitHub</a>
-        </div>
+  <div class="shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="BrailleGen home">
+        <svg viewBox="0 0 20 28" aria-hidden="true" focusable="false">
+          <!-- braille letter b (dots 1-2) — the brand cell -->
+          <circle class="cell-dot" cx="6" cy="6" r="3.4"/>
+          <circle class="cell-dot" cx="6" cy="14" r="3.4"/>
+          <circle class="cell-dot--empty cell-dot" cx="6" cy="22" r="3.4" opacity="0.25"/>
+          <circle class="cell-dot--empty cell-dot" cx="14" cy="6" r="3.4" opacity="0.25"/>
+          <circle class="cell-dot--empty cell-dot" cx="14" cy="14" r="3.4" opacity="0.25"/>
+          <circle class="cell-dot--empty cell-dot" cx="14" cy="22" r="3.4" opacity="0.25"/>
+        </svg>
+        BrailleGen
+      </a>
+      <nav class="site-nav" aria-label="Site">
+        <a href="./" aria-current="page">Generator</a>
+        <a href="docs.html">Docs</a>
+        <a href="https://github.com/Richhe01/braillegen_10" rel="external">GitHub</a>
+      </nav>
+      <div class="theme-toggle" role="group" aria-label="Color theme">
+        <button type="button" data-theme-choice="auto" aria-pressed="true">Auto</button>
+        <button type="button" data-theme-choice="light" aria-pressed="false">Light</button>
+        <button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button>
+      </div>
+    </header>
 
-        <div id="tab-generator" class="tab-content active">
-            <div class="content">
-            <div role="group" aria-labelledby="heading-translation">
-                <h2 id="heading-translation">Translation parameters:</h2>
-                <div class="top-section">
-                    <div class="text-input-row">
-                        <label for="textInput">Enter text:</label>
-                        <textarea id="textInput">hello world</textarea>
-                    </div>
-                    <div class="generate-row">
-                        <button id="generateBtn" disabled>Generate</button>
-                    </div>
-                </div>
+    <main id="main">
+      <h1>Braille asset generator</h1>
+      <p>
+        Type text, verify the braille, and export it as a 3D-printable STL tile,
+        a physically-accurate SVG for laser cutting or swell paper, an
+        embosser-ready BRF file, or plain Unicode braille. Translation runs
+        <a href="https://liblouis.io" rel="external">liblouis</a> in your browser
+        — nothing you type leaves this page.
+      </p>
+
+      <div role="alert" id="alert"></div>
+      <div role="status" id="status" class="sr-only"></div>
+
+      <form id="genform" novalidate>
+        <section class="panel">
+          <label for="textInput">Text to translate</label>
+          <textarea id="textInput" name="text" autocomplete="off"
+            placeholder="hello world">hello world</textarea>
+          <p class="hint" id="textHint">Each line becomes its own braille line. The preview updates as you type.</p>
+        </section>
+
+        <fieldset class="panel">
+          <legend>Translation</legend>
+          <div class="field-grid">
+            <div>
+              <label for="brailleTable">Language and grade</label>
+              <select id="brailleTable" name="table"></select>
+              <p class="hint" id="tableHint"></p>
             </div>
-
-            <div role="group" aria-labelledby="heading-tile">
-                <div class="section-header">
-                    <h2 id="heading-tile">Braille tile parameters:</h2>
-                    <button id="defaultsBtn">Defaults</button>
-                </div>
-                
-                <div class="settings-grid">
-                    <label for="charsPerLine">Characters per line:</label>
-                    <input type="number" id="charsPerLine" value="32">
-
-                    <label for="brailleTable">Choose braille table:</label>
-                    <select id="brailleTable">
-                        <option value="en-ueb-g2.ctb" selected>en-ueb-g2.ctb</option>
-                        <option value="en-ueb-g1.ctb">en-ueb-g1.ctb</option>
-                        <option value="es-g1.ctb">es-g1.ctb</option>
-                        <option value="es-g2.ctb">es-g2.ctb</option>
-                        <option value="fr-bfu-g2.ctb">fr-bfu-g2.ctb</option>
-                    </select>
-
-                <label for="brailleHeight">Braille height mm:</label>
-                <input type="number" id="brailleHeight" value="0.6" step="0.1">
-
-                <label for="plateHeight">Plate height mm:</label>
-                <input type="number" id="plateHeight" value="1" step="0.1">
-
-                <label for="lineSpacing">Line spacing mm:</label>
-                <input type="number" id="lineSpacing" value="3.72" step="0.01">
-
-                <label for="marginSize">Margin size mm:</label>
-                <input type="number" id="marginSize" value="1" step="0.1">
-
-                <label for="stlScale">STL export scale:</label>
-                <input type="number" id="stlScale" value="1" step="0.1">
-
-                <div class="checkbox-row">
-                    <div class="main-label">Enable/Disable:</div>
-                    <label><input type="checkbox" id="slabMode"> Slab mode</label>
-                    <label><input type="checkbox" id="verticalExport"> Vertical export</label>
-                </div>
+            <div>
+              <label for="charsPerLine">Cells per line</label>
+              <input type="text" inputmode="numeric" id="charsPerLine" name="charsPerLine"
+                value="32" aria-describedby="charsPerLineError charsHint">
+              <p class="hint" id="charsHint">Braille embosser pages are typically 40 cells or fewer.</p>
+              <p class="field-error" id="charsPerLineError" hidden></p>
             </div>
-        </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="panel">
+          <legend>Braille dimensions</legend>
+          <div class="field-grid">
+            <div>
+              <label for="preset">Standard preset</label>
+              <select id="preset" name="preset"></select>
+              <p class="hint" id="presetNote"></p>
             </div>
-            <div class="status-bar" id="statusBar" data-nosnippet>BrailleGen loading WASM...</div>
-        </div>
+          </div>
+          <div class="field-grid" style="margin-block-start: calc(var(--space) * 4);">
+            <div>
+              <label for="dotDiameter">Dot diameter (mm)</label>
+              <input type="text" inputmode="decimal" id="dotDiameter" name="dotDiameter" aria-describedby="dotDiameterError">
+              <p class="field-error" id="dotDiameterError" hidden></p>
+            </div>
+            <div>
+              <label for="dotHeight">Dot height (mm)</label>
+              <input type="text" inputmode="decimal" id="dotHeight" name="dotHeight" aria-describedby="dotHeightError dotHeightHint">
+              <p class="hint" id="dotHeightHint">FDM prints land slightly under the designed height.</p>
+              <p class="field-error" id="dotHeightError" hidden></p>
+            </div>
+            <div>
+              <label for="dotPitch">Dot pitch (mm)</label>
+              <input type="text" inputmode="decimal" id="dotPitch" name="dotPitch" aria-describedby="dotPitchError dotPitchHint">
+              <p class="hint" id="dotPitchHint">Distance between dot centres inside a cell.</p>
+              <p class="field-error" id="dotPitchError" hidden></p>
+            </div>
+            <div>
+              <label for="cellPitch">Cell pitch (mm)</label>
+              <input type="text" inputmode="decimal" id="cellPitch" name="cellPitch" aria-describedby="cellPitchError cellPitchHint">
+              <p class="hint" id="cellPitchHint">Distance between the same dot in adjacent cells.</p>
+              <p class="field-error" id="cellPitchError" hidden></p>
+            </div>
+            <div>
+              <label for="linePitch">Line pitch (mm)</label>
+              <input type="text" inputmode="decimal" id="linePitch" name="linePitch" aria-describedby="linePitchError linePitchHint">
+              <p class="hint" id="linePitchHint">Line-to-line distance. 8-dot braille automatically adds one dot pitch.</p>
+              <p class="field-error" id="linePitchError" hidden></p>
+            </div>
+            <div>
+              <label for="plateHeight">Plate thickness (mm)</label>
+              <input type="text" inputmode="decimal" id="plateHeight" name="plateHeight" aria-describedby="plateHeightError plateHint">
+              <p class="hint" id="plateHint">0 exports raised dots only (for gluing onto an object).</p>
+              <p class="field-error" id="plateHeightError" hidden></p>
+            </div>
+            <div>
+              <label for="marginSize">Margin (mm)</label>
+              <input type="text" inputmode="decimal" id="marginSize" name="marginSize" aria-describedby="marginSizeError">
+              <p class="field-error" id="marginSizeError" hidden></p>
+            </div>
+          </div>
+          <div class="badge-row" id="complianceBadges" aria-live="off"></div>
+        </fieldset>
 
-        <div id="tab-docs" class="tab-content">
-            <!-- Replace this URL with your actual published Google Doc embed URL -->
-            <iframe src="https://docs.google.com/document/d/e/2PACX-1vSW58YO02QIHbZbsao0XwDgwoOG_gqLRO66WPePjjpPT2AYRI3-uGR6LTb3M6we0ScXPiWs72HKrotx/pub?embedded=true" style="width:100%; min-width: 800px; height: 500px; border: none;" title="App Documentation"></iframe>
-        </div>
+        <fieldset class="panel">
+          <legend>3D print (STL) options</legend>
+          <div class="field-grid">
+            <div>
+              <label for="stlScale">Export scale</label>
+              <input type="text" inputmode="decimal" id="stlScale" name="stlScale" value="1" aria-describedby="stlScaleError scaleHint">
+              <p class="hint" id="scaleHint">1 = millimetre-true. Most slicers expect 1.</p>
+              <p class="field-error" id="stlScaleError" hidden></p>
+            </div>
+          </div>
+          <div class="check-row" style="margin-block-start: calc(var(--space) * 3);">
+            <label class="check"><input type="checkbox" id="slabMode" name="slabMode"> Slab mode (one rectangular plate with an orientation corner cut)</label>
+            <label class="check"><input type="checkbox" id="verticalExport" name="verticalExport"> Vertical export (stand the tile up for printing)</label>
+          </div>
+        </fieldset>
 
-        <div id="tab-console" class="tab-content" data-nosnippet>
-            <textarea id="output" readonly placeholder="Console output...">BrailleGen Console Initialized.
-</textarea>
-        </div>
+        <fieldset class="panel">
+          <legend>SVG options</legend>
+          <div class="check-row">
+            <label class="check"><input type="checkbox" id="svgMirrored" name="svgMirrored"> Mirror (back-side embossing template)</label>
+            <label class="check"><input type="checkbox" id="svgEmptyDots" name="svgEmptyDots"> Show empty dot positions faintly</label>
+            <label class="check"><input type="checkbox" id="svgDrillMarks" name="svgDrillMarks"> Drill centre marks (raster-bead / CNC)</label>
+          </div>
+          <p class="hint">The SVG uses real millimetre units — Inkscape, LightBurn and Illustrator import it at true scale. Dots are geometry, never a font.</p>
+        </fieldset>
+      </form>
 
-        <div id="tab-license" class="tab-content">
-            <iframe src="LICENSE.md?v=2" style="width:100%; min-width: 800px; height: 500px; border: none;" title="License Document"></iframe>
+      <section class="panel" aria-labelledby="previewHeading">
+        <h2 id="previewHeading">Braille preview</h2>
+        <p class="preview-meta" id="previewMeta">Waiting for the braille engine…</p>
+        <p class="sr-only" id="previewNote">
+          Each row below contains the translated braille as real text —
+          refreshable braille displays read it exactly as it will be printed.
+          The dot graphics are decorative duplicates for sighted proofing.
+        </p>
+        <div class="preview-lines" id="previewLines" aria-describedby="previewNote"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="downloadsHeading" id="downloads">
+        <h2 id="downloadsHeading">Export</h2>
+        <div class="button-row">
+          <button type="button" class="button-primary" id="btnStl">Download STL</button>
+          <button type="button" id="btnSvg">Download SVG</button>
+          <button type="button" id="btnBrf">Download BRF</button>
+          <button type="button" id="btnTxt">Download braille text</button>
+          <button type="button" id="btnCopy">Copy braille</button>
         </div>
+        <div id="stlProgressWrap" hidden style="margin-block-start: calc(var(--space) * 4);">
+          <label for="stlProgress">Loading the 3D engine (about 9&nbsp;MB, one time — cached for offline use)</label>
+          <progress id="stlProgress" max="100"></progress>
+        </div>
+        <p class="status-line" id="exportStatus" style="margin-block-start: calc(var(--space) * 3);"></p>
+        <p class="download-note" id="downloadNote" tabindex="-1"></p>
+      </section>
+
+      <details class="console">
+        <summary>Engine console</summary>
+        <div class="console-log" role="log" aria-label="Engine console output" id="consoleLog"></div>
+      </details>
+    </main>
+
+    <footer class="site-footer">
+      <span id="engineInfo">Engine: liblouis 3.36.0 · OpenCASCADE 8.0</span>
+      <span id="offlineState">Offline: checking…</span>
+      <span><a href="https://github.com/Richhe01/braillegen_10" rel="external">Source (AGPL-3.0)</a></span>
+      <span>Fork of <a href="https://braillegen.org" rel="external">BrailleGen 10B</a> by Richhe01</span>
+    </footer>
+  </div>
+
+  <noscript>
+    <div class="shell">
+      <p><strong>BrailleGen needs JavaScript</strong> — the braille translator and
+      3D geometry run entirely in your browser via WebAssembly; there is no
+      server to fall back to.</p>
     </div>
+  </noscript>
 
-    <script>
-        function switchTab(tabId, tabButton) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            tabButton.classList.add('active');
-
-            if (tabId === 'tab-docs') {
-                document.querySelector('.window').classList.add('wide');
-            } else {
-                document.querySelector('.window').classList.remove('wide');
-            }
-        }
-
-        const outputElement = document.getElementById('output');
-        const statusBar = document.getElementById('statusBar');
-
-        function validateInputs() {
-            let errors = [];
-
-            const text = document.getElementById('textInput').value;
-            const bh = parseFloat(document.getElementById('brailleHeight').value);
-            const ph = parseFloat(document.getElementById('plateHeight').value);
-            const ls = parseFloat(document.getElementById('lineSpacing').value);
-            const ms = parseFloat(document.getElementById('marginSize').value);
-            const es = parseFloat(document.getElementById('stlScale').value);
-
-            if (text.trim() === "") {
-                errors.push("Text input can not be blank");
-            }
-            if (isNaN(bh) || bh < 0.4) {
-                errors.push("Braille height must be greater than or equal to 0.4");
-            }
-            if (isNaN(ph) || ph < 0) {
-                errors.push("Plate height must be greater than or equal to 0");
-            }
-            if (isNaN(ls) || ls < 0.1) {
-                errors.push("Line spacing must be greater than or equal to 0.1");
-            }
-            if (isNaN(ms) || ms < 0) {
-                errors.push("Margin size must be greater than or equal to 0");
-            }
-            if (isNaN(es) || es < 0.01) {
-                errors.push("Export scale must be greater than or equal to 0.01");
-            }
-
-            return errors;
-        }
-
-        // Emscripten Module Setup
-
-        var Module = {
-            print: function(text) {
-                if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
-                console.log(text);
-                if (outputElement) {
-                    outputElement.value += text + "\n";
-                    outputElement.scrollTop = outputElement.scrollHeight; 
-                }
-            },
-            printErr: function(text) {
-                if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
-                console.error(text);
-                if (outputElement) {
-                    outputElement.value += "[ERROR] " + text + "\n";
-                    outputElement.scrollTop = outputElement.scrollHeight; 
-                }
-            },
-
-            
-            onRuntimeInitialized: () => {
-                const btn = document.getElementById('generateBtn');
-                btn.disabled = false; 
-                statusBar.innerText = "BrailleGen ready!";
-
-                btn.addEventListener('click', () => {
-
-                    // 1. Run validation first (validate chars per line in c++ after text is translated))
-                    const validationErrors = validateInputs();
-                    
-                    if (validationErrors.length > 0) {
-                        // Print errors to the status bar and console, then abort
-                        statusBar.innerText = "Validation failed. See console.";
-                        validationErrors.forEach(err => Module.printErr(err));
-                        return; 
-                    }
-                    statusBar.innerText = "Generating...";
-                    
-                    // 2. Gather all inputs for your C++ program
-                    const params = {
-                        text: document.getElementById('textInput').value,
-                        charsPerLine: parseInt(document.getElementById('charsPerLine').value),
-                        brailleTable: document.getElementById('brailleTable').value,
-                        brailleHeight: parseFloat(document.getElementById('brailleHeight').value),
-                        plateHeight: parseFloat(document.getElementById('plateHeight').value),
-                        lineSpacing: parseFloat(document.getElementById('lineSpacing').value),
-                        marginSize: parseFloat(document.getElementById('marginSize').value),
-                        stlScale: parseFloat(document.getElementById('stlScale').value),
-                        slabMode: document.getElementById('slabMode').checked,
-                        verticalExport: document.getElementById('verticalExport').checked
-                    };
-
-                    console.log("Sending parameters to C++:", params);
-
-                    // 2. Trigger the C++ STL generation
-                    const generatedFileName = Module.ccall('generateBrailleSTL', 'string', 
-                        ['string', 'number', 'string', 'number', 'number', 'number', 'number', 'number', 'boolean', 'boolean'], 
-                        [params.text, params.charsPerLine, params.brailleTable, params.brailleHeight, params.plateHeight, params.lineSpacing, params.marginSize, params.stlScale, params.slabMode, params.verticalExport]
-                    );
-                    
-                    if (!generatedFileName) {
-                        statusBar.innerText = "Error: No braille text generated.";
-                        return;
-                    }
-
-                    // 3. Read the generated STL from Emscripten VFS
-                    try {
-                        const stlData = Module.FS.readFile(generatedFileName);
-                        const blob = new Blob([stlData], { type: 'application/octet-stream' });
-                        const url = URL.createObjectURL(blob);
-                        
-                        // Perform a hidden "click" to prompt the download
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = generatedFileName;
-                        a.click();
-                        URL.revokeObjectURL(url);
-                        
-                        statusBar.innerText = "Download complete. BrailleGen ready!";
-                    } catch (e) {
-                        console.error("Error reading " + generatedFileName + ":", e);
-                        Module.printErr("Error reading " + generatedFileName + ": " + e);
-                        statusBar.innerText = "Error generating file.";
-                    }
-                });
-
-                // Optional: Setup "Defaults" button
-                document.getElementById('defaultsBtn').addEventListener('click', () => {
-                    document.getElementById('charsPerLine').value = 32;
-                    document.getElementById('brailleTable').value = "en-ueb-g2.ctb";
-                    document.getElementById('brailleHeight').value = 0.6;
-                    document.getElementById('plateHeight').value = 1;
-                    document.getElementById('lineSpacing').value = 3.72;
-                    document.getElementById('marginSize').value = 1;
-                    document.getElementById('stlScale').value = 1;
-                    document.getElementById('slabMode').checked = false;
-                    document.getElementById('verticalExport').checked = false;
-                    Module.print("Restored default parameters.");
-                });
-            }
-        };
-    </script>
-    
-    <script src="index.js"></script>
+  <script type="module" src="app/app.mjs"></script>
 </body>
 </html>

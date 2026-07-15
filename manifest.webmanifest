@@ -1,0 +1,14 @@
+{
+  "name": "BrailleGen — braille STL, SVG & BRF generator",
+  "short_name": "BrailleGen",
+  "description": "Translate text to braille and export 3D-printable STL, physically-accurate SVG, embosser BRF, and Unicode braille. Free, offline, open source.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f5f0",
+  "theme_color": "#4a4fc9",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

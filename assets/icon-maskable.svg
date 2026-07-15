@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>BrailleGen</title>
+  <rect width="64" height="64" fill="#4a4fc9"/>
+  <!-- braille letter b (dots 1-2), inverted for maskable safe zone -->
+  <circle cx="26" cy="22" r="5.5" fill="#ffffff"/>
+  <circle cx="26" cy="34" r="5.5" fill="#ffffff"/>
+  <circle cx="26" cy="46" r="5.5" fill="#ffffff" opacity="0.28"/>
+  <circle cx="40" cy="22" r="5.5" fill="#ffffff" opacity="0.28"/>
+  <circle cx="40" cy="34" r="5.5" fill="#ffffff" opacity="0.28"/>
+  <circle cx="40" cy="46" r="5.5" fill="#ffffff" opacity="0.28"/>
+</svg>
