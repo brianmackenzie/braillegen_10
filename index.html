@@ -26,7 +26,10 @@
 
   <div class="shell">
     <header class="site-header">
-      <a class="brand" href="./" aria-label="BrailleGen home">
+      <!-- The brand is intentionally not a link: the nav's Generator entry
+           already points home, and adjacent same-URL links are redundant for
+           keyboard and screen-reader users (WCAG 2.4.4). -->
+      <span class="brand">
         <svg viewBox="0 0 20 28" aria-hidden="true" focusable="false">
           <!-- braille letter b (dots 1-2) — the brand cell -->
           <circle class="cell-dot" cx="6" cy="6" r="3.4"/>
@@ -37,7 +40,7 @@
           <circle class="cell-dot--empty cell-dot" cx="14" cy="22" r="3.4" opacity="0.25"/>
         </svg>
         BrailleGen
-      </a>
+      </span>
       <nav class="site-nav" aria-label="Site">
         <a href="./" aria-current="page">Generator</a>
         <a href="docs.html">Docs</a>
@@ -61,6 +64,12 @@
         <a href="https://liblouis.io" rel="external">liblouis</a> in your browser
         — nothing you type leaves this page.
       </p>
+
+      <!-- Visible until the app boots, so it also covers failed script loads —
+           unlike <noscript>, which only ever handled disabled JavaScript. -->
+      <p id="needsJs"><strong>BrailleGen needs JavaScript.</strong>
+        The braille translator and 3D geometry run entirely in your browser via
+        WebAssembly; there is no server to fall back to.</p>
 
       <div role="alert" id="alert"></div>
       <div role="status" id="status" class="sr-only"></div>
@@ -215,14 +224,6 @@
       <span>Fork of <a href="https://braillegen.org" rel="external">BrailleGen 10B</a> by Richhe01</span>
     </footer>
   </div>
-
-  <noscript>
-    <div class="shell">
-      <p><strong>BrailleGen needs JavaScript</strong> — the braille translator and
-      3D geometry run entirely in your browser via WebAssembly; there is no
-      server to fall back to.</p>
-    </div>
-  </noscript>
 
   <script type="module" src="app/app.mjs"></script>
 </body>

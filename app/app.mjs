@@ -11,6 +11,11 @@ import {
 } from './presets.mjs';
 
 const $ = (id) => document.getElementById(id);
+
+// The static "needs JavaScript" notice is only for visitors where this module
+// never ran; the app is booting, so clear it first.
+$('needsJs')?.remove();
+
 const statusEl = $('status');
 const alertEl = $('alert');
 
