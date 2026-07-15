@@ -70,7 +70,20 @@
           <label for="textInput">Text to translate</label>
           <textarea id="textInput" name="text" autocomplete="off" aria-describedby="textHint"
             placeholder="hello world">hello world</textarea>
-          <p class="hint" id="textHint">Each line becomes its own braille line. The preview updates as you type.</p>
+          <p class="hint" id="textHint">Each line becomes its own braille line. The preview below updates as you type.</p>
+        </section>
+
+        <!-- The preview sits directly under the input so the type-and-see loop
+             is immediate; language/dimension settings follow below. -->
+        <section class="panel" aria-labelledby="previewHeading" aria-describedby="previewNote">
+          <h2 id="previewHeading">Braille preview</h2>
+          <p class="preview-meta" id="previewMeta">Waiting for the braille engine…</p>
+          <p class="sr-only" id="previewNote">
+            Each row below contains the translated braille as real text —
+            refreshable braille displays read it exactly as it will be printed.
+            The dot graphics are decorative duplicates for sighted proofing.
+          </p>
+          <div class="preview-lines" id="previewLines" role="list"></div>
         </section>
 
         <fieldset class="panel">
@@ -171,17 +184,6 @@
           <p class="hint">The SVG uses real millimetre units — Inkscape, LightBurn and Illustrator import it at true scale. Dots are geometry, never a font.</p>
         </fieldset>
       </form>
-
-      <section class="panel" aria-labelledby="previewHeading" aria-describedby="previewNote">
-        <h2 id="previewHeading">Braille preview</h2>
-        <p class="preview-meta" id="previewMeta">Waiting for the braille engine…</p>
-        <p class="sr-only" id="previewNote">
-          Each row below contains the translated braille as real text —
-          refreshable braille displays read it exactly as it will be printed.
-          The dot graphics are decorative duplicates for sighted proofing.
-        </p>
-        <div class="preview-lines" id="previewLines" role="list"></div>
-      </section>
 
       <section class="panel" aria-labelledby="downloadsHeading" id="downloads">
         <h2 id="downloadsHeading">Export</h2>

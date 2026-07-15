@@ -279,7 +279,7 @@ const { brailleToBrf } = await import(pathToFileURL(join(ROOT, 'app', 'braille-b
   for (let mask = 0; mask < 64; mask++) {
     const uni = String.fromCodePoint(0x2800 + mask);
     const { brf } = brailleToBrf([uni]);
-    const got = brf.replace(/[\r\n]/g, '');
+    const got = brf.replace(/[\r\n\f]/g, '');
     const want = expected.get(mask);
     if (got !== want) mismatches.push(`${mask.toString(2)}: got ${JSON.stringify(got)} want ${JSON.stringify(want)}`);
   }
@@ -287,14 +287,25 @@ const { brailleToBrf } = await import(pathToFileURL(join(ROOT, 'app', 'braille-b
     mismatches.length === 0, mismatches.slice(0, 5).join('; '));
 }
 {
-  const lines = Array.from({ length: 26 }, (_, i) => '⠁');
-  const { brf } = brailleToBrf(lines, { linesPerPage: 25 });
-  check('BRF: form feed after 25 lines', brf.includes('\f'));
+  const lines26 = Array.from({ length: 26 }, () => '⠁');
+  const { brf } = brailleToBrf(lines26, { linesPerPage: 25 });
+  check('BRF: form feed between pages AND after the final page',
+    (brf.match(/\f/g) ?? []).length === 2, JSON.stringify(brf.slice(-8)));
   check('BRF: CRLF line endings', brf.includes('\r\n') && !/[^\r]\n/.test(brf));
+
+  const single = brailleToBrf(['⠁']).brf;
+  check('BRF: single-page document still ends with a form feed', single.endsWith('\r\n\f'),
+    JSON.stringify(single));
 }
 {
-  const { droppedDots } = brailleToBrf(['⡁']); // dot 1 + dot 7
+  const { brf, droppedDots } = brailleToBrf(['⡁⠃']); // dot 1+7, then dot 12
   check('BRF: 8-dot cells counted as dropped', droppedDots === 1);
+  check('BRF: 8-dot cell becomes a BLANK, not a wrong-but-valid cell',
+    brf.startsWith(' B'), JSON.stringify(brf.slice(0, 4)));
+}
+{
+  const { brf } = brailleToBrf(['⠁⠃⠉'], { cellsPerLine: 0 }); // hostile option
+  check('BRF: cellsPerLine 0 clamps instead of crashing', brf.length > 0);
 }
 
 // ---------------------------------------------------------------------------

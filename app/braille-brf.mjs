@@ -22,17 +22,30 @@ const NABCC = [
 
 /**
  * Convert Unicode braille lines to BRF text.
- * Dots 7/8 cannot be represented in 6-dot BRF; they are dropped per-cell and
- * reported so the UI can warn.
+ *
+ * Cells using dots 7/8 cannot be represented in 6-dot BRF. Masking the upper
+ * dots off would silently produce a DIFFERENT valid cell (e.g. 8-dot é becomes
+ * '<'), so such cells are replaced with a blank cell instead — a tactilely
+ * obvious gap rather than a misreadable letter — and counted so the UI warns.
+ *
+ * Lines longer than cellsPerLine should not occur (the caller re-translates at
+ * the BRF width so liblouis wraps at word boundaries); the hard-slice below is
+ * a last-resort guard only, because mid-word cuts can break braille semantics
+ * (e.g. a numeric indicator is not restated after the cut).
+ *
+ * Every page — including the last — is terminated with a form feed, matching
+ * Duxbury/file2brl output so page counters agree.
+ *
  * @param {string[]} lines - Unicode braille lines (already wrapped <= cellsPerLine).
  * @param {object} [opts]
  * @param {number} [opts.cellsPerLine=40]
  * @param {number} [opts.linesPerPage=25]
- * @returns {{brf: string, droppedDots: number}}
+ * @returns {{brf: string, droppedDots: number}} droppedDots = cells replaced
+ * with a blank because they used dots 7/8.
  */
 export function brailleToBrf(lines, opts = {}) {
-  const cellsPerLine = opts.cellsPerLine ?? 40;
-  const linesPerPage = opts.linesPerPage ?? 25;
+  const cellsPerLine = Math.max(1, opts.cellsPerLine ?? 40);
+  const linesPerPage = Math.max(1, opts.linesPerPage ?? 25);
 
   let droppedDots = 0;
   const outLines = [];
@@ -43,14 +56,17 @@ export function brailleToBrf(lines, opts = {}) {
       const cp = ch.codePointAt(0);
       if (cp >= 0x2800 && cp <= 0x28FF) {
         const mask = cp - 0x2800;
-        if (mask & 0xC0) droppedDots++;
-        out += NABCC[mask & 0x3F];
+        if (mask & 0xC0) {
+          droppedDots++;
+          out += ' ';
+        } else {
+          out += NABCC[mask];
+        }
       } else if (cp === 0x20 || cp === 0x09) {
         out += ' ';
       }
       // Anything else (shouldn't occur in translated output) is skipped.
     }
-    // Hard-wrap defensively; translation should already respect the width.
     while (out.length > cellsPerLine) {
       outLines.push(out.slice(0, cellsPerLine));
       out = out.slice(cellsPerLine);
@@ -63,5 +79,5 @@ export function brailleToBrf(lines, opts = {}) {
     pages.push(outLines.slice(i, i + linesPerPage).join('\r\n'));
   }
 
-  return { brf: pages.join('\r\n\f') + '\r\n', droppedDots };
+  return { brf: pages.map(p => p + '\r\n\f').join(''), droppedDots };
 }

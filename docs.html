@@ -105,11 +105,13 @@
       <h2 id="brf">BRF export — embossers</h2>
       <p>
         BRF is the plain-text interchange format braille embossers and libraries
-        use (North American Braille ASCII). BrailleGen writes 25 lines per page
-        with form feeds and honors your cells-per-line setting up to the
-        conventional 40. BRF cannot represent dots 7–8; if your text uses an
-        8-dot table, the app warns you and the braille text (.txt) export is the
-        lossless alternative.
+        use (North American Braille ASCII). BrailleGen writes 25 lines per page,
+        terminates every page with a form feed, and honors your cells-per-line
+        setting up to the conventional 40 — wider settings are re-translated at
+        40 for the file so lines wrap at word boundaries. BRF cannot represent
+        dots 7–8; cells that use them are replaced with blank cells (with a
+        warning), and the braille text (.txt) export is the lossless
+        alternative.
       </p>
 
       <h2 id="a11y">Accessibility statement</h2>

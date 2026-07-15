@@ -469,14 +469,27 @@ $('btnSvg').addEventListener('click', async () => {
 $('btnBrf').addEventListener('click', async () => {
   const t = await freshTranslation();
   if (!t) return;
-  const { s, r } = t;
-  const { brf, droppedDots } = brailleToBrf(r.lines, { cellsPerLine: Math.min(40, s.charsPerLine || 40) });
+  const { s } = t;
+  // BRF pages are at most 40 cells wide. When the user's setting is wider,
+  // RE-TRANSLATE at 40 so liblouis wraps at word boundaries — hard-slicing the
+  // preview lines would split words and break braille semantics (a numeric
+  // indicator is not restated after a mid-number cut).
+  const brfWidth = Math.min(40, s.charsPerLine || 40);
+  let lines = t.r.lines;
+  let rewrapped = false;
+  if ((s.charsPerLine || 0) > 40) {
+    const r40 = await translate(s.text, s.table, brfWidth);
+    if (!r40.ok) { raiseAlert(r40.error ?? 'Translation failed.'); return; }
+    lines = r40.lines;
+    rewrapped = true;
+  }
+  const { brf, droppedDots } = brailleToBrf(lines, { cellsPerLine: brfWidth });
   const notes = [];
   if (droppedDots > 0) {
-    notes.push(`BRF is a 6-dot format: dots 7 and 8 were removed from ${droppedDots} cell${droppedDots === 1 ? '' : 's'} — for 8-dot content, use the braille text download instead.`);
+    notes.push(`BRF is a 6-dot format: ${droppedDots} cell${droppedDots === 1 ? '' : 's'} using dots 7–8 were replaced with blank cells — for 8-dot content, use the braille text download instead.`);
   }
-  if ((s.charsPerLine || 0) > 40) {
-    notes.push('BRF lines are capped at the conventional 40 cells; longer preview lines re-wrap in the file.');
+  if (rewrapped) {
+    notes.push('BRF lines are capped at the conventional 40 cells, so the file was re-wrapped at word boundaries; its line layout differs from the preview.');
   }
   if (notes.length) raiseAlert(notes.join(' '));
   offerDownload(brf, `${slugify(s.text)}_${tableSlug(s.table)}.brf`, 'text/plain', 'BRF');
