@@ -2,12 +2,13 @@
 //
 // Strategy: the small app shell + core engine precache at install; heavy or
 // on-demand assets (braille tables, the STL engine) are cached the first time
-// they are fetched. Bump VERSION on every deploy — old caches are deleted on
-// activate, and the page offers a reload when a new worker installs.
+// they are fetched. Bump VERSION on every deploy — the new worker takes over
+// immediately (skipWaiting), old caches are deleted on activate, and the page
+// reloads itself once so visitors always see the current deploy.
 //
 // AGPL-3.0 — part of the BrailleGen fork.
 
-const VERSION = 'bg-v2.0.3';
+const VERSION = 'bg-v2.0.4';
 const SHELL = [
   './',
   './index.html',
@@ -36,6 +37,10 @@ self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(VERSION).then(
     (c) => c.addAll(SHELL.map((u) => new Request(u, { cache: 'reload' })))
   ));
+  // Take over from the previous version as soon as this one is ready; the
+  // page reloads itself once on controllerchange so users always see the
+  // current deploy instead of lingering on a stale cached build.
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {

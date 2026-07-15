@@ -615,17 +615,21 @@ async function initSw() {
       }
     };
     paintState();
-    navigator.serviceWorker.addEventListener('controllerchange', paintState);
-    reg.installing?.addEventListener('statechange', paintState);
-    reg.addEventListener('updatefound', () => {
-      const w = reg.installing;
-      w?.addEventListener('statechange', () => {
-        if (w.state === 'installed' && navigator.serviceWorker.controller) {
-          announce('A new version of BrailleGen is available. Reload the page to update.');
-          $('exportStatus').textContent = 'Update available — reload the page to apply.';
-        }
-      });
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      paintState();
+      // A controller SWAP means a new version just activated (skipWaiting in
+      // sw.js). Reload once so the visible page matches the new deploy; the
+      // guard prevents any reload loop, and first-ever installs don't reload.
+      if (hadController && !window.__bgReloaded) {
+        window.__bgReloaded = true;
+        announce('BrailleGen updated — reloading.');
+        location.reload();
+      }
     });
+    reg.installing?.addEventListener('statechange', paintState);
+    // Updates apply automatically: the new worker skipWaiting()s, the
+    // controllerchange handler above reloads the page once.
   } catch {
     offlineState.textContent = 'Offline: unavailable';
   }
