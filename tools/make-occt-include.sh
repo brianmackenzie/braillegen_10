@@ -17,7 +17,7 @@
 set -euo pipefail
 
 SRC="${1:?usage: make-occt-include.sh <occt-src-checkout> [flat-out-dir]}"
-OUT="${2:-/e/projects/occt-flat-include}"
+OUT="${2:-../occt-flat-include}"
 
 mkdir -p "$OUT"
 echo "Flattening headers from $SRC/src -> $OUT ..."

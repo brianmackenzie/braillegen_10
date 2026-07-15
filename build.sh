@@ -17,7 +17,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-OCCT_INCLUDE="${OCCT_INCLUDE:-/e/projects/occt-flat-include}"
+OCCT_INCLUDE="${OCCT_INCLUDE:-../occt-flat-include}"
 
 echo "== BrailleGen engine build =="
 mkdir -p engine

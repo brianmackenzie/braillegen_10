@@ -14,8 +14,9 @@ const $ = (id) => document.getElementById(id);
 const statusEl = $('status');
 const alertEl = $('alert');
 
-// Clear-then-set must span a frame, or an identical repeated message coalesces
-// in the accessibility tree and screen readers stay silent (a11y audit F3).
+// Clear-then-set must span a frame: both writes landing in the same task
+// coalesce in the accessibility tree, so a message identical to the previous
+// one would never be re-announced by screen readers.
 function announce(msg) {
   statusEl.textContent = '';
   requestAnimationFrame(() => { statusEl.textContent = msg; });
@@ -160,9 +161,10 @@ function setFieldError(id, msg) {
   $(id)?.setAttribute('aria-invalid', msg ? 'true' : 'false');
 }
 
-// Debounced, change-only announcements for validation state (a11y audit F1/F10):
-// screen-reader users must hear errors + compliance changes without per-keystroke
-// chatter. Errors take precedence over badge changes.
+// Debounced, change-only announcements for validation state: screen-reader
+// users must hear errors and compliance changes (visually-painted state is
+// silent otherwise) without per-keystroke chatter. Errors take precedence
+// over badge changes.
 let validationAnnounceTimer = 0;
 let lastErrorSignature = '';
 let lastBadgeSignature = null;   // null = not yet painted (skip initial announce)

@@ -234,8 +234,9 @@ static bool translateAndWrap(const std::string& input, const std::string& table,
             continue;
         }
 
-        // Preserve leading blank cells (braille indentation) — the word-split
-        // below would silently drop them (upstream-inherited defect).
+        // Preserve leading blank cells: braille uses leading cells meaningfully
+        // (poetry, headings, nested lists), and the word-split below would
+        // otherwise silently drop them.
         size_t lead = 0;
         while (lead < braille_line.size() && braille_line[lead] == 0x2800) lead++;
         size_t indent = std::min(lead, (size_t)std::max(0, maxChars - 1));

@@ -81,16 +81,44 @@ node tests/run-tests.mjs --fast   # skip the slow STL engine tests
 Rebuilding the wasm engines requires emscripten — see [BUILDING.md](BUILDING.md).
 The deployed site needs no build step at all: it is static files.
 
-### Deploying your fork
+### Deploying
 
-1. Enable GitHub Pages (deploy from branch, root).
-2. Update the GitHub/Source links in `index.html` and `docs.html` (nav, footer)
-   and the issues link in `docs.html` to point at **your** repository — the
-   AGPL requires a network-deployed modification to offer its own source.
-3. If you own a domain, add a `CNAME` file (this fork removed upstream's so a
-   fresh deploy doesn't claim braillegen.org).
-4. Bump `VERSION` in `sw.js` on every deploy so returning visitors pick up the
-   new build.
+The site is plain static files — GitHub Pages, S3+CloudFront, Netlify, or any
+web server works. Requirements that bite if missed:
+
+1. **HTTPS.** The service worker (offline support) and the clipboard API only
+   run on secure origins.
+2. **Content types.** Serve `.wasm` as `application/wasm`, `.mjs` as
+   `text/javascript`, `.webmanifest` as `application/manifest+json` — and
+   `.wasm.gz` as `application/gzip` **without** a `Content-Encoding` header
+   (the app inflates it client-side; transparent decoding double-decompresses).
+3. **AGPL.** Update the GitHub/Source links in `index.html` and `docs.html`
+   (nav, footer, issues) to point at the repository actually serving your
+   deployment — a network-deployed modification must offer its own source.
+4. Bump `VERSION` in `sw.js` on every deploy so returning visitors' service
+   workers pick up the new build.
+
+## Extending
+
+The codebase is deliberately layered so common extensions are one-file changes:
+
+- **Expose another language.** Add an entry to `app/tables.mjs` (the table file
+  must exist in `liblouis/tables/`; all 461 shipped tables are already covered
+  by `engine/tables-manifest.json`). The test suite's curated-table smoke test
+  picks it up automatically — run `node tests/run-tests.mjs --fast` to verify
+  it translates on the shipped liblouis build. On 16-bit builds like this one,
+  prefer `-ucs2` table variants where they exist.
+- **Add a dimensional preset.** Add it to `PRESETS` in `app/presets.mjs` and
+  the table in `docs.html`. `matchingPreset`/`satisfiedStandards` and the
+  preset round-trip test cover it from there; cite the standard in the note.
+- **Add an export format.** `translate()` (in `app/engine.mjs`) returns wrapped
+  Unicode braille lines; write a pure module that consumes them (see
+  `app/braille-brf.mjs` for the pattern — ~60 lines), add a button in
+  `index.html`, wire it in `app/app.mjs` next to the other export handlers,
+  and give it a section in `tests/run-tests.mjs`.
+- **Change the engine.** `main.cpp` builds both wasm targets (`build.sh`,
+  prerequisites in [BUILDING.md](BUILDING.md)). The golden-vector tests are the
+  safety net — run the full suite after any engine change.
 
 ## License & credits
 
