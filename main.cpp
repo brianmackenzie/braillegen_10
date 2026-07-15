@@ -1,35 +1,21 @@
-// BrailleGen engine v2
+// BrailleGen engine.
 //
-// One source file, two build targets (see build.sh):
-//   - engine/core.wasm  (BRAILLEGEN_CORE_ONLY): liblouis translation only.
-//     Small (~0.5 MB), loads first, powers live preview + SVG/BRF export.
-//   - engine/stl.wasm   (full): translation + OpenCASCADE STL generation.
-//     Large, lazy-loaded on first STL request.
+// One source file, two emscripten build targets (see build.sh):
+//   engine/core.wasm  (BRAILLEGEN_CORE_ONLY) — liblouis translation only.
+//     Small, loads at startup, powers the live preview and the SVG/BRF/text
+//     exports via translateBraille().
+//   engine/stl.wasm   (full) — translation plus OpenCASCADE geometry.
+//     Large, lazy-loaded on the first STL request; adds generateBrailleSTL().
 //
-// Changes vs upstream (braillegen_10 main.cpp):
-//   1. FIX: UTF-8 input is properly decoded to UTF-16 before liblouis.
-//      Upstream copied raw UTF-8 bytes into the widechar buffer one byte at a
-//      time, so any non-ASCII character (café, niño) translated as garbage.
-//   2. NEW: translateBraille() export — translation without geometry. Returns
-//      JSON with the wrapped braille lines so the UI can preview/copy/export
-//      without generating an STL.
-//   3. FIX: 8-dot braille (dots 7/8) is honored. Upstream dropped bits 6/7 of
-//      the Unicode braille codepoint, silently flattening computer-braille
-//      tables to 6 dots. Cells are laid out 2 columns x 4 rows when any 8-dot
-//      cell is present.
-//   4. NEW: dot geometry (dot diameter, in-cell dot pitch, cell pitch) are
-//      parameters with the upstream values as defaults, enabling
-//      standards-based presets (ADA / Marburg / California signage...).
-//   5. FIX: words longer than the line limit hard-break instead of overflowing
-//      the requested width.
-//   6. Defensive clamps in C++ for geometry parameters (the dot profile
-//      degenerates below ~0.35 mm height; upstream only validated in JS).
+// Pipeline: UTF-8 text -> UTF-16 -> lou_translateString -> Unicode braille
+// (U+2800-28FF) -> word wrap -> JSON (core) or plate-and-dot geometry (full).
+// Both exports share translateAndWrap(), so the preview, the 2D exports and
+// the STL always agree on the braille.
 //
-// Tables are NOT embedded in the wasm anymore. The JS side fetches the table
-// files (plus their include-closure, from engine/tables-manifest.json) and
-// writes them into the module's MEMFS under /tables before calling in.
-// This removes ~14 MB from the wasm payloads and makes tables updatable
-// without recompiling.
+// Translation tables are not embedded in the binaries. The JS side fetches
+// each table's include-closure (listed in engine/tables-manifest.json) and
+// writes it into the module's MEMFS under /tables before calling in, so
+// tables can be updated without recompiling and the wasm stays small.
 
 #include <emscripten.h>
 #include <vector>
@@ -256,7 +242,7 @@ static bool translateAndWrap(const std::string& input, const std::string& table,
         words.push_back(current_word);
 
         // Hard-break any word longer than the line limit so the requested
-        // width is honored (upstream let long words overflow the plate).
+        // width is always honored.
         std::vector<std::vector<widechar>> sized_words;
         for (auto& word : words) {
             if ((int)word.size() <= maxChars) {
@@ -500,9 +486,9 @@ extern "C" {
 //   plate_height    base plate thickness (0 = dots only)
 //   line_spacing    extra gap between braille line strips
 //   margin_size     border around the text area
-//   dot_diameter    dot base diameter        (upstream hardcoded 1.6)
-//   dot_pitch       dot-to-dot within a cell (upstream hardcoded 2.34)
-//   cell_pitch      cell-to-cell distance    (upstream hardcoded 6.2)
+//   dot_diameter    dot base diameter (defaults to 1.6 when <= 0)
+//   dot_pitch       dot-to-dot distance within a cell (default 2.34)
+//   cell_pitch      cell-to-cell distance (default 6.2)
 EMSCRIPTEN_KEEPALIVE
 const char* generateBrailleSTL(const char* raw_text, int max_chars_per_line,
                                const char* braille_table,

@@ -1,9 +1,8 @@
 // presets.mjs — braille dimensional standards, clamps, and validation.
 //
-// Numbers sourced in the 2026-07-15 research pass (docs/research-synthesis.json):
-// ADA 2010 Table 703.3.1, California CBC 11B-703.3.1, BANA/Library of Congress
-// Spec 800 "Size and Spacing of Braille Characters", Marburg Medium / UKAAF
-// B008, ISO 17049, Perkins/RNIB jumbo geometry.
+// Sources: ADA 2010 Table 703.3.1, California CBC 11B-703.3.1, BANA/Library
+// of Congress Spec 800 "Size and Spacing of Braille Characters", Marburg
+// Medium / UKAAF B008, ISO 17049, and Perkins/RNIB jumbo geometry.
 //
 // All mm. `linePitch` is line-to-line distance (the standard number); the
 // engine's line_spacing parameter is the extra gap and is derived as
@@ -27,7 +26,7 @@ export const PRESETS = {
   'bana': {
     name: 'BANA / Library of Congress (paper feel)',
     dotDiameter: 1.44, dotHeight: 0.48, dotPitch: 2.34, cellPitch: 6.2, linePitch: 10.16,
-    note: 'Embossed-paper geometry (Spec 800). The upstream app’s original constants.',
+    note: 'Embossed-paper geometry (Library of Congress Specification 800).',
   },
   'marburg': {
     name: 'Marburg Medium / UKAAF (Europe)',
@@ -57,7 +56,7 @@ export const LIMITS = {
 };
 
 export const GEOMETRY_DEFAULTS = {
-  plateHeight: 2.0,          // FDM-honest default (was 1.0 upstream)
+  plateHeight: 2.0,          // rigid enough for handled labels when FDM-printed
   margin: 6.0,               // ISO 17049 exclusion-zone floor for signage
   stlScale: 1.0,
   charsPerLine: 32,

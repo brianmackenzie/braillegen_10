@@ -1,9 +1,9 @@
 // tables.mjs — curated liblouis table registry for the UI.
 //
-// Every filename verified present in the repo's liblouis 3.36.0 table set
-// (research pass 2026-07-15; see docs/research-synthesis.json). The full
-// 461-table catalog remains available via engine/tables-manifest.json; this
-// list is the human-friendly subset exposed in the dropdown.
+// Every filename exists in the bundled liblouis 3.36.0 table set, and the
+// test suite verifies each one loads and translates on the shipped engine.
+// The full 461-table catalog remains addressable via
+// engine/tables-manifest.json; this list is the curated dropdown subset.
 //
 // `lang` is the BCP-47 tag applied to echoed source text (WCAG 3.1.2).
 // AGPL-3.0 — part of the BrailleGen fork.

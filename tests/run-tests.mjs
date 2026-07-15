@@ -75,11 +75,11 @@ const core = await loadEngine('core');
 }
 {
   const r = translate(core, 'café niño', 'es-g1.ctb');
-  check('UTF-8 fix: Spanish accents translate cleanly',
+  check('Spanish accented characters translate cleanly',
     r.ok && r.lines[0] === '⠉⠁⠋⠮⠀⠝⠊⠻⠕',
     JSON.stringify(r));
-  check('UTF-8 fix: single line output (upstream produced 2 garbage lines)',
-    r.ok && r.lines.length === 1, JSON.stringify(r.lines));
+  check('accented input yields one line with no escape cells',
+    r.ok && r.lines.length === 1 && !r.eightDot, JSON.stringify(r.lines));
 }
 {
   const r = translate(core, '', 'en-ueb-g2.ctb');
@@ -151,7 +151,8 @@ const core = await loadEngine('core');
   check('indented wrap still honors the line limit', widths.every(w => w <= 10), JSON.stringify(widths));
 }
 
-// Golden UEB vectors (research pass 2026-07-15; see docs/research-synthesis.json)
+// Golden UEB vectors, checked against published references (NFB UEB lessons,
+// BANA contraction summaries, APH UEB math lessons).
 for (const [text, table, want, label] of [
   ['Hello World', 'en-ueb-g2.ctb', '⠠⠓⠑⠇⠇⠕⠀⠠⠸⠺', 'G2 capital indicator per word'],
   ['HELLO', 'en-ueb-g2.ctb', '⠠⠠⠓⠑⠇⠇⠕', 'G2 caps-word indicator'],
