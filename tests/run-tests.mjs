@@ -608,9 +608,9 @@ section('metrics module (logic only)');
   const src = readFileSync(join(ROOT, 'app', 'metrics.mjs'), 'utf8');
   check('metrics: honors Global Privacy Control', src.includes('globalPrivacyControl'));
   check('metrics: event allowlist only', src.includes("new Set([") && src.includes('generate-stl'));
-  check('metrics: same-origin beacon path', src.includes("'/api/event'"));
-  check('metrics: no user text in payload (beacon sends the event name only)',
-    src.includes('sendBeacon?.(\'/api/event\', name)'));
+  check('metrics: same-origin beacon path', src.includes("'/api/event/'"));
+  check('metrics: no user text in payload (the event name is the whole request)',
+    src.includes("fetch('/api/event/' + name"));
   const docs = readFileSync(join(ROOT, 'docs.html'), 'utf8');
   check('docs: privacy section discloses the beacon honestly',
     docs.includes('generate-stl') && docs.includes('Global Privacy Control') && docs.includes('metricsToggle'));

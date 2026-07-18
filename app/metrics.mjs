@@ -41,7 +41,10 @@ export function recordEvent(name) {
   if (!EVENTS.has(name) || !metricsAllowed()) return;
   try {
     if (location.protocol === 'file:') return;
-    navigator.sendBeacon?.('/api/event', name);
+    // A keepalive GET (event name in the path, empty body) so the CDN can
+    // sign the origin request; failures are silent by design.
+    fetch('/api/event/' + name, { method: 'GET', keepalive: true, cache: 'no-store' })
+      .catch(() => {});
   } catch { /* counting must never break the app */ }
 }
 
