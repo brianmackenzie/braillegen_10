@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign maker — BrailleGen</title>
+  <meta name="description" content="Design 3D-printable signs and labels with visual lettering and braille: ADA-informed defaults, raised/recessed/flush text, screw holes, and a live 3D preview — all in your browser.">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1d1e26">
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="app/app.css">
+  <script>
+    try {
+      var t = localStorage.getItem('bg-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the sign maker</a>
+
+  <div class="shell">
+    <header class="site-header">
+      <span class="brand">
+        <svg viewBox="0 0 20 28" aria-hidden="true" focusable="false">
+          <circle class="cell-dot" cx="6" cy="6" r="3.4"/>
+          <circle class="cell-dot" cx="6" cy="14" r="3.4"/>
+          <circle class="cell-dot--empty cell-dot" cx="6" cy="22" r="3.4" opacity="0.25"/>
+          <circle class="cell-dot--empty cell-dot" cx="14" cy="6" r="3.4" opacity="0.25"/>
+          <circle class="cell-dot--empty cell-dot" cx="14" cy="14" r="3.4" opacity="0.25"/>
+          <circle class="cell-dot--empty cell-dot" cx="14" cy="22" r="3.4" opacity="0.25"/>
+        </svg>
+        BrailleGen
+      </span>
+      <nav class="site-nav" aria-label="Site">
+        <a href="./">Generator</a>
+        <a href="sign.html" aria-current="page">Sign maker</a>
+        <a href="docs.html">Docs</a>
+        <a href="https://github.com/brianmackenzie/braillegen_10" rel="external">GitHub</a>
+      </nav>
+      <div class="theme-toggle" role="group" aria-label="Color theme">
+        <button type="button" data-theme-choice="auto" aria-pressed="true">Auto</button>
+        <button type="button" data-theme-choice="light" aria-pressed="false">Light</button>
+        <button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button>
+      </div>
+    </header>
+
+    <main id="main">
+      <h1>Sign and label maker</h1>
+      <p>
+        Design a 3D-printable sign with visual lettering and braille together.
+        Defaults follow the dimensions in ADA 703.2 and 703.3 (California-pinned
+        braille spacing) — the compliance notes below tell you what a
+        single-material print can and cannot satisfy. Nothing you type leaves
+        this page.
+      </p>
+
+      <p id="needsJs"><strong>The sign maker needs JavaScript.</strong>
+        Lettering geometry and the 3D preview are computed entirely in your
+        browser; there is no server to fall back to.</p>
+
+      <div role="alert" id="alert"></div>
+      <div role="status" id="status" class="sr-only"></div>
+
+      <form id="signform" novalidate>
+        <section class="panel">
+          <label for="signText">Sign text</label>
+          <textarea id="signText" name="signText" autocomplete="off" rows="2"
+            aria-describedby="signTextHint" placeholder="Room 101">Room 101</textarea>
+          <p class="hint" id="signTextHint">Each line becomes a line of lettering. Type lowercase and
+            capitalize only proper names, initials and acronyms — sign braille uses capital
+            indicators only for those, and the braille follows what you type. The visual lettering
+            is displayed uppercase for tactile reading either way.</p>
+          <div class="field-grid" style="margin-block-start: calc(var(--space) * 3);">
+            <div>
+              <label for="signGrade">Braille translation</label>
+              <select id="signGrade" name="signGrade" aria-describedby="signGradeHint">
+                <option value="en-ueb-g2.ctb" selected>Grade 2 (contracted UEB) — ADA signage standard</option>
+                <option value="en-ueb-g1.ctb">Grade 1 (uncontracted UEB)</option>
+              </select>
+              <p class="hint" id="signGradeHint">ADA 703.3.1 requires contracted braille on signs.</p>
+            </div>
+            <div>
+              <label for="brailleOverride">Braille override (Braille ASCII, optional)</label>
+              <input type="text" id="brailleOverride" name="brailleOverride" autocomplete="off"
+                spellcheck="false" autocapitalize="off"
+                aria-describedby="brailleOverrideError brailleOverrideHint">
+              <p class="hint" id="brailleOverrideHint">Leave empty to translate the sign text. Fill to
+                supply exact cells instead — one character per cell, as in BRF.</p>
+              <p class="field-error" id="brailleOverrideError" hidden></p>
+            </div>
+          </div>
+        </section>
+
+        <fieldset class="panel">
+          <legend>Lettering</legend>
+          <div class="field-grid">
+            <div>
+              <label for="signFont">Font</label>
+              <select id="signFont" name="signFont" aria-describedby="signFontHint"></select>
+              <p class="hint" id="signFontHint">All bundled faces are open-licensed. Regular weights
+                meet the ADA raised-character stroke rule; bold reads better recessed or flush.</p>
+            </div>
+            <div>
+              <label for="capHeight">Letter height (mm)</label>
+              <input type="text" inputmode="decimal" id="capHeight" name="capHeight" value="19"
+                aria-describedby="capHeightError capHeightHint">
+              <p class="hint" id="capHeightHint">Height of a capital letter. ADA tactile window:
+                15.9–50.8 mm (5/8"–2").</p>
+              <p class="field-error" id="capHeightError" hidden></p>
+            </div>
+            <div>
+              <label for="textStyle">Print style</label>
+              <select id="textStyle" name="textStyle" aria-describedby="textStyleHint">
+                <option value="raised" selected>Raised (embossed) — ADA tactile</option>
+                <option value="recessed">Recessed (debossed)</option>
+                <option value="flush">Flush two-piece (color inlay)</option>
+              </select>
+              <p class="hint" id="textStyleHint">Flush exports two files: the plate with recesses and
+                the letter inserts, printed in a second color and glued in level.</p>
+            </div>
+            <div>
+              <label for="textRelief">Letter relief (mm)</label>
+              <input type="text" inputmode="decimal" id="textRelief" name="textRelief" value="0.8"
+                aria-describedby="textReliefError textReliefHint">
+              <p class="hint" id="textReliefHint">Height above (or depth into) the plate.
+                ADA raised minimum: 0.8 mm (1/32").</p>
+              <p class="field-error" id="textReliefError" hidden></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="panel">
+          <legend>Plate</legend>
+          <div class="field-grid">
+            <div>
+              <label for="plateThicknessS">Thickness (mm)</label>
+              <input type="text" inputmode="decimal" id="plateThicknessS" name="plateThicknessS" value="3.2"
+                aria-describedby="plateThicknessSError">
+              <p class="field-error" id="plateThicknessSError" hidden></p>
+            </div>
+            <div>
+              <label for="cornerRadius">Corner radius (mm)</label>
+              <input type="text" inputmode="decimal" id="cornerRadius" name="cornerRadius" value="6.4"
+                aria-describedby="cornerRadiusError">
+              <p class="field-error" id="cornerRadiusError" hidden></p>
+            </div>
+            <div>
+              <label for="marginS">Margin (mm)</label>
+              <input type="text" inputmode="decimal" id="marginS" name="marginS" value="9.5"
+                aria-describedby="marginSError marginSHint">
+              <p class="hint" id="marginSHint">Space between content and the plate edge. The plate
+                sizes itself around the content — braille spacing never shrinks.</p>
+              <p class="field-error" id="marginSError" hidden></p>
+            </div>
+            <div>
+              <label for="gapTextBraille">Text-to-braille gap (mm)</label>
+              <input type="text" inputmode="decimal" id="gapTextBraille" name="gapTextBraille" value="11.1"
+                aria-describedby="gapTextBrailleError gapHint">
+              <p class="hint" id="gapHint">ADA 703.3.2 minimum: 9.5 mm (3/8"); California caps it at 12.7 mm (1/2").</p>
+              <p class="field-error" id="gapTextBrailleError" hidden></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="panel">
+          <legend>Mounting holes</legend>
+          <div class="field-grid">
+            <div>
+              <label for="holeLayout">Layout</label>
+              <select id="holeLayout" name="holeLayout">
+                <option value="none" selected>None (foam tape or silicone)</option>
+                <option value="2">Two holes, left and right</option>
+                <option value="4">Four corners</option>
+              </select>
+            </div>
+            <div>
+              <label for="fastener">Fastener</label>
+              <select id="fastener" name="fastener" aria-describedby="fastenerHint">
+                <option value="3.97" selected>#6 screw (5/32" clearance)</option>
+                <option value="4.76">#8 screw (3/16" clearance)</option>
+                <option value="3.4">M3 (3.4 mm clearance)</option>
+                <option value="4.5">M4 (4.5 mm clearance)</option>
+                <option value="custom">Custom diameter…</option>
+              </select>
+              <p class="hint" id="fastenerHint">Clearance fit — the screw passes through freely.</p>
+            </div>
+            <div>
+              <label for="holeDiameter">Hole diameter (mm)</label>
+              <input type="text" inputmode="decimal" id="holeDiameter" name="holeDiameter" value="3.97"
+                aria-describedby="holeDiameterError holeDiaHint">
+              <p class="hint" id="holeDiaHint">Set automatically from the fastener; edit freely.</p>
+              <p class="field-error" id="holeDiameterError" hidden></p>
+            </div>
+            <div class="check-row" style="align-items: end;">
+              <label class="check"><input type="checkbox" id="fdmComp" name="fdmComp" checked>
+                Add 0.3 mm for FDM printing (printed holes come out undersized)</label>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
+      <section class="panel" aria-labelledby="signPreviewHeading">
+        <h2 id="signPreviewHeading">Preview</h2>
+        <p class="preview-meta" id="signMeta">Loading fonts and the braille engine…</p>
+        <div class="sign-preview-grid">
+          <div>
+            <canvas id="signCanvas" class="sign-canvas"
+              aria-label="Rotatable 3D preview of the sign. All measurements are listed in the summary next to this view."></canvas>
+            <div class="viewer-controls" role="group" aria-label="Preview view controls">
+              <button type="button" data-view="left" aria-label="Rotate left">⟲</button>
+              <button type="button" data-view="right" aria-label="Rotate right">⟳</button>
+              <button type="button" data-view="up" aria-label="Tilt up">↑</button>
+              <button type="button" data-view="down" aria-label="Tilt down">↓</button>
+              <button type="button" data-view="in" aria-label="Zoom in">+</button>
+              <button type="button" data-view="out" aria-label="Zoom out">−</button>
+              <button type="button" data-view="reset">Reset view</button>
+            </div>
+            <p class="hint" id="viewerHelp">Or drag to rotate and scroll to zoom; with the preview
+              focused, arrow keys rotate, plus and minus zoom, Home resets.</p>
+          </div>
+          <div class="sign-mirror" id="signMirror" aria-labelledby="signMirrorHeading">
+            <h3 id="signMirrorHeading" class="sr-only">Sign summary</h3>
+            <dl id="signFacts"></dl>
+          </div>
+        </div>
+        <ul id="signWarnings" class="sign-warnings" aria-label="Design warnings"></ul>
+        <p class="hint" id="complianceNote">These defaults follow the dimensions in ADA 703.2/703.3.1
+          and California 11B-703. A single-material print cannot satisfy the visual-contrast and
+          non-glare finish requirements — print the flush two-piece style in contrasting colors, or
+          pair a tactile-only sign with a separate visual sign. Mounting: tactile characters between
+          48" and 60" above the floor, latch side of the door. This tool does not provide legal or
+          code advice.</p>
+      </section>
+
+      <section class="panel" aria-labelledby="signExportHeading" id="signDownloads">
+        <h2 id="signExportHeading">Export</h2>
+        <div class="button-row">
+          <button type="button" class="button-primary" id="btnSignStl">Download sign STL</button>
+          <button type="button" id="btnInsertsStl" hidden>Download letter inserts STL</button>
+          <button type="button" id="btnSignBraille">Copy braille</button>
+        </div>
+        <p class="status-line" id="signExportStatus" style="margin-block-start: calc(var(--space) * 3);"></p>
+        <p class="download-note" id="signDownloadNote" tabindex="-1"></p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Engine: liblouis 3.36.0 · fonts under the SIL Open Font License</span>
+      <span id="offlineState"></span>
+      <span><a href="https://github.com/brianmackenzie/braillegen_10" rel="external">Source (AGPL-3.0)</a></span>
+    </footer>
+  </div>
+
+  <script type="module" src="app/sign.mjs"></script>
+</body>
+</html>

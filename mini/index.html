@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrailleGen Mini — braille STL in three steps</title>
+  <meta name="description" content="The smallest possible braille 3D-print generator: type text, pick a standard, download a correct STL. Grade 2 braille, standards-true dot geometry, all in your browser.">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1d1e26">
+  <link rel="icon" type="image/svg+xml" href="../assets/icon.svg">
+  <link rel="stylesheet" href="../app/app.css">
+  <script>
+    try {
+      var t = localStorage.getItem('bg-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the generator</a>
+  <div class="shell">
+    <header class="site-header">
+      <span class="brand">
+        <svg viewBox="0 0 20 28" aria-hidden="true" focusable="false">
+          <circle class="cell-dot" cx="6" cy="6" r="3.4"/>
+          <circle class="cell-dot" cx="6" cy="14" r="3.4"/>
+          <circle class="cell-dot--empty cell-dot" cx="6" cy="22" r="3.4" opacity="0.25"/>
+          <circle class="cell-dot--empty cell-dot" cx="14" cy="6" r="3.4" opacity="0.25"/>
+          <circle class="cell-dot--empty cell-dot" cx="14" cy="14" r="3.4" opacity="0.25"/>
+          <circle class="cell-dot--empty cell-dot" cx="14" cy="22" r="3.4" opacity="0.25"/>
+        </svg>
+        BrailleGen Mini
+      </span>
+      <nav class="site-nav" aria-label="Site">
+        <a href="../">Full generator</a>
+        <a href="../sign.html">Sign maker</a>
+        <a href="../docs.html">Docs</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <h1>Braille STL in three steps</h1>
+      <p>
+        Type text, pick a standard, download a 3D-printable braille tile.
+        Translation is real contracted braille (liblouis, the engine behind
+        screen readers and braille embossers), and the dots follow published
+        standards — nothing you type leaves this page.
+        Need previews, signs, SVG or embosser files? Use the
+        <a href="../">full generator</a>.
+      </p>
+
+      <p id="needsJs"><strong>BrailleGen Mini needs JavaScript</strong> —
+        the braille engine runs entirely in your browser.</p>
+
+      <div role="alert" id="alert"></div>
+      <div role="status" id="status" class="sr-only"></div>
+
+      <form id="miniform" novalidate>
+        <section class="panel">
+          <label for="miniText">1. Text</label>
+          <textarea id="miniText" rows="2" autocomplete="off" placeholder="Room 101">Room 101</textarea>
+        </section>
+        <section class="panel">
+          <div class="field-grid">
+            <div>
+              <label for="miniGrade">2. Braille</label>
+              <select id="miniGrade">
+                <option value="en-ueb-g2.ctb" selected>Grade 2 (contracted — signage standard)</option>
+                <option value="en-ueb-g1.ctb">Grade 1 (uncontracted — letter by letter)</option>
+              </select>
+            </div>
+            <div>
+              <label for="miniPreset">Dot standard</label>
+              <select id="miniPreset"></select>
+            </div>
+          </div>
+          <p class="hint" id="miniBrailleOut"></p>
+        </section>
+        <section class="panel">
+          <div class="button-row">
+            <button type="submit" class="button-primary" id="miniGo">3. Download STL</button>
+          </div>
+          <div id="miniProgressWrap" hidden style="margin-block-start: calc(var(--space) * 4);">
+            <label for="miniProgress">Loading the 3D engine (about 9 MB, one time)</label>
+            <progress id="miniProgress" max="100"></progress>
+          </div>
+          <p class="download-note" id="miniNote" tabindex="-1"></p>
+        </section>
+      </form>
+    </main>
+
+    <footer class="site-footer">
+      <span>liblouis 3.36.0 · <a href="../docs.html">how the numbers are chosen</a></span>
+      <span><a href="https://github.com/brianmackenzie/braillegen_10" rel="external">Source (AGPL-3.0)</a></span>
+    </footer>
+  </div>
+
+  <script type="module">
+    import { translate, generateStl, loadCore } from '../app/engine.mjs';
+    import { PRESETS, DEFAULT_PRESET, linePitchToSpacing } from '../app/presets.mjs';
+    import { recordEvent } from '../app/metrics.mjs';
+
+    const $ = (id) => document.getElementById(id);
+    $('needsJs')?.remove();
+    // Clear-then-set across a frame so identical repeated messages re-announce.
+    const announce = (m) => { $('status').textContent = ''; requestAnimationFrame(() => { $('status').textContent = m; }); };
+    const alertBox = (m) => { $('alert').textContent = ''; requestAnimationFrame(() => { $('alert').textContent = m; }); };
+
+    for (const [id, p] of Object.entries(PRESETS)) {
+      const opt = document.createElement('option');
+      opt.value = id; opt.textContent = p.name;
+      if (id === DEFAULT_PRESET) opt.selected = true;
+      $('miniPreset').append(opt);
+    }
+
+    let busy = false;
+    async function preview() {
+      const text = $('miniText').value.trim();
+      if (!text) { $('miniBrailleOut').textContent = ''; return; }
+      try {
+        const r = await translate(text, $('miniGrade').value, 32);
+        if (r.ok) $('miniBrailleOut').textContent = r.lines.join('  ');
+      } catch { /* preview is best-effort; the engine may still be loading */ }
+    }
+    let t = 0;
+    $('miniform').addEventListener('input', () => { clearTimeout(t); t = setTimeout(preview, 250); });
+
+    $('miniform').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (busy) return;
+      const text = $('miniText').value.trim();
+      if (!text) { alertBox('Type some text first.'); return; }
+      $('alert').textContent = '';
+      busy = true;
+      $('miniGo').setAttribute('aria-disabled', 'true');
+      const preset = PRESETS[$('miniPreset').value];
+      try {
+        $('miniProgressWrap').hidden = false;
+        const { bytes } = await generateStl({
+          text, table: $('miniGrade').value, charsPerLine: 32,
+          brailleHeight: preset.dotHeight, plateHeight: 2,
+          lineSpacing: linePitchToSpacing(preset), marginSize: 6, stlScale: 1,
+          slabMode: false, verticalExport: false,
+          dotDiameter: preset.dotDiameter, dotPitch: preset.dotPitch, cellPitch: preset.cellPitch,
+        }, ({ loaded, total }) => {
+          if (total) $('miniProgress').value = Math.min(100, Math.round((loaded / total) * 100));
+        });
+        $('miniProgressWrap').hidden = true;
+        const blob = new Blob([bytes], { type: 'model/stl' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) + '-braille.stl';
+        a.textContent = `Download again — ${a.download}, ${Math.round(blob.size / 1024)} KB`;
+        $('miniNote').textContent = '';
+        $('miniNote').append(a);
+        a.click();
+        $('miniNote').focus();
+        announce('STL ready and downloading.');
+        recordEvent('generate-mini');
+      } catch (err) {
+        $('miniProgressWrap').hidden = true;
+        alertBox(`STL generation failed: ${err.message}`);
+      } finally {
+        busy = false;
+        $('miniGo').removeAttribute('aria-disabled');
+      }
+    });
+
+    loadCore().then(preview).catch(() => {});
+  </script>
+</body>
+</html>

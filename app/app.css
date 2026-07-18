@@ -224,6 +224,15 @@ a:hover { text-decoration-thickness: 2px; }
 }
 
 fieldset.panel { min-inline-size: 0; }
+
+/* Inline fieldset (the input-mode switch): grouped without the panel chrome. */
+.mode-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 calc(var(--space) * 4);
+}
+.mode-fieldset legend { padding-inline: 0; margin-block-end: var(--space); }
+.mode-fieldset .hint { max-inline-size: 70ch; }
 legend {
   font-weight: 700; font-size: 1.05rem;
   padding-inline: calc(var(--space) * 2);
@@ -434,3 +443,41 @@ details.console summary { cursor: pointer; font-weight: 700; min-block-size: 44p
   .preview-line svg { color: #000; }
   .preview-line .braille-text { color: #000; }
 }
+
+/* --- Sign maker --- */
+.sign-preview-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 3fr) minmax(240px, 2fr);
+  gap: calc(var(--space) * 5);
+  align-items: start;
+}
+@media (max-width: 760px) { .sign-preview-grid { grid-template-columns: 1fr; } }
+.sign-canvas {
+  inline-size: 100%;
+  block-size: 320px;
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius-small);
+  background: color-mix(in oklab, var(--bg) 88%, var(--accent));
+  touch-action: none;
+  cursor: grab;
+}
+.sign-canvas:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.sign-mirror dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: var(--space) calc(var(--space) * 3); }
+.sign-mirror dt { font-weight: 700; }
+.sign-mirror dd { margin: 0; overflow-wrap: anywhere; }
+.sign-warnings { padding-inline-start: 1.2em; margin-block: calc(var(--space) * 3) 0; }
+.sign-warnings li { color: var(--warn, #9a6700); margin-block-end: var(--space); }
+.sign-warnings:empty { display: none; }
+.viewer-controls {
+  display: flex; flex-wrap: wrap; gap: var(--space);
+  margin-block-start: var(--space);
+}
+.viewer-controls button {
+  min-inline-size: 44px; min-block-size: 44px;
+  font: inherit; color: var(--text);
+  background: var(--bg-raised);
+  border: var(--border-w) solid var(--border-strong);
+  border-radius: var(--radius-small);
+  cursor: pointer;
+}
+.viewer-controls button:hover { border-color: var(--accent); }

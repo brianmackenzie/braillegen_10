@@ -8,8 +8,10 @@
 // AGPL-3.0 — part of the BrailleGen fork.
 
 // NABCC: index = 6-dot bitmask (bit 0..5 = dot 1..6), value = ASCII char.
-// Verified against liblouis's en-us-brf.dis display table.
-const NABCC = [
+// Verified against liblouis's en-us-brf.dis display table. Exported because
+// braille-ascii.mjs derives the inverse map (ASCII -> cell) from it, so both
+// directions always come from this one table.
+export const NABCC = [
   ' ', 'A', '1', 'B', "'", 'K', '2', 'L',   // 0x00-0x07
   '@', 'C', 'I', 'F', '/', 'M', 'S', 'P',   // 0x08-0x0F
   '"', 'E', '3', 'H', '9', 'O', '6', 'R',   // 0x10-0x17

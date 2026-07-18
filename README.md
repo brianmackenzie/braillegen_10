@@ -10,9 +10,19 @@ braille, and export it as:
 - **BRF** — embosser-ready Braille ASCII (25-line pages, form feeds)
 - **Unicode braille** — copy or download the translated text itself
 
+Beyond translation, the app includes:
+
+- **Braille ASCII input** — type cells directly (the 64-character BRF code:
+  `g` is dots 1-2-4-5, the Nemeth equals sign is `.k`), with layout preserved
+  exactly — which makes hand-transcribed Nemeth math printable
+- **[Sign maker](sign.html)** — visual lettering and braille on one plate,
+  with ADA 703-informed defaults, raised/recessed/flush two-piece styles,
+  open-licensed fonts, mounting holes, and an accessible live 3D preview
+- **[Mini](mini/)** — the three-step version: text, standard, STL
+
 Translation runs [liblouis](https://liblouis.io) 3.36.0 — the engine behind
 NVDA, JAWS and BrailleBlaster — compiled to WebAssembly. Everything happens in
-the browser: no server, no tracking, works offline after the first visit.
+the browser: no server, your text never leaves the page, works offline after the first visit. (An optional, anonymous event counter — event names only, honoring Global Privacy Control, with an off switch — is documented in the docs.)
 
 **Upstream live app:** https://braillegen.org (this fork deploys the same way —
 GitHub Pages from the repo root, no build step).
@@ -34,7 +44,7 @@ in one WASM, fully client-side) and rebuilds everything around it:
 | Outputs | STL only | STL + SVG + BRF + Unicode text + clipboard |
 | Accessibility | focus outlines removed, no announcements, tabs without semantics | WCAG 2.2 AA target: live regions, visible focus, keyboard-complete, forced-colors, reduced-motion, 7:1 text contrast |
 | Offline | claimed | real: installable PWA with a service worker |
-| Tests | none | 74 engine/module checks (golden UEB vectors, geometry parity, adversarial inputs) + a 19-check real-browser suite |
+| Tests | none | 120 engine/module checks (golden UEB vectors, geometry parity, watertight-mesh proofs, adversarial inputs) + an 18-check real-browser + axe-core suite |
 
 ## Architecture
 

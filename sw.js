@@ -8,11 +8,13 @@
 //
 // AGPL-3.0 — part of the BrailleGen fork.
 
-const VERSION = 'bg-v2.0.7';
+const VERSION = 'bg-v2.1.0';
 const SHELL = [
   './',
   './index.html',
   './docs.html',
+  './sign.html',
+  './mini/index.html',
   './manifest.webmanifest',
   './assets/icon.svg',
   './app/app.css',
@@ -22,6 +24,20 @@ const SHELL = [
   './app/braille-brf.mjs',
   './app/tables.mjs',
   './app/presets.mjs',
+  './app/braille-ascii.mjs',
+  './app/mesh.mjs',
+  './app/viewer.mjs',
+  './app/metrics.mjs',
+  './app/fonts.mjs',
+  './app/sign-mesh.mjs',
+  './app/sign.mjs',
+  './app/vendor/earcut.mjs',
+  './app/vendor/opentype.mjs',
+  './assets/fonts/geometry/atkinson-400.ttf',
+  './assets/fonts/geometry/atkinson-700.ttf',
+  './assets/fonts/geometry/arimo-400.ttf',
+  './assets/fonts/geometry/arimo-700.ttf',
+  './assets/fonts/geometry/jbmono-700.ttf',
   './engine/core.js',
   './engine/core.wasm',
   './engine/tables-manifest.json',
@@ -58,7 +74,11 @@ self.addEventListener('fetch', (event) => {
 
   event.respondWith((async () => {
     const cache = await caches.open(VERSION);
-    const hit = await cache.match(event.request, { ignoreSearch: false });
+    let hit = await cache.match(event.request, { ignoreSearch: false });
+    // Directory URLs (./ and ./mini/) are cached as their index.html.
+    if (!hit && url.pathname.endsWith('/')) {
+      hit = await cache.match(new URL(url.pathname + 'index.html', url.origin).href);
+    }
     if (hit) return hit;
     try {
       // no-cache: revalidate against the server so a fresh deploy's bytes are
@@ -71,9 +91,10 @@ self.addEventListener('fetch', (event) => {
       }
       return res;
     } catch (err) {
-      // Offline and not cached: fall back to the shell for navigations.
+      // Offline and not cached: fall back to the matching page shell (the
+      // generator's shell at a /mini/ URL would resolve its imports wrongly).
       if (event.request.mode === 'navigate') {
-        const shell = await cache.match('./index.html');
+        const shell = await cache.match(url.pathname.includes('/mini/') ? './mini/index.html' : './index.html');
         if (shell) return shell;
       }
       throw err;

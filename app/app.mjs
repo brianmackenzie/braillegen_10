@@ -4,6 +4,8 @@
 import { translate, generateStl, loadCore, onEngineLog, stlReady } from './engine.mjs';
 import { brailleToSvg } from './braille-svg.mjs';
 import { brailleToBrf } from './braille-brf.mjs';
+import { asciiToBraille, describeInvalid } from './braille-ascii.mjs';
+import { recordEvent } from './metrics.mjs';
 import { TABLE_GROUPS, DEFAULT_TABLE, tableInfo } from './tables.mjs';
 import {
   PRESETS, DEFAULT_PRESET, LIMITS, GEOMETRY_DEFAULTS,
@@ -111,6 +113,11 @@ function applyPreset(id) {
 }
 
 function updateTableHint() {
+  if (inputMode() === 'ascii') {
+    $('tableHint').textContent = 'Not used for Braille ASCII — characters map directly to cells.';
+    $('textInput').removeAttribute('lang');
+    return;
+  }
   const info = tableInfo(tableSelect.value);
   $('tableHint').textContent = info.eightDot
     ? 'This table produces 8-dot braille (dots 7–8): taller cells; BRF export cannot represent it.'
@@ -118,6 +125,52 @@ function updateTableHint() {
   // The typed text is in the selected table's language (WCAG 3.1.2).
   if (info.lang && info.lang !== 'und') $('textInput').setAttribute('lang', info.lang);
   else $('textInput').removeAttribute('lang');
+}
+
+// ---------------------------------------------------------------------------
+// Input mode: translated print text vs direct Braille ASCII entry
+// ---------------------------------------------------------------------------
+function inputMode() {
+  return $('modeAscii')?.checked ? 'ascii' : 'text';
+}
+
+// Braille ASCII entry must not be "helped" by the platform: autocapitalize
+// and autocorrect would rewrite cell characters under the transcriber's
+// fingers, and spellcheck underlines are meaningless noise there.
+function applyInputMode() {
+  const ascii = inputMode() === 'ascii';
+  const input = $('textInput');
+  $('textLabel').textContent = ascii ? 'Braille ASCII to convert' : 'Text to translate';
+  input.placeholder = ascii ? ',hello ,world' : 'hello world';
+  input.spellcheck = !ascii;
+  input.setAttribute('autocapitalize', ascii ? 'off' : 'sentences');
+  input.setAttribute('autocorrect', ascii ? 'off' : 'on');
+  $('textHint').textContent = ascii
+    ? 'One character = one cell (letters, digits and BRF symbols; case does not matter). Lines are never re-wrapped, so spatial layouts like Nemeth worked problems keep their columns.'
+    : 'Each line becomes its own braille line. The preview below updates as you type.';
+  tableSelect.disabled = ascii;
+  $('charsPerLine').disabled = ascii;
+  $('charsHint').textContent = ascii
+    ? 'Not used for Braille ASCII — lines are kept exactly as typed.'
+    : 'Braille embosser pages are typically 40 cells or fewer.';
+  updateTableHint();
+}
+
+/**
+ * The one translation path both the preview and every export use:
+ * engine translation in text mode, the direct NABCC map in ASCII mode.
+ * ASCII-mode issues (out-of-set characters, smart-quote fixes) come back as
+ * `notes` for the caller to surface.
+ */
+async function runTranslation(s) {
+  if (s.inputMode !== 'ascii') return translate(s.text, s.table, s.charsPerLine);
+  const { lines, invalid, smartFixes } = asciiToBraille(s.text);
+  const notes = [];
+  if (invalid.length) notes.push(describeInvalid(invalid));
+  if (smartFixes) notes.push(`${smartFixes} smart quote/dash character${smartFixes === 1 ? ' was' : 's were'} read as plain ASCII.`);
+  // Pasted Unicode braille can carry dots 7/8 even though the ASCII set is 6-dot.
+  const eightDot = lines.some(l => [...l].some(c => (c.codePointAt(0) - 0x2800) & 0xC0));
+  return { ok: true, lines, eightDot, notes };
 }
 
 presetSelect.addEventListener('change', () => {
@@ -140,6 +193,7 @@ function parseNum(raw) {
 function readSettings() {
   return {
     text: $('textInput').value,
+    inputMode: inputMode(),
     table: tableSelect.value,
     charsPerLine: parseNum($('charsPerLine').value),
     dotDiameter: parseNum($('dotDiameter').value),
@@ -204,7 +258,7 @@ function validateAll() {
     if (msg) { setFieldError(field, msg); errors.push(msg); }
   };
 
-  range('charsPerLine', 'Cells per line', LIMITS.charsPerLine, true);
+  if (s.inputMode !== 'ascii') range('charsPerLine', 'Cells per line', LIMITS.charsPerLine, true);
   range('plateHeight', 'Plate thickness', LIMITS.plateHeight);
   range('marginSize', 'Margin', LIMITS.margin);
   range('stlScale', 'Export scale', LIMITS.stlScale);
@@ -251,13 +305,17 @@ function persistSettings() {
     localStorage.setItem(PERSIST_KEY, JSON.stringify({ ...s, preset: presetSelect.value }));
   } catch {}
 }
+function restoreInputMode(saved) {
+  if (saved === 'ascii') $('modeAscii').checked = true;
+  applyInputMode();
+}
 function restoreSettings() {
   applyPreset(DEFAULT_PRESET);
   $('plateHeight').value = String(GEOMETRY_DEFAULTS.plateHeight);
   $('marginSize').value = String(GEOMETRY_DEFAULTS.margin);
   try {
     const raw = localStorage.getItem(PERSIST_KEY);
-    if (!raw) return;
+    if (!raw) { restoreInputMode(); return; }
     const s = JSON.parse(raw);
     const setVal = (id, v) => { if (v !== undefined && $(id)) $(id).value = String(v); };
     const setChk = (id, v) => { if (v !== undefined && $(id)) $(id).checked = !!v; };
@@ -280,7 +338,10 @@ function restoreSettings() {
     } else if (PRESETS[s.preset]) {
       $('presetNote').textContent = PRESETS[s.preset].note;
     }
+    restoreInputMode(s.inputMode);
+    return;
   } catch {}
+  restoreInputMode();
 }
 
 // ---------------------------------------------------------------------------
@@ -320,7 +381,7 @@ async function refreshPreview() {
 
   let r;
   try {
-    r = await translate(s.text, s.table, s.charsPerLine);
+    r = await runTranslation(s);
   } catch (e) {
     if (seq !== previewSeq) return;
     raiseAlert(`Translation failed: ${e.message}`);
@@ -335,10 +396,14 @@ async function refreshPreview() {
   }
   lastTranslation = { lines: r.lines, eightDot: r.eightDot, text: s.text, table: s.table };
 
+  if (r.notes?.length) {
+    raiseAlert(r.notes.join(' '));
+  }
+
   // Untranslatable characters surface as escape cells carrying dots 7/8 even
   // in 6-dot tables — warn rather than let them emboss silently.
   const info = tableInfo(s.table);
-  if (r.eightDot && !info.eightDot) {
+  if (s.inputMode !== 'ascii' && r.eightDot && !info.eightDot) {
     raiseAlert('Some characters have no braille definition in this table — they appear as escape cells (with raised lower dots) in the output. Consider revising the text or choosing another table.');
   }
 
@@ -349,7 +414,8 @@ async function refreshPreview() {
     `${r.lines.length} line${r.lines.length === 1 ? '' : 's'} · ${cells} cell${cells === 1 ? '' : 's'}` +
     ` · ${sizeLabel} ≈ ${dims.widthMm} × ${dims.heightMm} mm` +
     (s.stlScale !== 1 && Number.isFinite(s.stlScale) ? ` (× ${s.stlScale} in the STL)` : '') +
-    (r.eightDot ? ' · 8-dot' : '');
+    (r.eightDot ? ' · 8-dot' : '') +
+    (s.inputMode === 'ascii' ? ' · Braille ASCII input' : '');
 
   linesWrap.textContent = '';
   const pxPerMm = 3;
@@ -414,6 +480,16 @@ function onSettingsChanged() {
 $('genform').addEventListener('input', () => { updateTableHint(); onSettingsChanged(); });
 $('genform').addEventListener('submit', (e) => { e.preventDefault(); refreshPreview(); });
 
+for (const id of ['modeText', 'modeAscii']) {
+  $(id).addEventListener('change', () => {
+    applyInputMode();
+    announce($(id) === $('modeAscii') && $('modeAscii').checked
+      ? 'Braille ASCII input: characters map directly to cells; lines are kept as typed. The language and cells-per-line settings are disabled.'
+      : 'Print text input: text is translated with the selected braille table. The language and cells-per-line settings are enabled again.');
+    onSettingsChanged();
+  });
+}
+
 // ---------------------------------------------------------------------------
 // Exports
 // ---------------------------------------------------------------------------
@@ -424,6 +500,9 @@ function slugify(text) {
 }
 function tableSlug(table) {
   return table.replace(/\.(ctb|utb|tbl)$/, '').replace(/[^a-z0-9]+/gi, '-');
+}
+function exportSlug(s) {
+  return s.inputMode === 'ascii' ? 'braille-ascii' : tableSlug(s.table);
 }
 
 let lastObjectUrl = null;
@@ -445,16 +524,18 @@ function offerDownload(bytes, filename, type, label) {
   a.textContent = `Download ${label} — ${filename}, ${size}`;
   note.append(a);
   a.click();
+  // Focusing the note makes screen readers read the link text - that IS the
+  // announcement; a parallel status message would say everything twice.
   note.focus();
-  announce(`${label} ready: ${filename}, ${size}. A download link is available below the export buttons.`);
 }
 
 async function freshTranslation() {
   const { ok, s, errors } = validateAll();
   if (!s.text.trim()) { raiseAlert('Type some text first.'); return null; }
   if (!ok) { raiseAlert('Fix these before exporting: ' + errors.join(' ')); return null; }
-  const r = await translate(s.text, s.table, s.charsPerLine);
+  const r = await runTranslation(s);
   if (!r.ok) { raiseAlert(r.error ?? 'Translation failed.'); return null; }
+  if (r.notes?.length) raiseAlert(r.notes.join(' '));
   return { s, r };
 }
 
@@ -467,8 +548,9 @@ $('btnSvg').addEventListener('click', async () => {
     emptyDots: s.svgEmptyDots ? 'outline' : 'none',
     drillCenters: s.svgDrillMarks,
   }));
-  offerDownload(svg, `${slugify(s.text)}_${tableSlug(s.table)}${s.svgMirrored ? '_mirrored' : ''}.svg`,
+  offerDownload(svg, `${slugify(s.text)}_${exportSlug(s)}${s.svgMirrored ? '_mirrored' : ''}.svg`,
     'image/svg+xml', 'SVG');
+  recordEvent('generate-svg');
 });
 
 $('btnBrf').addEventListener('click', async () => {
@@ -479,17 +561,31 @@ $('btnBrf').addEventListener('click', async () => {
   // RE-TRANSLATE at 40 so liblouis wraps at word boundaries — hard-slicing the
   // preview lines would split words and break braille semantics (a numeric
   // indicator is not restated after a mid-number cut).
-  const brfWidth = Math.min(40, s.charsPerLine || 40);
+  //
+  // Braille ASCII input is NEVER re-wrapped: its line layout is authorial
+  // (Nemeth worked problems lose their meaning if columns move). Long lines
+  // go out as typed, with a warning instead of a rewrap.
+  let brfWidth = Math.min(40, s.charsPerLine || 40);
   let lines = t.r.lines;
   let rewrapped = false;
-  if ((s.charsPerLine || 0) > 40) {
+  let asciiWidthNote = '';
+  if (s.inputMode === 'ascii') {
+    const longest = lines.reduce((n, l) => Math.max(n, [...l].length), 0);
+    brfWidth = Math.max(40, longest);
+    if (longest > 40) {
+      asciiWidthNote = `Lines up to ${longest} cells are kept as typed — embossers set narrower than that will truncate them.`;
+    }
+  } else if ((s.charsPerLine || 0) > 40) {
     const r40 = await translate(s.text, s.table, brfWidth);
     if (!r40.ok) { raiseAlert(r40.error ?? 'Translation failed.'); return; }
     lines = r40.lines;
     rewrapped = true;
   }
   const { brf, droppedDots } = brailleToBrf(lines, { cellsPerLine: brfWidth });
-  const notes = [];
+  // One aggregated alert: raiseAlert is last-writer-wins, so stacking calls
+  // would silently drop earlier notes (ASCII-mode issues included).
+  const notes = [...(t.r.notes ?? [])];
+  if (asciiWidthNote) notes.push(asciiWidthNote);
   if (droppedDots > 0) {
     notes.push(`BRF is a 6-dot format: ${droppedDots} cell${droppedDots === 1 ? '' : 's'} using dots 7–8 were replaced with blank cells — for 8-dot content, use the braille text download instead.`);
   }
@@ -497,15 +593,17 @@ $('btnBrf').addEventListener('click', async () => {
     notes.push('BRF lines are capped at the conventional 40 cells, so the file was re-wrapped at word boundaries; its line layout differs from the preview.');
   }
   if (notes.length) raiseAlert(notes.join(' '));
-  offerDownload(brf, `${slugify(s.text)}_${tableSlug(s.table)}.brf`, 'text/plain', 'BRF');
+  offerDownload(brf, `${slugify(s.text)}_${exportSlug(s)}.brf`, 'text/plain', 'BRF');
+  recordEvent('generate-brf');
 });
 
 $('btnTxt').addEventListener('click', async () => {
   const t = await freshTranslation();
   if (!t) return;
   const { s, r } = t;
-  offerDownload(r.lines.join('\r\n'), `${slugify(s.text)}_${tableSlug(s.table)}.txt`,
+  offerDownload(r.lines.join('\r\n'), `${slugify(s.text)}_${exportSlug(s)}.txt`,
     'text/plain;charset=utf-8', 'braille text');
+  recordEvent('generate-txt');
 });
 
 $('btnCopy').addEventListener('click', async () => {
@@ -544,10 +642,14 @@ $('btnStl').addEventListener('click', async () => {
     exportStatus.textContent = stlReady() ? 'Generating STL…' : 'Loading 3D engine…';
 
     let lastMilestone = 0;
+    // ASCII mode hands the engine finished BRAILLE characters: every table
+    // passes braille codepoints through unchanged (they are defined as
+    // themselves), and charsPerLine 0 disables re-wrapping so spatial
+    // layouts keep their columns.
     const { filename, bytes } = await generateStl({
-      text: s.text,
+      text: s.inputMode === 'ascii' ? t.r.lines.join('\n') : s.text,
       table: s.table,
-      charsPerLine: s.charsPerLine,
+      charsPerLine: s.inputMode === 'ascii' ? 0 : s.charsPerLine,
       brailleHeight: s.dotHeight,
       plateHeight: s.plateHeight,
       lineSpacing: linePitchToSpacing(s),
@@ -581,8 +683,9 @@ $('btnStl').addEventListener('click', async () => {
     progressWrap.hidden = true;
     exportStatus.textContent = 'STL generated.';
     exportStatus.dataset.tone = 'ok';
-    const name = `${slugify(s.text)}_${tableSlug(s.table)}_${s.dotHeight}mm.stl`;
+    const name = `${slugify(s.text)}_${exportSlug(s)}_${s.dotHeight}mm.stl`;
     offerDownload(bytes, name, 'model/stl', 'STL');
+    recordEvent('generate-stl');
     void filename;
   } catch (e) {
     progressWrap.hidden = true;

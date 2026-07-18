@@ -43,6 +43,7 @@
       </span>
       <nav class="site-nav" aria-label="Site">
         <a href="./" aria-current="page">Generator</a>
+        <a href="sign.html">Sign maker</a>
         <a href="docs.html">Docs</a>
         <!-- Deploying a fork? Point this and the footer Source link at YOUR
              repository — the AGPL requires offering the modified source. -->
@@ -76,7 +77,20 @@
 
       <form id="genform" novalidate>
         <section class="panel">
-          <label for="textInput">Text to translate</label>
+          <fieldset class="mode-fieldset">
+            <legend>Input type</legend>
+            <div class="check-row">
+              <label class="check"><input type="radio" name="inputMode" value="text" id="modeText" checked>
+                Print text — translated to braille</label>
+              <label class="check"><input type="radio" name="inputMode" value="ascii" id="modeAscii" aria-describedby="modeHint">
+                Braille ASCII — direct cell entry</label>
+            </div>
+            <p class="hint" id="modeHint">Braille ASCII types cells directly — each character is one
+              cell (<code>g</code> is dots 1-2-4-5), which is how Nemeth math and other
+              hand-transcribed braille are entered: the Nemeth equals sign, for example, is typed
+              <code>.k</code>. Lines are kept exactly as typed.</p>
+          </fieldset>
+          <label for="textInput" id="textLabel">Text to translate</label>
           <textarea id="textInput" name="text" autocomplete="off" aria-describedby="textHint"
             placeholder="hello world">hello world</textarea>
           <p class="hint" id="textHint">Each line becomes its own braille line. The preview below updates as you type.</p>

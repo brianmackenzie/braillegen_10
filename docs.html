@@ -36,6 +36,7 @@
       </span>
       <nav class="site-nav" aria-label="Site">
         <a href="./">Generator</a>
+        <a href="sign.html">Sign maker</a>
         <a href="docs.html" aria-current="page">Docs</a>
         <a href="https://github.com/brianmackenzie/braillegen_10" rel="external">GitHub</a>
       </nav>
@@ -104,6 +105,43 @@
         <li>The exported SVG carries its own <code>&lt;title&gt;</code> and <code>&lt;desc&gt;</code> (including the braille string and dimensions), so the file itself is screen-reader-readable.</li>
       </ul>
 
+      <h2 id="ascii">Braille ASCII input — Nemeth math and direct transcription</h2>
+      <p>
+        The generator's <strong>Braille ASCII</strong> input mode types cells directly instead of
+        translating: each character is one cell, using the same 64-character code BRF files and
+        braille keyboards use (<code>g</code> is dots 1-2-4-5, <code>#</code> is the Nemeth numeric
+        indicator). That makes hand-transcribed codes printable — the Nemeth equals sign, for
+        example, is typed <code>.k</code>. Upper and lower case mean the same cells, lines are never
+        re-wrapped (spatial layouts like worked math problems keep their columns exactly), and
+        anything outside the Braille ASCII set becomes a clearly flagged blank cell rather than a
+        silently wrong one. Finished Unicode braille can be pasted straight in alongside.
+      </p>
+
+      <h2 id="signs">Sign maker — lettering and braille together</h2>
+      <p>
+        The <a href="sign.html">sign maker</a> builds one printable plate with visual lettering on
+        top and braille below, following the dimensions in ADA 703.2/703.3.1 and California
+        11B-703: raised uppercase sans-serif letters (default 19&nbsp;mm, at least 0.8&nbsp;mm
+        relief), contracted Grade 2 braille with California-pinned spacing, a 9.5–12.7&nbsp;mm
+        text-to-braille gap, and braille that <em>never</em> scales — when content grows, the plate
+        grows. Letter styles: <strong>raised</strong> (the ADA tactile style),
+        <strong>recessed</strong>, or <strong>flush two-piece</strong>, which exports the plate and
+        the letter inserts separately so they can be printed in contrasting colors and glued in
+        level. Mounting-hole layouts cover #6/#8 and M3/M4 screws with an FDM size compensation.
+        The bundled fonts are open-licensed (Atkinson Hyperlegible, the Arial-compatible Arimo, and
+        JetBrains Mono); their letter proportions and stroke widths are measured against the ADA
+        rules live, and every deviation is a visible warning, never a silent pass. A note on
+        honesty: a single-material print cannot satisfy ADA's visual-contrast and non-glare finish
+        requirements, and real compliance also depends on wording, placement and mounting height —
+        the tool states dimensions, it does not certify signs.
+      </p>
+
+      <h2 id="mini">BrailleGen Mini</h2>
+      <p>
+        <a href="mini/">Mini</a> is the three-step version: text, standard, STL. Same translation
+        engine, same dot geometry, none of the options — made for classrooms and quick labels.
+      </p>
+
       <h2 id="brf">BRF export — embossers</h2>
       <p>
         BRF is the plain-text interchange format braille embossers and libraries
@@ -128,9 +166,28 @@
       <h2 id="offline">Offline &amp; privacy</h2>
       <p>
         After the first visit the app is cached and runs without a connection
-        (braille tables and the 3D engine are cached as you use them). There is
-        no analytics, no tracking, and no server: translation and geometry run
-        locally in WebAssembly.
+        (braille tables and the 3D engine are cached as you use them). All
+        translation and geometry run locally in WebAssembly — <strong>your text
+        never leaves your device</strong>.
+      </p>
+      <p>
+        The one network request the app can make is an anonymous usage count:
+        when an export is generated, it may send a single fixed event name
+        (such as <code>generate-stl</code>) to this site — never your text,
+        never a cookie, never an identifier stored in your browser. On the
+        server, daily totals and an approximate count of distinct visitors are
+        kept; the address a request came from is used only transiently inside a
+        salted hash — a fresh salt is created each day, and salts and visitor
+        markers are automatically deleted within 48 hours. The address itself
+        is never stored. These counts exist so the project can show real usage to the
+        accessibility programs and funders that keep it free. Counting is
+        skipped automatically when your browser sends
+        <a href="https://globalprivacycontrol.org/" rel="external">Global Privacy Control</a>,
+        and you can turn it off here:
+      </p>
+      <p>
+        <label class="check"><input type="checkbox" id="metricsToggle" checked>
+          Allow anonymous usage counting on this device</label>
       </p>
 
       <h2 id="licensing">Licensing &amp; credits</h2>
@@ -148,12 +205,16 @@
       <span><a href="https://github.com/brianmackenzie/braillegen_10" rel="external">Source (AGPL-3.0)</a></span>
     </footer>
   </div>
-  <script>
+  <script type="module">
     // Register the service worker here too, so a deep-linked first visit to
-    // the docs still makes the app available offline.
+    // the docs still makes the app available offline — and wire the usage-
+    // counting opt-out to its stored setting.
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       navigator.serviceWorker.register('./sw.js').catch(function () {});
     }
+    import('./app/metrics.mjs')
+      .then(m => m.bindMetricsToggle(document.getElementById('metricsToggle')))
+      .catch(() => {});
   </script>
 </body>
 </html>

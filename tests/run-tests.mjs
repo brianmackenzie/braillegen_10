@@ -384,6 +384,239 @@ const { PRESETS, validateDimensions, satisfiedStandards, matchingPreset, linePit
 // ---------------------------------------------------------------------------
 // 3.6 service worker shell integrity
 // ---------------------------------------------------------------------------
+section('braille-ascii module');
+{
+  const { asciiToBraille, describeInvalid } = await import(pathToFileURL(join(ROOT, 'app', 'braille-ascii.mjs')));
+  const { NABCC, brailleToBrf } = await import(pathToFileURL(join(ROOT, 'app', 'braille-brf.mjs')));
+
+  // The canonical example: ASCII 'g' is the cell with dots 1-2-4-5 (⠛),
+  // which is the Nemeth equals sign.
+  check('ascii: g -> dots 1245', asciiToBraille('g').lines[0] === '⠛');
+  check('ascii: case folds (G == g)', asciiToBraille('G').lines[0] === asciiToBraille('g').lines[0]);
+
+  // Whole-table round trip: ASCII -> Unicode -> BRF must reproduce the input.
+  const all = NABCC.join('');
+  const round = brailleToBrf(asciiToBraille(all).lines, { cellsPerLine: 64 }).brf.split('\r\n')[0];
+  check('ascii: 64-cell NABCC round-trip', round === all.replace(/ +$/, ''));
+
+  // Spatial layouts (Nemeth worked problems) keep their columns.
+  const sp = asciiToBraille('  3+4\n  ---\n    7  ');
+  check('ascii: leading blanks preserved', sp.lines[0].startsWith('⠀⠀'));
+  check('ascii: trailing blanks trimmed', !sp.lines[2].endsWith('⠀'));
+  check('ascii: line structure preserved', sp.lines.length === 3 && [...sp.lines[2]].length === 5);
+
+  // Word-processor damage control + honest flagging.
+  const bad = asciiToBraille('“x” é x');
+  check('ascii: smart quotes normalized', bad.smartFixes === 2);
+  check('ascii: invalid char flagged with position',
+    bad.invalid.length === 1 && bad.invalid[0].ch === 'é' && bad.invalid[0].line === 1 && bad.invalid[0].col === 5);
+  check('ascii: invalid becomes blank cell so columns stay true', [...bad.lines[0]].length === 7);
+  check('ascii: describeInvalid names the spot', describeInvalid(bad.invalid).includes('line 1, column 5'));
+  check('ascii: ellipsis expands to three dot cells', asciiToBraille('…').lines[0] === asciiToBraille('...').lines[0]);
+  check('ascii: zero-width characters stripped', asciiToBraille('a​b').lines[0] === asciiToBraille('ab').lines[0]);
+
+  // Pasting finished braille next to ASCII entry works.
+  check('ascii: unicode braille passes through', asciiToBraille('⠛g').lines[0] === '⠛⠛');
+  check('ascii: CRLF handled', asciiToBraille('a\r\nb').lines.length === 2);
+}
+
+section('mesh module');
+{
+  const { MeshBuilder, toBinaryStl, parseBinaryStl } = await import(pathToFileURL(join(ROOT, 'app', 'mesh.mjs')));
+  const { default: earcut } = await import(pathToFileURL(join(ROOT, 'app', 'vendor', 'earcut.mjs')));
+
+  // Every directed edge in a closed shell has exactly one reverse partner.
+  const nonManifoldEdges = (t) => {
+    const edges = new Map();
+    const vk = (x, y, z) => `${x.toFixed(5)},${y.toFixed(5)},${z.toFixed(5)}`;
+    for (let i = 0; i < t.length; i += 9) {
+      const v = [vk(t[i], t[i + 1], t[i + 2]), vk(t[i + 3], t[i + 4], t[i + 5]), vk(t[i + 6], t[i + 7], t[i + 8])];
+      for (let e = 0; e < 3; e++) {
+        const k = v[e] + '|' + v[(e + 1) % 3];
+        edges.set(k, (edges.get(k) || 0) + 1);
+      }
+    }
+    let bad = 0;
+    for (const [k, n] of edges) {
+      const [a, b] = k.split('|');
+      if (n !== 1 || (edges.get(b + '|' + a) || 0) !== 1) bad++;
+    }
+    return bad;
+  };
+  // Signed volume: positive means outward-facing winding throughout.
+  const signedVolume = (t) => {
+    let vol = 0;
+    for (let i = 0; i < t.length; i += 9) {
+      vol += (t[i] * (t[i + 4] * t[i + 8] - t[i + 5] * t[i + 7])
+            + t[i + 1] * (t[i + 5] * t[i + 6] - t[i + 3] * t[i + 8])
+            + t[i + 2] * (t[i + 3] * t[i + 7] - t[i + 4] * t[i + 6])) / 6;
+    }
+    return vol;
+  };
+
+  const dotMesh = new MeshBuilder();
+  dotMesh.dot(0, 0, 0, 0.75, 0.7);
+  check('mesh: dot solid is watertight', nonManifoldEdges(dotMesh.t) === 0);
+  check('mesh: dot winding faces outward', signedVolume(dotMesh.t) > 0);
+
+  // A plate with a hole: the screw-hole construction pattern.
+  const verts = [0, 0, 40, 0, 40, 20, 0, 20, 8, 6, 14, 6, 14, 14, 8, 14];
+  const tris = earcut(verts, [4]);
+  const plate = new MeshBuilder();
+  plate.prism(verts, tris, [[0, 1, 2, 3], [7, 6, 5, 4]], 0, 2);
+  check('mesh: prism with hole is watertight', nonManifoldEdges(plate.t) === 0);
+  const vol = signedVolume(plate.t);
+  check('mesh: prism-with-hole volume correct', Math.abs(vol - (40 * 20 * 2 - 6 * 8 * 2)) < 1e-6, String(vol));
+
+  const stlBytes = toBinaryStl(dotMesh.t, 'x');
+  const parsed = parseBinaryStl(stlBytes);
+  check('mesh: binary STL round-trip', !!parsed && parsed.length === dotMesh.t.length);
+  check('mesh: STL parser rejects malformed input', parseBinaryStl(new Uint8Array(10)) === null);
+}
+
+section('fonts + sign-mesh modules');
+{
+  const otMod = await import(pathToFileURL(join(ROOT, 'app', 'vendor', 'opentype.mjs')));
+  const parseFont = otMod.parse ?? otMod.default?.parse;
+  const { glyphPolygons, layoutLine } = await import(pathToFileURL(join(ROOT, 'app', 'fonts.mjs')));
+  const { buildSign, SIGN_DEFAULTS } = await import(pathToFileURL(join(ROOT, 'app', 'sign-mesh.mjs')));
+
+  // Every shipped subset parses and yields lettering geometry (opentype.js
+  // 2.0.0 is newly released — this is the pin-and-verify guard).
+  const faces = ['atkinson-400', 'atkinson-700', 'arimo-400', 'arimo-700', 'jbmono-700'];
+  const fonts = {};
+  let parsed = 0;
+  for (const f of faces) {
+    const buf = readFileSync(join(ROOT, 'assets', 'fonts', 'geometry', `${f}.ttf`));
+    const font = parseFont(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength));
+    fonts[f] = font;
+    if (layoutLine(font, 'ROOM 101 Café', 19).glyphs.length === 11) parsed++;
+  }
+  check('fonts: all 5 subsets parse and lay out Latin-1 text', parsed === 5, String(parsed));
+
+  const atk = fonts['atkinson-400'];
+  const O = glyphPolygons(atk, atk.charToGlyph('O'), 0.02);
+  const B = glyphPolygons(atk, atk.charToGlyph('B'), 0.02);
+  check('fonts: counters classified as holes (O=1+1, B=1+2)',
+    O.length === 1 && O[0].holes.length === 1 && B.length === 1 && B[0].holes.length === 2);
+  const metrics = layoutLine(atk, 'I', 19);
+  check('fonts: default face meets the ADA raised-stroke rule (<=15%)',
+    metrics.strokePct != null && metrics.strokePct <= 15, String(metrics.strokePct));
+  check('fonts: proportions inside the ADA 60-110% window',
+    metrics.oiPct != null && metrics.oiPct >= 60 && metrics.oiPct <= 110, String(metrics.oiPct));
+
+  // Sign shells must be watertight with outward winding in every style.
+  const nonManifoldEdges = (t) => {
+    const edges = new Map();
+    const vk = (x, y, z) => `${x.toFixed(5)},${y.toFixed(5)},${z.toFixed(5)}`;
+    for (let i = 0; i < t.length; i += 9) {
+      const v = [vk(t[i], t[i + 1], t[i + 2]), vk(t[i + 3], t[i + 4], t[i + 5]), vk(t[i + 6], t[i + 7], t[i + 8])];
+      for (let e = 0; e < 3; e++) {
+        const k = v[e] + '|' + v[(e + 1) % 3];
+        edges.set(k, (edges.get(k) || 0) + 1);
+      }
+    }
+    let bad = 0;
+    for (const [k, n] of edges) {
+      const [a, b] = k.split('|');
+      if (n !== 1 || (edges.get(b + '|' + a) || 0) !== 1) bad++;
+    }
+    return bad;
+  };
+  const signedVolume = (t) => {
+    let vol = 0;
+    for (let i = 0; i < t.length; i += 9) {
+      vol += (t[i] * (t[i + 4] * t[i + 8] - t[i + 5] * t[i + 7])
+            + t[i + 1] * (t[i + 5] * t[i + 6] - t[i + 3] * t[i + 8])
+            + t[i + 2] * (t[i + 3] * t[i + 7] - t[i + 4] * t[i + 6])) / 6;
+    }
+    return vol;
+  };
+
+  const d = SIGN_DEFAULTS;
+  const layout = layoutLine(atk, 'ROOM 101', 19, 0.5);
+  const params = (style) => ({
+    textLayouts: [layout], lineSpacingMm: 19 * 1.5, capHeightMm: 19,
+    brailleLines: ['⠐⠗⠕⠕⠍⠀⠼⠁⠚⠁'], textStyle: style, textRelief: d.textRelief,
+    gapTextBraille: d.gapTextBraille, margin: d.margin, plateThickness: d.plateThickness,
+    cornerRadius: d.cornerRadius, holeLayout: '4', holeDiameter: 4.27, holeInset: d.holeInset,
+    align: 'center', plateW: 0, plateH: 0, bedSize: 220,
+    dotDiameter: d.dotDiameter, dotHeight: d.dotHeight, dotPitch: d.dotPitch,
+    cellPitch: d.cellPitch, linePitch: d.linePitch,
+  });
+  for (const style of ['raised', 'recessed', 'flush']) {
+    const sign = buildSign(params(style));
+    // The plate shell and each glyph prism are separate closed shells in the
+    // raised style, so watertightness is checked per style via edge pairing —
+    // multi-shell output still pairs every directed edge within its shell.
+    check(`sign(${style}): watertight shell set`, nonManifoldEdges(sign.plate.t) === 0);
+    check(`sign(${style}): outward winding (positive volume)`, signedVolume(sign.plate.t) > 0);
+    if (style === 'flush') {
+      check('sign(flush): inserts mesh watertight', sign.inserts && nonManifoldEdges(sign.inserts.t) === 0);
+    }
+    if (style === 'raised') {
+      check('sign(raised): no warnings at ADA defaults', sign.warnings.length === 0, sign.warnings.join('; '));
+    } else {
+      check(`sign(${style}): carries the not-ADA-tactile warning`,
+        sign.warnings.some(w => w.includes('not ADA-tactile')));
+    }
+  }
+  const over = buildSign({ ...params('raised'), capHeightMm: 60,
+    textLayouts: [layoutLine(atk, 'VERY LONG CORRIDOR NAME', 60, 0.5)] });
+  check('sign: bed-size overflow warns instead of shrinking braille',
+    over.warnings.some(w => w.includes('print bed')));
+
+  // Braille placement: on a braille-only sign the bottom dot's lowest edge
+  // must sit exactly one margin above the plate edge (the doubled-radius
+  // regression put it 0.775 mm low).
+  {
+    const only = buildSign({ ...params('raised'), textLayouts: [], brailleLines: ['⠿'], holeLayout: 'none' });
+    let minY = Infinity, minZ = Infinity;
+    const t = only.plate.t;
+    for (let i = 0; i < t.length; i += 9) {
+      for (let v = 0; v < 3; v++) {
+        const y = t[i + v * 3 + 1], z = t[i + v * 3 + 2];
+        if (z > d.plateThickness + 0.01 && y < minY) minY = y;   // dot geometry only
+      }
+    }
+    void minZ;
+    const expected = d.margin;   // block bottom edge = margin above the plate edge
+    check('sign: braille block sits exactly one margin from the edge',
+      Math.abs(minY - expected) < 0.05, `${minY.toFixed(3)} vs ${expected}`);
+  }
+
+  // Large corner radius with a small margin must not corrupt recessed shells;
+  // the plate grows instead (with a warning).
+  {
+    const tight = buildSign({ ...params('recessed'), margin: 3, cornerRadius: 20, holeLayout: 'none' });
+    check('sign: corner radius vs margin keeps the shell watertight',
+      nonManifoldEdges(tight.plate.t) === 0);
+    check('sign: corner-radius growth is announced',
+      tight.warnings.some(w => w.includes('corner radius')));
+  }
+
+  // All-blank braille override adds no phantom block.
+  {
+    const a = buildSign({ ...params('raised'), brailleLines: [''] });
+    const b = buildSign({ ...params('raised'), brailleLines: [] });
+    check('sign: all-blank braille reserves no plate space', a.heightMm === b.heightMm && a.dotCount === 0);
+  }
+}
+
+section('metrics module (logic only)');
+{
+  const src = readFileSync(join(ROOT, 'app', 'metrics.mjs'), 'utf8');
+  check('metrics: honors Global Privacy Control', src.includes('globalPrivacyControl'));
+  check('metrics: event allowlist only', src.includes("new Set([") && src.includes('generate-stl'));
+  check('metrics: same-origin beacon path', src.includes("'/api/event'"));
+  check('metrics: no user text in payload (beacon sends the event name only)',
+    src.includes('sendBeacon?.(\'/api/event\', name)'));
+  const docs = readFileSync(join(ROOT, 'docs.html'), 'utf8');
+  check('docs: privacy section discloses the beacon honestly',
+    docs.includes('generate-stl') && docs.includes('Global Privacy Control') && docs.includes('metricsToggle'));
+  check('docs: no stale absolute no-analytics claim', !docs.includes('no analytics, no tracking'));
+}
+
 section('service worker');
 {
   const sw = readFileSync(join(ROOT, 'sw.js'), 'utf8');
