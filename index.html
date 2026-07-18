@@ -109,6 +109,30 @@
           <div class="preview-lines" id="previewLines" role="list"></div>
         </section>
 
+        <section class="panel" aria-labelledby="tilePreviewHeading">
+          <h2 id="tilePreviewHeading">3D print preview</h2>
+          <p class="hint" id="tilePreviewStatus">See the exact tile the STL download produces —
+            it updates as you edit.</p>
+          <div class="button-row" id="tilePreviewEnable">
+            <button type="button" id="btn3dPreview">Show 3D preview</button>
+          </div>
+          <div id="tileViewerWrap" hidden>
+            <canvas id="tileCanvas" class="sign-canvas"
+              aria-label="Rotatable 3D preview of the braille tile. The braille preview above is the authoritative text."></canvas>
+            <div class="viewer-controls" role="group" aria-label="Preview view controls">
+              <button type="button" data-view="left" aria-label="Rotate left">⟲</button>
+              <button type="button" data-view="right" aria-label="Rotate right">⟳</button>
+              <button type="button" data-view="up" aria-label="Tilt up">↑</button>
+              <button type="button" data-view="down" aria-label="Tilt down">↓</button>
+              <button type="button" data-view="in" aria-label="Zoom in">+</button>
+              <button type="button" data-view="out" aria-label="Zoom out">−</button>
+              <button type="button" data-view="reset">Reset view</button>
+            </div>
+            <p class="hint">Or drag to rotate and scroll to zoom; with the preview focused,
+              arrow keys rotate, plus and minus zoom, Home resets.</p>
+          </div>
+        </section>
+
         <fieldset class="panel">
           <legend>Translation</legend>
           <div class="field-grid">

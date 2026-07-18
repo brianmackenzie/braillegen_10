@@ -2,6 +2,8 @@
 // AGPL-3.0 — part of the BrailleGen fork.
 
 import { translate, generateStl, loadCore, onEngineLog, stlReady } from './engine.mjs';
+import { createViewer } from './viewer.mjs';
+import { parseBinaryStl } from './mesh.mjs';
 import { brailleToSvg } from './braille-svg.mjs';
 import { brailleToBrf } from './braille-brf.mjs';
 import { asciiToBraille, describeInvalid } from './braille-ascii.mjs';
@@ -475,6 +477,7 @@ function onSettingsChanged() {
   persistSettings();
   clearTimeout(debounceTimer);
   debounceTimer = setTimeout(refreshPreview, 220);
+  schedule3dRefresh();
 }
 
 $('genform').addEventListener('input', () => { updateTableHint(); onSettingsChanged(); });
@@ -619,6 +622,28 @@ $('btnCopy').addEventListener('click', async () => {
   }
 });
 
+// ASCII mode hands the engine finished BRAILLE characters: every table
+// passes braille codepoints through unchanged (they are defined as
+// themselves), and charsPerLine 0 disables re-wrapping so spatial layouts
+// keep their columns. Shared by the STL download and the 3D preview.
+function stlParams(s, r) {
+  return {
+    text: s.inputMode === 'ascii' ? r.lines.join('\n') : s.text,
+    table: s.table,
+    charsPerLine: s.inputMode === 'ascii' ? 0 : s.charsPerLine,
+    brailleHeight: s.dotHeight,
+    plateHeight: s.plateHeight,
+    lineSpacing: linePitchToSpacing(s),
+    marginSize: s.marginSize,
+    stlScale: s.stlScale,
+    slabMode: s.slabMode,
+    verticalExport: s.verticalExport,
+    dotDiameter: s.dotDiameter,
+    dotPitch: s.dotPitch,
+    cellPitch: s.cellPitch,
+  };
+}
+
 let stlBusy = false;
 $('btnStl').addEventListener('click', async () => {
   if (stlBusy) { announce('An STL export is already in progress.'); return; }
@@ -642,25 +667,7 @@ $('btnStl').addEventListener('click', async () => {
     exportStatus.textContent = stlReady() ? 'Generating STL…' : 'Loading 3D engine…';
 
     let lastMilestone = 0;
-    // ASCII mode hands the engine finished BRAILLE characters: every table
-    // passes braille codepoints through unchanged (they are defined as
-    // themselves), and charsPerLine 0 disables re-wrapping so spatial
-    // layouts keep their columns.
-    const { filename, bytes } = await generateStl({
-      text: s.inputMode === 'ascii' ? t.r.lines.join('\n') : s.text,
-      table: s.table,
-      charsPerLine: s.inputMode === 'ascii' ? 0 : s.charsPerLine,
-      brailleHeight: s.dotHeight,
-      plateHeight: s.plateHeight,
-      lineSpacing: linePitchToSpacing(s),
-      marginSize: s.marginSize,
-      stlScale: s.stlScale,
-      slabMode: s.slabMode,
-      verticalExport: s.verticalExport,
-      dotDiameter: s.dotDiameter,
-      dotPitch: s.dotPitch,
-      cellPitch: s.cellPitch,
-    }, ({ loaded, total }) => {
+    const { filename, bytes } = await generateStl(stlParams(s, t.r), ({ loaded, total }) => {
       if (total) {
         // Clamp: if the server transparently decompresses, decoded bytes can
         // exceed the encoded Content-Length.
@@ -696,6 +703,90 @@ $('btnStl').addEventListener('click', async () => {
     $('btnStl').removeAttribute('aria-disabled');
     $('downloads').removeAttribute('aria-busy');
   }
+});
+
+// ---------------------------------------------------------------------------
+// 3D print preview: the same engine and settings as the STL download, shown
+// in the viewer. Opt-in (first use fetches the 3D engine), then it follows
+// edits with a debounce.
+// ---------------------------------------------------------------------------
+let tileViewer = null;
+let preview3dBusy = false;
+let preview3dTimer = 0;
+
+function tileViewerColor() {
+  if (matchMedia('(forced-colors: active)').matches) {
+    const probe = document.createElement('span');
+    probe.style.color = 'CanvasText';
+    document.body.append(probe);
+    const rgb = getComputedStyle(probe).color.match(/[0-9]+/g)?.map(Number) ?? [0, 0, 0];
+    probe.remove();
+    return rgb.slice(0, 3).map(v => v / 255);
+  }
+  const dark = document.documentElement.dataset.theme === 'dark'
+    || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+  return dark ? [0.62, 0.66, 0.94] : [0.20, 0.24, 0.50];
+}
+
+async function refresh3dPreview() {
+  if (!tileViewer || preview3dBusy) return;
+  const t = await freshTranslation();
+  if (!t) return;
+  preview3dBusy = true;
+  const status = $('tilePreviewStatus');
+  try {
+    if (!stlReady()) status.textContent = 'Loading the 3D engine (about 9 MB, one time)…';
+    else status.textContent = 'Updating the 3D preview…';
+    const { bytes } = await generateStl(stlParams(t.s, t.r), ({ loaded, total }) => {
+      if (total) status.textContent = `Loading the 3D engine: ${Math.min(100, Math.round((loaded / total) * 100))}%…`;
+    });
+    const tris = parseBinaryStl(bytes);
+    if (tris) {
+      tileViewer.setMesh(tris);
+      tileViewer.setColor(tileViewerColor());
+      status.textContent = `Showing the tile the STL download produces (${Math.max(1, Math.round(bytes.length / 1024))} KB). It updates as you edit.`;
+    }
+  } catch (e) {
+    status.textContent = `3D preview failed: ${e.message}`;
+  } finally {
+    preview3dBusy = false;
+  }
+}
+
+function schedule3dRefresh() {
+  if (!tileViewer) return;
+  clearTimeout(preview3dTimer);
+  preview3dTimer = setTimeout(refresh3dPreview, 1200);
+}
+
+$('btn3dPreview').addEventListener('click', async () => {
+  $('tilePreviewEnable').hidden = true;
+  $('tileViewerWrap').hidden = false;
+  tileViewer = createViewer($('tileCanvas'));
+  if (!tileViewer.supported) {
+    $('tileViewerWrap').hidden = true;
+    $('tilePreviewStatus').textContent = '3D preview unavailable in this browser — the braille preview above and the STL download still work.';
+    return;
+  }
+  for (const btn of document.querySelectorAll('#tileViewerWrap .viewer-controls [data-view]')) {
+    btn.addEventListener('click', () => {
+      const step = 0.3;
+      switch (btn.dataset.view) {
+        case 'left': tileViewer.rotate(-step, 0); break;
+        case 'right': tileViewer.rotate(step, 0); break;
+        case 'up': tileViewer.rotate(0, step); break;
+        case 'down': tileViewer.rotate(0, -step); break;
+        case 'in': tileViewer.zoom(0.85); break;
+        case 'out': tileViewer.zoom(1.18); break;
+        case 'reset': tileViewer.reset(); break;
+      }
+    });
+  }
+  for (const btn of document.querySelectorAll('[data-theme-choice]')) {
+    btn.addEventListener('click', () => tileViewer?.setColor(tileViewerColor()));
+  }
+  announce('Loading the 3D preview.');
+  refresh3dPreview();
 });
 
 // ---------------------------------------------------------------------------
