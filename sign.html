@@ -93,6 +93,42 @@
           </div>
         </section>
 
+        <!-- The preview sits directly under the input so the type-and-see
+             loop is immediate; lettering and plate settings follow below. -->
+        <section class="panel" aria-labelledby="signPreviewHeading">
+        <h2 id="signPreviewHeading">Preview</h2>
+        <p class="preview-meta" id="signMeta">Loading fonts and the braille engine…</p>
+        <div class="sign-preview-grid">
+          <div>
+            <canvas id="signCanvas" class="sign-canvas"
+              aria-label="Rotatable 3D preview of the sign. All measurements are listed in the summary next to this view."></canvas>
+            <div class="viewer-controls" role="group" aria-label="Preview view controls">
+              <button type="button" data-view="left" aria-label="Rotate left">⟲</button>
+              <button type="button" data-view="right" aria-label="Rotate right">⟳</button>
+              <button type="button" data-view="up" aria-label="Tilt up">↑</button>
+              <button type="button" data-view="down" aria-label="Tilt down">↓</button>
+              <button type="button" data-view="in" aria-label="Zoom in">+</button>
+              <button type="button" data-view="out" aria-label="Zoom out">−</button>
+              <button type="button" data-view="reset">Reset view</button>
+            </div>
+            <p class="hint" id="viewerHelp">Or drag to rotate and scroll to zoom; with the preview
+              focused, arrow keys rotate, plus and minus zoom, Home resets.</p>
+          </div>
+          <div class="sign-mirror" id="signMirror" aria-labelledby="signMirrorHeading">
+            <h3 id="signMirrorHeading" class="sr-only">Sign summary</h3>
+            <dl id="signFacts"></dl>
+          </div>
+        </div>
+        <ul id="signWarnings" class="sign-warnings" aria-label="Design warnings"></ul>
+        <p class="hint" id="complianceNote">These defaults follow the dimensions in ADA 703.2/703.3.1
+          and California 11B-703. A single-material print cannot satisfy the visual-contrast and
+          non-glare finish requirements — print the flush two-piece style in contrasting colors, or
+          pair a tactile-only sign with a separate visual sign. Mounting: tactile characters between
+          48" and 60" above the floor, latch side of the door. This tool does not provide legal or
+          code advice.</p>
+      </section>
+
+
         <fieldset class="panel">
           <legend>Lettering</legend>
           <div class="field-grid">
@@ -201,38 +237,6 @@
         </fieldset>
       </form>
 
-      <section class="panel" aria-labelledby="signPreviewHeading">
-        <h2 id="signPreviewHeading">Preview</h2>
-        <p class="preview-meta" id="signMeta">Loading fonts and the braille engine…</p>
-        <div class="sign-preview-grid">
-          <div>
-            <canvas id="signCanvas" class="sign-canvas"
-              aria-label="Rotatable 3D preview of the sign. All measurements are listed in the summary next to this view."></canvas>
-            <div class="viewer-controls" role="group" aria-label="Preview view controls">
-              <button type="button" data-view="left" aria-label="Rotate left">⟲</button>
-              <button type="button" data-view="right" aria-label="Rotate right">⟳</button>
-              <button type="button" data-view="up" aria-label="Tilt up">↑</button>
-              <button type="button" data-view="down" aria-label="Tilt down">↓</button>
-              <button type="button" data-view="in" aria-label="Zoom in">+</button>
-              <button type="button" data-view="out" aria-label="Zoom out">−</button>
-              <button type="button" data-view="reset">Reset view</button>
-            </div>
-            <p class="hint" id="viewerHelp">Or drag to rotate and scroll to zoom; with the preview
-              focused, arrow keys rotate, plus and minus zoom, Home resets.</p>
-          </div>
-          <div class="sign-mirror" id="signMirror" aria-labelledby="signMirrorHeading">
-            <h3 id="signMirrorHeading" class="sr-only">Sign summary</h3>
-            <dl id="signFacts"></dl>
-          </div>
-        </div>
-        <ul id="signWarnings" class="sign-warnings" aria-label="Design warnings"></ul>
-        <p class="hint" id="complianceNote">These defaults follow the dimensions in ADA 703.2/703.3.1
-          and California 11B-703. A single-material print cannot satisfy the visual-contrast and
-          non-glare finish requirements — print the flush two-piece style in contrasting colors, or
-          pair a tactile-only sign with a separate visual sign. Mounting: tactile characters between
-          48" and 60" above the floor, latch side of the door. This tool does not provide legal or
-          code advice.</p>
-      </section>
 
       <section class="panel" aria-labelledby="signExportHeading" id="signDownloads">
         <h2 id="signExportHeading">Export</h2>
