@@ -3,7 +3,7 @@
 
 import { translate, loadCore, onEngineLog } from './engine.mjs';
 import { asciiToBraille, describeInvalid } from './braille-ascii.mjs';
-import { FONTS, DEFAULT_FONT, loadFont, layoutLine } from './fonts.mjs';
+import { FONTS, DEFAULT_FONT, loadFont, layoutLine, layoutLineSpaced } from './fonts.mjs';
 import { buildSign, SIGN_DEFAULTS } from './sign-mesh.mjs';
 import { toBinaryStl } from './mesh.mjs';
 import { createViewer } from './viewer.mjs';
@@ -222,7 +222,11 @@ async function rebuild() {
 
     const textLines = s.text.replace(/\r\n?/g, '\n').split('\n')
       .map(l => l.trim().toUpperCase()).filter(Boolean);
-    const layouts = textLines.map(l => layoutLine(font, l, s.capHeightMm, 0.5));
+    // Raised lettering auto-widens to the ADA 703.2.7 minimum of 3.2 mm
+    // between characters; recessed/flush keep normal print spacing.
+    const layouts = s.textStyle === 'raised'
+      ? textLines.map(l => layoutLineSpaced(font, l, s.capHeightMm, 0.5, 3.2))
+      : textLines.map(l => layoutLine(font, l, s.capHeightMm, 0.5));
 
     const d = SIGN_DEFAULTS;
     const sign = buildSign({
@@ -289,7 +293,9 @@ async function rebuild() {
       facts.append(dt, dd);
     };
     fact('Plate', `${sign.widthMm.toFixed(1)} × ${sign.heightMm.toFixed(1)} × ${s.plateThickness} mm`);
-    fact('Lettering', textLines.length ? `${textLines.join(' / ')} — ${s.capHeightMm} mm capitals, ${s.textStyle}` : 'none');
+    fact('Lettering', textLines.length
+      ? `${textLines.join(' / ')} — ${s.capHeightMm} mm capitals, ${s.textStyle}${layouts.some(l => l.spacedForTouch) ? ', letter spacing widened to the ADA 3.2 mm minimum' : ''}`
+      : 'none');
     fact('Braille', brailleLines.length
       ? `${brailleLines.join('  ')} (${sign.dotCount} dots, ${s.brailleOverride ? 'custom cells' : (s.grade.includes('g2') ? 'Grade 2' : 'Grade 1')})`
       : 'none');

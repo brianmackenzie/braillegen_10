@@ -499,6 +499,15 @@ section('fonts + sign-mesh modules');
   const B = glyphPolygons(atk, atk.charToGlyph('B'), 0.02);
   check('fonts: counters classified as holes (O=1+1, B=1+2)',
     O.length === 1 && O[0].holes.length === 1 && B.length === 1 && B[0].holes.length === 2);
+  // Auto-spacing: raised signage must land every pair at >= 3.2 mm.
+  const { layoutLineSpaced, minGlyphGap } = await import(pathToFileURL(join(ROOT, 'app', 'fonts.mjs')));
+  const tightDefault = layoutLine(atk, 'ROOM 101', 19, 0.5);
+  const spaced = layoutLineSpaced(atk, 'ROOM 101', 19, 0.5, 3.2);
+  check('fonts: default print spacing is tighter than touch needs',
+    minGlyphGap(tightDefault) < 3.2, String(minGlyphGap(tightDefault)));
+  check('fonts: auto-spacing clears the ADA 3.2 mm minimum',
+    minGlyphGap(spaced) >= 3.2 && spaced.spacedForTouch === true, String(minGlyphGap(spaced)));
+
   const metrics = layoutLine(atk, 'I', 19);
   check('fonts: default face meets the ADA raised-stroke rule (<=15%)',
     metrics.strokePct != null && metrics.strokePct <= 15, String(metrics.strokePct));

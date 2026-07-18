@@ -184,6 +184,36 @@ export function glyphPolygons(font, glyph, scale, tol = 0.02) {
   return outers;
 }
 
+/** Smallest horizontal gap between adjacent glyph outlines in a layout. */
+export function minGlyphGap(layout) {
+  let min = Infinity;
+  for (let i = 0; i + 1 < layout.glyphs.length; i++) {
+    const a = layout.glyphs[i], b = layout.glyphs[i + 1];
+    if (!a.bbox || !b.bbox) continue;
+    const gap = (b.x + b.bbox[0]) - (a.x + a.bbox[1]);
+    if (gap < min) min = gap;
+  }
+  return min;
+}
+
+/**
+ * Lay out a line, widening the letter spacing until adjacent characters are
+ * at least `minGapMm` apart (ADA 703.2.7 asks 3.2 mm between raised
+ * characters, measured between their closest points). Fonts are spaced for
+ * print, not touch, so tight pairs are the NORMAL case at signage sizes —
+ * the generator corrects them rather than warning about its own defaults.
+ * @returns the layout, with `spacedForTouch` set when widening happened.
+ */
+export function layoutLineSpaced(font, text, capHeightMm, baseSpacingMm, minGapMm, tol = 0.02) {
+  let layout = layoutLine(font, text, capHeightMm, baseSpacingMm, tol);
+  const gap = minGlyphGap(layout);
+  if (Number.isFinite(gap) && gap < minGapMm) {
+    layout = layoutLine(font, text, capHeightMm, baseSpacingMm + (minGapMm - gap) + 0.05, tol);
+    layout.spacedForTouch = true;
+  }
+  return layout;
+}
+
 /**
  * Lay out one line of text at a given cap height.
  * @returns {{glyphs: {outers, x}[], widthMm: number, capMm: number,
